@@ -5,7 +5,7 @@ import AddClient from "./components/AddClient";
 
 function App() {
 
-  const {addClient} = useClients()
+  const {addClient, getAllClients} = useClients()
 
   return (
       <div className="App">
