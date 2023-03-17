@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import {useClients} from "./hooks/useClients";
+import AddClient from "./components/AddClient";
 
 function App() {
 
@@ -8,6 +9,8 @@ function App() {
 
   return (
       <div className="App">
+
+          <AddClient addClient={addClient}/>
 
       </div>
   );
