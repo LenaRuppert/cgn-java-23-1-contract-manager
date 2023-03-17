@@ -1,11 +1,15 @@
 import React from 'react';
 import './App.css';
+import {useClients} from "./hooks/useClients";
 
 function App() {
-  return (
-    <div className="App">
 
-    </div>
+  const [clients, addClient] = useClients()
+
+  return (
+      <div className="App">
+
+      </div>
   );
 }
 
