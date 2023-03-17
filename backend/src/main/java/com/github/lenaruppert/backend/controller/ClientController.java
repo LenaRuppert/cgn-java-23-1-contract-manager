@@ -1,6 +1,7 @@
 package com.github.lenaruppert.backend.controller;
 
 import com.github.lenaruppert.backend.model.Client;
+import com.github.lenaruppert.backend.model.ClientDTO;
 import com.github.lenaruppert.backend.service.ClientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +17,7 @@ public class ClientController {
     private final ClientService clientService;
 
     @PostMapping("/add")
-    public Client addClient(@RequestBody Client client) {
-        return clientService.addClient(client);
+    public Client addClient(@RequestBody ClientDTO clientDto) {
+        return clientService.addClient(clientDto);
     }
 }

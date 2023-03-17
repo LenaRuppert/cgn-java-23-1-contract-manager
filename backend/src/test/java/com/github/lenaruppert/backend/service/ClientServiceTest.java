@@ -1,6 +1,7 @@
 package com.github.lenaruppert.backend.service;
 
 import com.github.lenaruppert.backend.model.Client;
+import com.github.lenaruppert.backend.model.ClientDTO;
 import com.github.lenaruppert.backend.repository.ClientRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,7 @@ class ClientServiceTest {
     ClientRepository clientRepository;
     IdService idService;
     Client clientOne;
+    ClientDTO clientDto;
 
     @BeforeEach
     public void setUp() {
@@ -21,6 +23,7 @@ class ClientServiceTest {
         idService = mock(IdService.class);
         clientService = new ClientService(clientRepository, idService);
         clientOne = new Client("1", "nameOfClient");
+        clientDto = new ClientDTO("nameOfClient");
     }
 
     @Test
@@ -30,7 +33,7 @@ class ClientServiceTest {
         when(clientRepository.save(clientOne)).thenReturn(clientOne);
 
         //WHEN
-        Client clientTest = clientService.addClient(clientOne);
+        Client clientTest = clientService.addClient(clientDto);
 
         //THEN
         verify(clientRepository).save(clientOne);
