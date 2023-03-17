@@ -24,6 +24,14 @@ class ClientControllerTest {
 
     @Test
     @DirtiesContext
+    void checkListAllClients() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/clients/all"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("[]"));
+    }
+
+    @Test
+    @DirtiesContext
     void checkAddClient() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/clients/add")
                         .contentType(MediaType.APPLICATION_JSON)
