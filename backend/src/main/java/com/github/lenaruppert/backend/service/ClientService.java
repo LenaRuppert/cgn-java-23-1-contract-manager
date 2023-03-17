@@ -8,4 +8,6 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class ClientService {
     private final ClientRepository clientRepository;
+
+    private final IdService idService;
 }
