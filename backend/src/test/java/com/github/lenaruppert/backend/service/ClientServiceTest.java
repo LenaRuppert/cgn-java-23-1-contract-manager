@@ -6,6 +6,9 @@ import com.github.lenaruppert.backend.repository.ClientRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -24,6 +27,21 @@ class ClientServiceTest {
         clientService = new ClientService(clientRepository, idService);
         clientOne = new Client("1", "nameOfClient");
         clientDto = new ClientDTO("nameOfClient");
+    }
+
+    @Test
+    void checkListClients() {
+        //GIVEN
+        List<Client> expectedClientList = new ArrayList<>();
+        expectedClientList.add(clientOne);
+        when(clientRepository.findAll()).thenReturn(expectedClientList);
+
+        //WHEN
+        List<Client> ListOfClients = clientService.listAllClients();
+
+        //THEN
+        verify(clientRepository).findAll();
+        assertEquals(expectedClientList, ListOfClients);
     }
 
     @Test
