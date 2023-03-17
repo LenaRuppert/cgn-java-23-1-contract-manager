@@ -6,12 +6,18 @@ import com.github.lenaruppert.backend.repository.ClientRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class ClientService {
     private final ClientRepository clientRepository;
 
     private final IdService idService;
+
+    public List<Client> listAllClients() {
+        return clientRepository.findAll();
+    }
 
     public Client addClient(ClientDTO clientDto) {
         Client clientToAdd = new Client(
