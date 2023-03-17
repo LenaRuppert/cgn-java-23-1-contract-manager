@@ -12,5 +12,5 @@ export function useClients() {
             .then(data => setClients(prevState => [...prevState, data]))
     }
 
-    return [clients, addClient]
+    return {clients, addClient}
 }

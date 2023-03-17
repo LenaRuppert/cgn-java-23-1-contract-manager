@@ -4,7 +4,7 @@ import {useClients} from "./hooks/useClients";
 
 function App() {
 
-  const [clients, addClient] = useClients()
+  const {clients, addClient} = useClients()
 
   return (
       <div className="App">
