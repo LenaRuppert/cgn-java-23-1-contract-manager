@@ -1,4 +1,4 @@
 export type Client = {
-    id: string,
+    id?: string,
     name: string
 }
