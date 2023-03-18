@@ -1,0 +1,6 @@
+.client-gallery {
+    display: flex;
+    flex-flow: column;
+    background-color: lightgrey;
+    align-items: center;
+}

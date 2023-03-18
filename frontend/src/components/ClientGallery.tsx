@@ -1,5 +1,6 @@
 import {Client} from "../model/Client";
 import ClientCard from "./ClientCard";
+import "./ClientGallery.css";
 
 type ClientGalleryProps = {
     clients: Client[]
@@ -13,7 +14,7 @@ export default function ClientGallery(props: ClientGalleryProps) {
     })
 
     return (
-        <div>
+        <div className="client-gallery">
             {clients}
         </div>
     )

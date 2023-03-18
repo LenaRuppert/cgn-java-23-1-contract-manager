@@ -1,5 +1,6 @@
 import {Client} from "../model/Client";
 import {ChangeEvent, useState} from "react";
+import "./ClientCard.css";
 
 type AddClientProps = {
 
