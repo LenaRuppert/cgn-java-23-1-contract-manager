@@ -12,7 +12,7 @@ function App() {
     return (
         <Routes>
             <Route path={"/"} element={<ClientGallery clients={clients}/>}/>
-            <Route path={"/client/add"} element={<AddClient addClient={addClient}/>}/>
+            <Route path={"/clients/add"} element={<AddClient addClient={addClient}/>}/>
         </Routes>
 
     );
