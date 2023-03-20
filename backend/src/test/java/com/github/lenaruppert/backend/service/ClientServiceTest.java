@@ -33,6 +33,20 @@ class ClientServiceTest {
     void whenListClientsAndClientListIsEmpty_thenReturnEmptyList() {
         //GIVEN
         List<Client> expectedClientList = new ArrayList<>();
+        when(clientRepository.findAll()).thenReturn(expectedClientList);
+
+        //WHEN
+        List<Client> ListOfClients = clientService.listAllClients();
+
+        //THEN
+        verify(clientRepository).findAll();
+        assertEquals(expectedClientList, ListOfClients);
+    }
+
+    @Test
+    void whenListClientsAndClientListHasOneClient_thenReturnListWithOneClient() {
+        //GIVEN
+        List<Client> expectedClientList = new ArrayList<>();
         expectedClientList.add(clientOne);
         when(clientRepository.findAll()).thenReturn(expectedClientList);
 

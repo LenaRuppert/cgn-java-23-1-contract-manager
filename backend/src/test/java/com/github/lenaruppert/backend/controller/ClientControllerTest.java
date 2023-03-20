@@ -1,6 +1,8 @@
 package com.github.lenaruppert.backend.controller;
 
+import com.github.lenaruppert.backend.model.Client;
 import com.github.lenaruppert.backend.repository.ClientRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -21,6 +23,12 @@ class ClientControllerTest {
 
     @Autowired
     MockMvc mockMvc;
+    Client clientOne;
+
+    @BeforeEach
+    void setUp() {
+        clientOne = new Client("1", "nameOfClient");
+    }
 
     @Test
     @DirtiesContext
@@ -28,6 +36,20 @@ class ClientControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/clients/all"))
                 .andExpect(status().isOk())
                 .andExpect(content().json("[]"));
+    }
+
+    @Test
+    @DirtiesContext
+    void whenListAllClientsAndOneClientIsInDatabase_thenReturnListWithOneClient() throws Exception {
+        clientRepository.save(clientOne);
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/clients/all"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                        [
+                        {"id": "1",
+                        "name": "nameOfClient"}
+                        ]
+                        """));
     }
 
     @Test
@@ -43,10 +65,10 @@ class ClientControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json(
                         """
-                                        {
-                                        "name": "nameOfClient"
-                                        }
-                                        """
+                                {
+                                "name": "nameOfClient"
+                                }
+                                """
                         )
                 )
                 .andExpect(jsonPath("$.id").isNotEmpty());
