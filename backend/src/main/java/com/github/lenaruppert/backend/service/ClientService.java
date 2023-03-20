@@ -28,7 +28,7 @@ public class ClientService {
         return clientRepository.save(clientToAdd);
     }
 
-    public Client updateClient(String id, Client clientToUpdate) {
+    public Client updateClient(String id, ClientDTO clientToUpdate) {
         if (!clientRepository.existsById(id)) {
             throw new NoSuchElementException(id);
         }
