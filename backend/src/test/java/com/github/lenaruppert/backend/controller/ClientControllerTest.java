@@ -24,7 +24,7 @@ class ClientControllerTest {
 
     @Test
     @DirtiesContext
-    void checkListAllClients() throws Exception {
+    void whenListAllClientsAndClientListIsEmpty_thenReturnEmptyList() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/clients/all"))
                 .andExpect(status().isOk())
                 .andExpect(content().json("[]"));
@@ -32,7 +32,7 @@ class ClientControllerTest {
 
     @Test
     @DirtiesContext
-    void checkAddClient() throws Exception {
+    void whenAddClient_thenReturnNewClient() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/clients/add")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
@@ -42,7 +42,7 @@ class ClientControllerTest {
                                 """))
                 .andExpect(status().isOk())
                 .andExpect(content().json(
-                                """
+                        """
                                         {
                                         "name": "nameOfClient"
                                         }

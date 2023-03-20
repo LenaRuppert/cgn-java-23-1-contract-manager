@@ -30,7 +30,7 @@ class ClientServiceTest {
     }
 
     @Test
-    void checkListClients() {
+    void whenListClientsAndClientListIsEmpty_thenReturnEmptyList() {
         //GIVEN
         List<Client> expectedClientList = new ArrayList<>();
         expectedClientList.add(clientOne);
@@ -45,7 +45,7 @@ class ClientServiceTest {
     }
 
     @Test
-    void checkAddClient() {
+    void whenAddClient_thenReturnNewClient() {
         //GIVEN
         when(idService.generateId()).thenReturn("1");
         when(clientRepository.save(clientOne)).thenReturn(clientOne);
