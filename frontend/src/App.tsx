@@ -3,19 +3,19 @@ import './App.css';
 import {useClients} from "./hooks/useClients";
 import AddClient from "./components/AddClient";
 import ClientGallery from "./components/ClientGallery";
+import {Route, Routes} from "react-router-dom";
 
 function App() {
 
     const {clients, addClient} = useClients()
 
-  return (
-      <div className="App">
+    return (
+        <Routes>
+            <Route path={"/"} element={<ClientGallery clients={clients}/>}/>
+            <Route path={"/client/add"} element={<AddClient addClient={addClient}/>}/>
+        </Routes>
 
-          <ClientGallery clients={clients}/>
-          <AddClient addClient={addClient}/>
-
-      </div>
-  );
+    );
 }
 
 export default App;
