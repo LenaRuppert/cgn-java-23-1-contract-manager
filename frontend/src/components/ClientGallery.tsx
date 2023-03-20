@@ -7,7 +7,7 @@ type ClientGalleryProps = {
 }
 
 export default function ClientGallery(props: ClientGalleryProps) {
-    const clients = props.clients.map(client => {
+    const clientCards = props.clients.map(client => {
         return (
             <ClientCard client={client} key={client.id}/>
         )
@@ -15,7 +15,7 @@ export default function ClientGallery(props: ClientGalleryProps) {
 
     return (
         <div className="client-gallery">
-            {clients}
+            {clientCards}
         </div>
     )
 }
