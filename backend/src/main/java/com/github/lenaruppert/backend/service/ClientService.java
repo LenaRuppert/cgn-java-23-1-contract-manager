@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @AllArgsConstructor
@@ -25,5 +26,14 @@ public class ClientService {
                 clientDto.name()
         );
         return clientRepository.save(clientToAdd);
+    }
+
+    public Client updateClient(String id, Client clientToUpdate) {
+        if (!clientRepository.existsById(id)) {
+            throw new NoSuchElementException(id);
+        }
+        clientRepository.deleteById(id);
+        Client updatedClient = new Client(id, clientToUpdate.name());
+        return clientRepository.save(updatedClient);
     }
 }
