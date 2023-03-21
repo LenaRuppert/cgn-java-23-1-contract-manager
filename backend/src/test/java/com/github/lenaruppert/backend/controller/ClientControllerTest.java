@@ -81,7 +81,7 @@ class ClientControllerTest {
     @DirtiesContext
     void whenUpdateClientWithValidId_thenReturnUpdatedClient() throws Exception {
         clientRepository.save(clientOne);
-        mockMvc.perform(MockMvcRequestBuilders.put("/api/clients/update/" + "1")
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/clients/" + "1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                  {
@@ -100,7 +100,7 @@ class ClientControllerTest {
     @Test
     @DirtiesContext
     void whenUpdateClientWithNotExistingId_thenReturnStatusIsBadRequest() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.put("/api/clients/update/" + "2"))
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/clients/" + "2"))
                 .andExpect(status().isBadRequest());
 
     }

@@ -25,5 +25,12 @@ export function useClients() {
             .then(data => setClients(prevState => [...prevState, data]))
     }
 
-    return {clients, addClient, getAllClients}
+    function updateClient(client: Client) {
+        axios.put("/api/clients/" + client.id, client)
+            .then(response => response.data)
+            .then(data => setClients(prevState => [...prevState, data]))
+            .catch(console.error)
+    }
+
+    return {clients, addClient, getAllClients, updateClient}
 }
