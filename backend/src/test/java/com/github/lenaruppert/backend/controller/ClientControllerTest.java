@@ -1,6 +1,7 @@
 package com.github.lenaruppert.backend.controller;
 
 import com.github.lenaruppert.backend.model.Client;
+import com.github.lenaruppert.backend.model.ClientDTO;
 import com.github.lenaruppert.backend.repository.ClientRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,10 +25,12 @@ class ClientControllerTest {
     @Autowired
     MockMvc mockMvc;
     Client clientOne;
+    ClientDTO clientDTO;
 
     @BeforeEach
     void setUp() {
         clientOne = new Client("1", "nameOfClient");
+        clientDTO = new ClientDTO("nameOfClient");
     }
 
     @Test
@@ -64,13 +67,41 @@ class ClientControllerTest {
                                 """))
                 .andExpect(status().isOk())
                 .andExpect(content().json(
-                        """
-                                {
-                                "name": "nameOfClient"
-                                }
                                 """
+                                        {
+                                        "name": "nameOfClient"
+                                        }
+                                        """
                         )
                 )
                 .andExpect(jsonPath("$.id").isNotEmpty());
+    }
+
+    @Test
+    @DirtiesContext
+    void whenUpdateClientWithValidId_thenReturnUpdatedClient() throws Exception {
+        clientRepository.save(clientOne);
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/clients/update/" + "1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                 {
+                                "name": "nameOfClient"
+                                 }
+                                 """))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                        {
+                        "id" : "1",
+                        "name": "nameOfClient"
+                        }
+                        """));
+    }
+
+    @Test
+    @DirtiesContext
+    void whenUpdateClientWithNotExistingId_thenReturnStatusIsBadRequest() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/clients/update/" + "2"))
+                .andExpect(status().isBadRequest());
+
     }
 }

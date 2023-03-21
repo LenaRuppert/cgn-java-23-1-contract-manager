@@ -91,7 +91,7 @@ class ClientServiceTest {
     }
 
     @Test
-    void whenUpdateClientWithNotExistingId_thenReturnUpdatedClient() {
+    void whenUpdateClientWithNotExistingId_thenThrowNoSuchElementException() {
 
         when(clientRepository.existsById(clientOne.id())).thenReturn(false);
 
