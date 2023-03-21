@@ -1,6 +1,7 @@
 import {Client} from "../model/Client";
 import {useParams} from "react-router-dom";
 import {ChangeEvent, useState} from "react";
+import "./Input.css";
 
 type UpdateClientProps = {
     updateClient: (clientToUpdate: Client) => void
@@ -32,9 +33,9 @@ export default function UpdateClient(props: UpdateClientProps) {
     }
 
     return (
-        <div>
+        <div className={"input-component"}>
             <input value={clientToUpdate.name} onChange={onChangeName} placeholder="name"/>
-            <button onClick={handleSubmit}>Update Client</button>
+            <button className={"button"} onClick={handleSubmit}>Update Client</button>
         </div>
     )
 }
