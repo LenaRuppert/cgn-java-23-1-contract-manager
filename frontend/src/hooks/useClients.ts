@@ -32,5 +32,5 @@ export function useClients() {
             .catch(console.error)
     }
 
-    return {clients, addClient, getAllClients, updateClient}
+    return {clients, addClient, updateClient}
 }

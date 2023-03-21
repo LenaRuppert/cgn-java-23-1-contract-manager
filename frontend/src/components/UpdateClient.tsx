@@ -1,10 +1,8 @@
 import {Client} from "../model/Client";
 import {useParams} from "react-router-dom";
-import {ChangeEvent, useEffect, useState} from "react";
-import axios from "axios";
+import {ChangeEvent, useState} from "react";
 
 type UpdateClientProps = {
-    client: Client[]
     updateClient: (clientToUpdate: Client) => void
 }
 
@@ -17,18 +15,6 @@ export default function UpdateClient(props: UpdateClientProps) {
         id: id ? id : "",
         name: ""
     })
-
-    const [client, setClient] = useState<Client | undefined>()
-
-    const requestURL: string = "/api/clients/" + id
-
-    useEffect(() => {
-        axios.get(requestURL)
-            .then((response) => {
-                setClient(response.data)
-            })
-            .catch((error) => console.error(error))
-    }, [requestURL])
 
     function onChangeName(event: ChangeEvent<HTMLInputElement>) {
         setClientToUpdate({
