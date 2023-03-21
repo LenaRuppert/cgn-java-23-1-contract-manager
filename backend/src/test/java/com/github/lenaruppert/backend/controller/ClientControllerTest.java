@@ -1,7 +1,6 @@
 package com.github.lenaruppert.backend.controller;
 
 import com.github.lenaruppert.backend.model.Client;
-import com.github.lenaruppert.backend.model.ClientDTO;
 import com.github.lenaruppert.backend.repository.ClientRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,12 +24,10 @@ class ClientControllerTest {
     @Autowired
     MockMvc mockMvc;
     Client clientOne;
-    ClientDTO clientDTO;
 
     @BeforeEach
     void setUp() {
         clientOne = new Client("1", "nameOfClient");
-        clientDTO = new ClientDTO("nameOfClient");
     }
 
     @Test
