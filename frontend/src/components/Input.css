@@ -1,0 +1,13 @@
+.input-component {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+}
+
+.button {
+    color: white;
+    background-color: darkblue;
+    margin: 10px;
+}
+

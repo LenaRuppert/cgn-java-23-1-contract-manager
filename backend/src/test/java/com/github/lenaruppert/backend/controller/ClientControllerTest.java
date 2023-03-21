@@ -64,13 +64,41 @@ class ClientControllerTest {
                                 """))
                 .andExpect(status().isOk())
                 .andExpect(content().json(
-                        """
-                                {
-                                "name": "nameOfClient"
-                                }
                                 """
+                                        {
+                                        "name": "nameOfClient"
+                                        }
+                                        """
                         )
                 )
                 .andExpect(jsonPath("$.id").isNotEmpty());
+    }
+
+    @Test
+    @DirtiesContext
+    void whenUpdateClientWithValidId_thenReturnUpdatedClient() throws Exception {
+        clientRepository.save(clientOne);
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/clients/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                 {
+                                "name": "nameOfClient"
+                                 }
+                                 """))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                        {
+                        "id" : "1",
+                        "name": "nameOfClient"
+                        }
+                        """));
+    }
+
+    @Test
+    @DirtiesContext
+    void whenUpdateClientWithNotExistingId_thenReturnStatusIsBadRequest() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/clients/2"))
+                .andExpect(status().isBadRequest());
+
     }
 }

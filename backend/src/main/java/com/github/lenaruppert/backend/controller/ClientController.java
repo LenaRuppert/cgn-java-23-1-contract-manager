@@ -24,4 +24,9 @@ public class ClientController {
     public Client addClient(@RequestBody ClientDTO clientDto) {
         return clientService.addClient(clientDto);
     }
+
+    @PutMapping("/{id}")
+    public Client updateClient(@PathVariable String id, @RequestBody ClientDTO clientToUpdate) {
+        return clientService.updateClient(id, clientToUpdate);
+    }
 }
