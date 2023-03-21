@@ -2,7 +2,6 @@ import {Client} from "../model/Client";
 import {useParams} from "react-router-dom";
 import {ChangeEvent, useEffect, useState} from "react";
 import axios from "axios";
-import {Simulate} from "react-dom/test-utils";
 
 type UpdateClientProps = {
     client: Client[]
@@ -48,7 +47,7 @@ export default function UpdateClient(props: UpdateClientProps) {
 
     return (
         <div>
-            <input value={clientToUpdate.name} onChange={handleSubmit} placeholder="name"/>
+            <input value={clientToUpdate.name} onChange={onChangeName} placeholder="name"/>
             <button onClick={handleSubmit}>Update Client</button>
         </div>
     )
