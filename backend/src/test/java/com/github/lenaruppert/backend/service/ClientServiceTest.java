@@ -95,8 +95,12 @@ class ClientServiceTest {
 
         when(clientRepository.existsById(clientOne.id())).thenReturn(false);
 
-        assertThrows(NoSuchElementException.class, () -> clientService.updateClient(clientOne.id(), clientDto));
+        assertThrows(NoSuchElementException.class, () -> {
+            when(clientRepository.existsById(clientOne.id())).thenReturn(false);
+            clientService.updateClient(clientOne.id(), clientDto);
+        });
 
         verify(clientRepository).existsById(clientOne.id());
+
     }
 }
