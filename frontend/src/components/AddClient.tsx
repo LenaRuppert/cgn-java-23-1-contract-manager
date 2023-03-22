@@ -23,8 +23,8 @@ export default function AddClient(props: AddClientProps) {
         })
     }
 
-    function handleSubmit(e: FormEvent<HTMLFormElement>) {
-        e.preventDefault()
+    function handleSubmit(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault()
         props.addClient(clientToAdd)
         setClientToAdd({
             ...clientToAdd,
@@ -33,8 +33,8 @@ export default function AddClient(props: AddClientProps) {
     }
 
     return (
-            <Box
-                component="form"
+        <Box
+            component="form"
                 sx={{
                     display: 'flex',
                     alignItems: 'center',
