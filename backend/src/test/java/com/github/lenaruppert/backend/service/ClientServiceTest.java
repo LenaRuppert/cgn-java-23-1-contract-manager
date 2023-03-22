@@ -115,6 +115,18 @@ class ClientServiceTest {
 
         //THEN
         assertEquals(expected, actual);
+        verify(clientRepository).existsById(clientOne.id());
+        verify(clientRepository).findById(clientOne.id());
+
     }
 
+    @Test
+    void whenDeleteClientByIdWithNotExistingId_thenTrowNoSuchElementException() {
+        String nonExistingId = "1";
+        when(clientRepository.existsById(nonExistingId)).thenReturn(false);
+
+        assertThrows(NoSuchElementException.class, () -> clientService.deleteClientById(nonExistingId));
+
+        verify(clientRepository).existsById(nonExistingId);
+    }
 }
