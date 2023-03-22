@@ -20,7 +20,7 @@ export function useClients() {
     }, [])
 
     function addClient(client: Client) {
-        return axios.post("api/clients/add", client)
+        return axios.post("/api/clients/add", client)
             .then(response => response.data)
             .then(data => setClients(prevState => [...prevState, data]))
     }
