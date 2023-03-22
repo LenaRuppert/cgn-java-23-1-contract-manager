@@ -1,7 +1,7 @@
 import {Client} from "../model/Client";
 import {useParams} from "react-router-dom";
 import * as React from "react";
-import {ChangeEvent, useState} from "react";
+import {ChangeEvent, FormEvent, useState} from "react";
 import {Box, Button, Grid, TextField, Typography} from "@mui/material";
 
 type UpdateClientProps = {
@@ -25,7 +25,8 @@ export default function UpdateClient(props: UpdateClientProps) {
         })
     }
 
-    function handleSubmit() {
+    function handleSubmit(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault()
         props.updateClient(clientToUpdate)
         setClientToUpdate({
             ...clientToUpdate,
@@ -47,7 +48,7 @@ export default function UpdateClient(props: UpdateClientProps) {
                 autoComplete="off"
                 onSubmit={handleSubmit}
             >
-                <Typography variant="h5">Kundendaten</Typography>
+                <Typography sx={{textAlign: 'center'}} variant="h5">Kundendaten</Typography>
                 <TextField id="outlined-basic" label="Name" variant="outlined" value={clientToUpdate.name}
                            onChange={onChangeName}/>
                 <Button variant="contained" type="submit">ändern</Button>

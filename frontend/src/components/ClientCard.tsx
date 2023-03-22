@@ -9,7 +9,7 @@ type ClientCardProps = {
 
 export default function ClientCard(props: ClientCardProps) {
     return (
-        <Card sx={{width: 400, marginBottom: 5}}>
+        <Card sx={{marginBottom: 5}}>
             <CardContent>
                 {props.client.name}
             </CardContent>
