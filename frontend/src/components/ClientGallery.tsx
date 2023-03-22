@@ -15,15 +15,15 @@ export default function ClientGallery(props: ClientGalleryProps) {
     })
 
     return (
-        <>
-            <Grid sx={{display: 'flex', flexDirection: 'column'}}>
-                <Button component={Link} to="/clients/add">
-                    NEUER KUNDE
-                </Button>
-                <Grid xs={8} justifyContent='space-between' marginTop={5}>…
-                    {clientCards}
-                </Grid>
+
+        <Grid sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+            <Button component={Link} to="/clients/add">
+                NEUER KUNDE
+            </Button>
+            <Grid xs={8} justifyContent='space-between' marginTop={5}>
+                {clientCards}
             </Grid>
-        </>
+        </Grid>
+
     )
 }
