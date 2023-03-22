@@ -32,5 +32,17 @@ export function useClients() {
             .catch(console.error)
     }
 
-    return {clients, addClient, updateClient}
+    function deleteClient(id: string) {
+        axios.delete("/api/clients" + id)
+            .then(response => response.data)
+            .then(data => {
+                setClients(prevState => {
+                    const currentClients = prevState.filter(client => client.id !== data.id)
+                    return data
+                })
+            })
+            .catch(console.error)
+    }
+
+    return {clients, addClient, updateClient, deleteClient}
 }

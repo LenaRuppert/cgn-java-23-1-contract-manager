@@ -8,13 +8,14 @@ import UpdateClient from "./components/UpdateClient";
 
 function App() {
 
-    const {clients, addClient, updateClient} = useClients()
+    const {clients, addClient, updateClient, deleteClient} = useClients()
 
     return (
         <Routes>
             <Route path={"/"} element={<ClientGallery clients={clients}/>}/>
             <Route path={"/clients/add"} element={<AddClient addClient={addClient}/>}/>
             <Route path={"/clients/:id"} element={<UpdateClient updateClient={updateClient}/>}/>
+            <Route path={"/clients/"}
         </Routes>
 
     );
