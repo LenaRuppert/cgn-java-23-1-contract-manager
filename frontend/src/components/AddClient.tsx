@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {ChangeEvent, FormEvent, useState} from 'react';
 import {Client} from "../model/Client";
-import {Box, Button, Grid, TextField, Typography} from "@mui/material";
+import {Box, Button, TextField, Typography} from "@mui/material";
 
 
 type AddClientProps = {
@@ -33,7 +33,6 @@ export default function AddClient(props: AddClientProps) {
     }
 
     return (
-        <Grid container direction="column">
             <Box
                 component="form"
                 sx={{
@@ -51,6 +50,5 @@ export default function AddClient(props: AddClientProps) {
                            onChange={handleChangeName}/>
                 <Button variant="contained" type="submit">hinzufügen</Button>
             </Box>
-        </Grid>
     )
 }

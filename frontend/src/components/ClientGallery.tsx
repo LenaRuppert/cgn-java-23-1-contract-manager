@@ -1,7 +1,7 @@
 import {Client} from "../model/Client";
 import ClientCard from "./ClientCard";
-import "./ClientGallery.css";
 import {Link} from "react-router-dom";
+import {Button, Grid} from "@mui/material";
 
 
 type ClientGalleryProps = {
@@ -9,6 +9,7 @@ type ClientGalleryProps = {
 }
 
 export default function ClientGallery(props: ClientGalleryProps) {
+
     const clientCards = props.clients.map(client => {
         return (
             <ClientCard client={client} key={client.id}/>
@@ -16,9 +17,14 @@ export default function ClientGallery(props: ClientGalleryProps) {
     })
 
     return (
-        <div className="client-gallery">
-            <Link to="/clients/add">NEUER KUNDE</Link>
-            {clientCards}
-        </div>
+        <Grid container direction='column' alignItems='center'>
+            <Button component={Link} to="/clients/add">
+                NEUER KUNDE
+            </Button>
+            <Grid xs={8} justifyContent='space-between' marginTop={5}>…
+                {clientCards}
+            </Grid>
+        </Grid>
+
     )
 }

@@ -1,5 +1,7 @@
 import {Client} from "../model/Client";
 import {Link} from "react-router-dom";
+import {Button, Card, CardActions, CardContent} from "@mui/material";
+import ConstructionIcon from '@mui/icons-material/Construction'
 
 type ClientCardProps = {
     client: Client
@@ -7,19 +9,18 @@ type ClientCardProps = {
 
 export default function ClientCard(props: ClientCardProps) {
     return (
-        <div className="client-card">
-            <div>
-                <p>{props.client.name}</p>
-            </div>
-            <div className={"position-nav"}>
-                <nav className={"nav"}>
-                    <ul>
-                        <li>
-                            <Link to={"/clients/" + props.client.id}>bearbeiten</Link>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
+        <Card sx={{width: 400, marginBottom: 5}}>
+            <CardContent>
+                {props.client.name}
+            </CardContent>
+            <CardActions sx={{justifyContent: 'flex-end'}}>
+                <Button component={Link} to={"/clients/" + props.client.id} color={"inherit"}>
+                    <ConstructionIcon/>
+                </Button>
+            </CardActions>
+        </Card>
     )
 }
+
+
+
