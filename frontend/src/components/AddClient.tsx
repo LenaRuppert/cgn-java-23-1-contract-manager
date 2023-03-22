@@ -45,9 +45,9 @@ export default function AddClient(props: AddClientProps) {
                 autoComplete="off"
                 onSubmit={handleSubmit}
             >
-                <Typography variant="h5">Neuer Kunde</Typography>
-                <TextField id="outlined-basic" label="Name" variant="outlined" value={clientToAdd.name}
-                           onChange={handleChangeName}/>
+                <Typography sx={{textAlign: 'center'}} variant='h5'>Neuer Kunde</Typography>
+            <TextField id="outlined-basic" label="Name" variant="outlined" value={clientToAdd.name}
+                       onChange={handleChangeName}/>
                 <Button variant="contained" type="submit">hinzufügen</Button>
             </Box>
     )
