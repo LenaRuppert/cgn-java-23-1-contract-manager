@@ -12,10 +12,9 @@ function App() {
 
     return (
         <Routes>
-            <Route path={"/"} element={<ClientGallery clients={clients}/>}/>
+            <Route path={"/"} element={<ClientGallery clients={clients} deleteClient={deleteClient}/>}/>
             <Route path={"/clients/add"} element={<AddClient addClient={addClient}/>}/>
             <Route path={"/clients/:id"} element={<UpdateClient updateClient={updateClient}/>}/>
-            <Route path={"/clients/"}
         </Routes>
 
     );

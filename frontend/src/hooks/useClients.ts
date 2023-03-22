@@ -32,7 +32,7 @@ export function useClients() {
             .catch(console.error)
     }
 
-    function deleteClient(id: string) {
+    function deleteClient(id: string | undefined) {
         axios.delete("/api/clients" + id)
             .then(response => response.data)
             .then(data => {
