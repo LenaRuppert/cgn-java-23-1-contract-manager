@@ -40,11 +40,11 @@ public class ClientService {
 
     public Client deleteClientById(String id) {
         Optional<Client> clientToDelete = clientRepository.findById(id);
-        if (clientToDelete.isEmpty()) {
-            throw new NoSuchElementException();
-        } else {
-            clientRepository.deleteById(id);
-            return clientToDelete.get();
+        if (!clientRepository.existsById(id)) {
+            throw new NoSuchElementException(id);
         }
+        clientRepository.deleteById(id);
+        return clientToDelete.get();
     }
+
 }

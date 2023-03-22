@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -102,4 +103,18 @@ class ClientServiceTest {
         verify(clientRepository).existsById(clientOne.id());
 
     }
+
+    @Test
+    void whenDeleteClientByIdWithExistingId_thenReturnClientToDelete() {
+        //GIVEN
+        when(clientRepository.existsById(clientOne.id())).thenReturn(true);
+        when(clientRepository.findById(clientOne.id())).thenReturn(Optional.of(clientOne));
+        //WHEN
+        Client actual = clientService.deleteClientById(clientOne.id());
+        Client expected = clientOne;
+
+        //THEN
+        assertEquals(expected, actual);
+    }
+
 }
