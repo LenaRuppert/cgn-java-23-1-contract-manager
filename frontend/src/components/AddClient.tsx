@@ -1,6 +1,8 @@
+import * as React from 'react';
+import {ChangeEvent, FormEvent, useState} from 'react';
 import {Client} from "../model/Client";
-import {ChangeEvent, useState} from "react";
-import "./ClientCard.css";
+import {Box, Button, Grid, TextField, Typography} from "@mui/material";
+
 
 type AddClientProps = {
 
@@ -21,7 +23,8 @@ export default function AddClient(props: AddClientProps) {
         })
     }
 
-    function handleSubmit() {
+    function handleSubmit(e: FormEvent<HTMLFormElement>) {
+        e.preventDefault()
         props.addClient(clientToAdd)
         setClientToAdd({
             ...clientToAdd,
@@ -30,9 +33,24 @@ export default function AddClient(props: AddClientProps) {
     }
 
     return (
-        <div>
-            <input value={clientToAdd.name} onChange={handleChangeName} placeholder="name"/>
-            <button onClick={handleSubmit}>Add Client</button>
-        </div>
+        <Grid container direction="column">
+            <Box
+                component="form"
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    flexDirection: 'column',
+                    '& > :not(style)': {m: 1, width: '25ch'},
+                }}
+                noValidate
+                autoComplete="off"
+                onSubmit={handleSubmit}
+            >
+                <Typography variant="h5">Neuer Kunde</Typography>
+                <TextField id="outlined-basic" label="Name" variant="outlined" value={clientToAdd.name}
+                           onChange={handleChangeName}/>
+                <Button variant="contained" type="submit">hinzufügen</Button>
+            </Box>
+        </Grid>
     )
 }

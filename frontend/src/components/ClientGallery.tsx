@@ -3,6 +3,7 @@ import ClientCard from "./ClientCard";
 import "./ClientGallery.css";
 import {Link} from "react-router-dom";
 
+
 type ClientGalleryProps = {
     clients: Client[]
 }
