@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -35,5 +36,15 @@ public class ClientService {
         clientRepository.deleteById(id);
         Client updatedClient = new Client(id, clientToUpdate.name());
         return clientRepository.save(updatedClient);
+    }
+
+    public Client deleteClientById(String id) {
+        Optional<Client> clientToDelete = clientRepository.findById(id);
+        if (clientToDelete.isEmpty()) {
+            throw new NoSuchElementException();
+        } else {
+            clientRepository.deleteById(id);
+            return clientToDelete.get();
+        }
     }
 }
