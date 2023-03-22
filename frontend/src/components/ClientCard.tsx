@@ -21,6 +21,3 @@ export default function ClientCard(props: ClientCardProps) {
         </Card>
     )
 }
-
-
-
