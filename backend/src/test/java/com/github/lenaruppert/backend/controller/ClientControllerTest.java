@@ -101,4 +101,25 @@ class ClientControllerTest {
                 .andExpect(status().isBadRequest());
 
     }
+
+    @Test
+    @DirtiesContext
+    void whenDeleteClientByIdWithExistingId_thenReturnClientToDelete() throws Exception {
+        clientRepository.save(clientOne);
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/clients/1"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                        {
+                                                "id" : "1",
+                                                "name": "nameOfClient"
+                                                }
+                        """));
+    }
+
+    @Test
+    @DirtiesContext
+    void whenDeleteClientByIdtWithNotExistingId_thenReturnStatusIsBadRequest() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/clients/2"))
+                .andExpect(status().isBadRequest());
+    }
 }
