@@ -1,7 +1,8 @@
 import {Client} from "../model/Client";
 import {Link} from "react-router-dom";
 import {Button, Card, CardActions, CardContent} from "@mui/material";
-import ConstructionIcon from '@mui/icons-material/Construction'
+import ConstructionIcon from '@mui/icons-material/Construction';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 type ClientCardProps = {
     client: Client
@@ -21,10 +22,10 @@ export default function ClientCard(props: ClientCardProps) {
             </CardContent>
             <CardActions sx={{justifyContent: 'flex-end'}}>
                 <Button component={Link} to={"/clients/" + props.client.id} color={"inherit"}>
-                    <ConstructionIcon/>
+                    <ConstructionIcon color='action'/>
                 </Button>
                 <Button onClick={handleDelete}>
-                    delete
+                    <DeleteForeverIcon color='action'/>
                 </Button>
             </CardActions>
         </Card>

@@ -9,11 +9,12 @@ type ClientGalleryProps = {
     deleteClient: (id: string | undefined) => void
 }
 export default function ClientGallery(props: ClientGalleryProps) {
-    const clientCards = props.clients.map(client => {
+    const clientCards = props.clients.map((client) => {
         return (
             <ClientCard client={client} key={client.id} deleteClient={props.deleteClient}/>
         )
     })
+
 
     return (
 
