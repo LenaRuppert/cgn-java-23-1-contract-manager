@@ -107,7 +107,6 @@ class ClientServiceTest {
     @Test
     void whenDeleteClientByIdWithExistingId_thenReturnClientToDelete() {
         //GIVEN
-        when(clientRepository.existsById(clientOne.id())).thenReturn(true);
         when(clientRepository.findById(clientOne.id())).thenReturn(Optional.of(clientOne));
         //WHEN
         Client actual = clientService.deleteClientById(clientOne.id());
@@ -115,18 +114,17 @@ class ClientServiceTest {
 
         //THEN
         assertEquals(expected, actual);
-        verify(clientRepository).existsById(clientOne.id());
         verify(clientRepository).findById(clientOne.id());
-
     }
 
     @Test
     void whenDeleteClientByIdWithNotExistingId_thenTrowNoSuchElementException() {
         String nonExistingId = "1";
-        when(clientRepository.existsById(nonExistingId)).thenReturn(false);
+        when(clientRepository.findById(nonExistingId)).thenReturn(Optional.empty());
 
         assertThrows(NoSuchElementException.class, () -> clientService.deleteClientById(nonExistingId));
 
-        verify(clientRepository).existsById(nonExistingId);
+        verify(clientRepository).findById(nonExistingId);
+        verify(clientRepository, never()).deleteById(nonExistingId);
     }
 }
