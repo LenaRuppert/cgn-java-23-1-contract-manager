@@ -10,6 +10,7 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import ExtensionRoundedIcon from '@mui/icons-material/ExtensionRounded';
+import {Link} from "react-router-dom";
 
 const pages = ['Kundenübersicht'];
 
@@ -32,8 +33,7 @@ function ResponsiveAppBar() {
                     <Typography
                         variant="h6"
                         noWrap
-                        component="a"
-                        href="/"
+                        component={Link} to="/"
                         sx={{
                             mr: 2,
                             display: {xs: 'none', md: 'flex'},
@@ -78,7 +78,11 @@ function ResponsiveAppBar() {
                         >
                             {pages.map((page) => (
                                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
+                                    <Typography textAlign="center">
+                                        <Link style={{textDecoration: "none", color: "black"}} to={'/'}>
+                                            {page}
+                                        </Link>
+                                    </Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
@@ -87,8 +91,7 @@ function ResponsiveAppBar() {
                     <Typography
                         variant="h5"
                         noWrap
-                        component="a"
-                        href=""
+                        component={Link} to="/"
                         sx={{
                             mr: 2,
                             display: {xs: 'flex', md: 'none'},
@@ -109,7 +112,9 @@ function ResponsiveAppBar() {
                                 onClick={handleCloseNavMenu}
                                 sx={{my: 2, color: 'white', display: 'block'}}
                             >
-                                {page}
+                                <Link style={{textDecoration: "none", color: "white"}} to={'/'}>
+                                    {page}
+                                </Link>
                             </Button>
                         ))}
                     </Box>
