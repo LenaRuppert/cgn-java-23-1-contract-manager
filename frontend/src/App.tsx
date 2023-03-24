@@ -14,7 +14,8 @@ function App() {
         <>
             <AppHeader/>
             <Routes>
-                <Route path={"/"} element={<ClientGallery clients={clients} deleteClient={deleteClient}/>}/>
+                <Route path={"/"} element={<ClientGallery clients={clients} deleteClient={deleteClient}
+                                                          updateClient={updateClient}/>}/>
                 <Route path={"/clients/add"} element={<AddClient addClient={addClient}/>}/>
             </Routes>
         </>

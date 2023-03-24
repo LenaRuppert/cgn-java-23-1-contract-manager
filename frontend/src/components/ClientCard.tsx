@@ -1,7 +1,5 @@
 import {Client} from "../model/Client";
-import {Link} from "react-router-dom";
 import {Button, Card, CardActions, CardContent, TextField} from "@mui/material";
-import ConstructionIcon from '@mui/icons-material/Construction';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import React, {useState} from "react";
 import SaveIcon from "@mui/icons-material/Save";
@@ -36,9 +34,6 @@ export default function ClientCard(props: ClientCardProps) {
                 />
             </CardContent>
             <CardActions sx={{justifyContent: "flex-end"}}>
-                <Button component={Link} to={"/clients/" + props.client.id} color="inherit">
-                    <ConstructionIcon color="action"/>
-                </Button>
                 <Button onClick={() => props.updateClient(updatedClient.id, updatedClient)}>
                     <SaveIcon color="action"/>
                 </Button>
