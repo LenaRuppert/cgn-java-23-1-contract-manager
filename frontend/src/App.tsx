@@ -4,7 +4,6 @@ import {useClients} from "./hooks/useClients";
 import AddClient from "./components/AddClient";
 import ClientGallery from "./components/ClientGallery";
 import {Route, Routes} from "react-router-dom";
-import UpdateClient from "./components/UpdateClient";
 import AppHeader from "./components/AppHeader";
 
 function App() {
@@ -15,9 +14,9 @@ function App() {
         <>
             <AppHeader/>
             <Routes>
-                <Route path={"/"} element={<ClientGallery clients={clients} deleteClient={deleteClient}/>}/>
+                <Route path={"/"} element={<ClientGallery clients={clients} deleteClient={deleteClient}
+                                                          updateClient={updateClient}/>}/>
                 <Route path={"/clients/add"} element={<AddClient addClient={addClient}/>}/>
-                <Route path={"/clients/:id"} element={<UpdateClient updateClient={updateClient}/>}/>
             </Routes>
         </>
     );

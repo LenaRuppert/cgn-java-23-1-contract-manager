@@ -25,11 +25,19 @@ export function useClients() {
             .then(data => setClients(prevState => [...prevState, data]))
     }
 
-    function updateClient(client: Client) {
-        axios.put("/api/clients/" + client.id, client)
-            .then(response => response.data)
-            .then(data => setClients(prevState => [...prevState, data]))
-            .catch(console.error)
+    function updateClient(id: string | undefined, updatedClient: Client) {
+        axios.put("/api/clients/" + id, updatedClient)
+            .then(response => {
+                const index = clients.findIndex((client) => client.id === id);
+                if (index !== -1) {
+                    const newClients = [...clients];
+                    newClients[index] = updatedClient;
+                    setClients(newClients);
+                }
+            })
+            .catch(error => {
+                console.error(error);
+            })
     }
 
     function deleteClient(id: string | undefined) {
