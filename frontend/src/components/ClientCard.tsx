@@ -4,6 +4,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import React, {useState} from "react";
 import SaveIcon from "@mui/icons-material/Save";
 import EditIcon from '@mui/icons-material/Edit';
+import ClearIcon from '@mui/icons-material/Clear';
 
 type ClientCardProps = {
     client: Client
@@ -48,9 +49,9 @@ export default function ClientCard(props: ClientCardProps) {
                         }
                         sx={{width: '94%', textDecoration: 'none'}}
                     />
-                    <CardActions sx={{justifyContent: "flex-end"}}>
-                        <Button onClick={handleUpdateCancel}>
-                            Cancel
+                    <CardActions sx={{justifyContent: "flex-end", color: "black"}}>
+                        <Button onClick={handleUpdateCancel} sx={{color: 'black',}}>
+                            <ClearIcon color="action"/>
                         </Button>
                         <Button onClick={handleUpdateSave}>
                             <SaveIcon color="action"/>
@@ -65,7 +66,7 @@ export default function ClientCard(props: ClientCardProps) {
             <CardActions sx={{justifyContent: "flex-end"}}>
                 {!isUpdateVisible && (
                     <Button onClick={handleUpdateClick}>
-                        <EditIcon/>
+                        <EditIcon color="action"/>
                     </Button>
                 )}
                 <Button onClick={handleDelete}>
