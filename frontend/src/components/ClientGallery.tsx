@@ -7,11 +7,14 @@ import {Button, Grid} from "@mui/material";
 type ClientGalleryProps = {
     clients: Client[]
     deleteClient: (id: string | undefined) => void
+
+    updateClient: (id: string | undefined, updatedClient: Client) => void
 }
 export default function ClientGallery(props: ClientGalleryProps) {
     const clientCards = props.clients.map((client) => {
         return (
-            <ClientCard client={client} key={client.id} deleteClient={props.deleteClient}/>
+            <ClientCard client={client} key={client.id} deleteClient={props.deleteClient}
+                        updateClient={props.updateClient}/>
         )
     })
 
