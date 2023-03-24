@@ -7,6 +7,8 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 type ClientCardProps = {
     client: Client
     deleteClient: (id: string | undefined) => void
+
+    updateClient: (id: string | undefined, updatedClient: Client) => void
 }
 
 export default function ClientCard(props: ClientCardProps) {

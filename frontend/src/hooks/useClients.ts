@@ -25,7 +25,7 @@ export function useClients() {
             .then(data => setClients(prevState => [...prevState, data]))
     }
 
-    function updateClient(client: Client) {
+    function updateClient(id: string | undefined, client: Client) {
         axios.put("/api/clients/" + client.id, client)
             .then(response => response.data)
             .then(data => setClients(prevState => [...prevState, data]))
