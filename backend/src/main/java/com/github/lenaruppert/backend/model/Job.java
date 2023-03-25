@@ -1,4 +1,8 @@
 package com.github.lenaruppert.backend.model;
 
-public record Job(String id, String title) {
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
+public record Job(@Id String id, String title) {
 }
