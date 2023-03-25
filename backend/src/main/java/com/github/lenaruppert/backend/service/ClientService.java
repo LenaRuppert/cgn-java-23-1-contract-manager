@@ -26,7 +26,7 @@ public class ClientService {
         Client clientToAdd = new Client(
                 idService.generateId(),
                 clientDto.name(),
-                new ArrayList<>();
+                new ArrayList<>()
         );
         return clientRepository.save(clientToAdd);
     }

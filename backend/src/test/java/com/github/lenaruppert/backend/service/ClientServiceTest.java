@@ -6,10 +6,7 @@ import com.github.lenaruppert.backend.repository.ClientRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -28,8 +25,8 @@ class ClientServiceTest {
         clientRepository = mock(ClientRepository.class);
         idService = mock(IdService.class);
         clientService = new ClientService(clientRepository, idService);
-        clientOne = new Client("1", "nameOfClient");
-        clientDto = new ClientDTO("nameOfClient");
+        clientOne = new Client("1", "nameOfClient", Collections.emptyList());
+        clientDto = new ClientDTO("nameOfClient", Collections.emptyList());
     }
 
     @Test
