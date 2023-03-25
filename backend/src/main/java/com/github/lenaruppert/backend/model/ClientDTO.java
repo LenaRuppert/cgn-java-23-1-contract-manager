@@ -1,4 +1,6 @@
 package com.github.lenaruppert.backend.model;
 
-public record ClientDTO(String name) {
+import java.util.List;
+
+public record ClientDTO(String name, List<Job> jobList) {
 }
