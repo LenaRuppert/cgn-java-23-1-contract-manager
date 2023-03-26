@@ -4,10 +4,7 @@ import com.github.lenaruppert.backend.model.Job;
 import com.github.lenaruppert.backend.model.JobDTO;
 import com.github.lenaruppert.backend.service.JobService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("api/jobs")
 @RequiredArgsConstructor
@@ -16,8 +13,8 @@ public class JobController {
 
     private final JobService jobService;
 
-    @PostMapping("/add")
-    public Job addJob(@RequestBody JobDTO jobDTO) {
-        return jobService.addJob(jobDTO);
+    @PostMapping("/add/{clientId}")
+    public Job addJob(@PathVariable String clientId, @RequestBody JobDTO jobDTO) {
+        return jobService.addJob(clientId, jobDTO);
     }
 }

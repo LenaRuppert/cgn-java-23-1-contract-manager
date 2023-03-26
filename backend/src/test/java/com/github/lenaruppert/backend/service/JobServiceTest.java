@@ -32,8 +32,8 @@ class JobServiceTest {
         idService = mock(IdService.class);
         clientRepository = mock(ClientRepository.class);
         jobService = new JobService(jobRepository, idService, clientRepository);
-        jobOne = new Job("1", "titleOfJob");
-        jobDTO = new JobDTO("titleOfJob", "1");
+        jobOne = new Job("1", "titleOfJob", "1");
+        jobDTO = new JobDTO("titleOfJob");
         clientOne = new Client("1", "nameOfClient", new ArrayList<>());
     }
 
@@ -46,7 +46,7 @@ class JobServiceTest {
         when(clientRepository.findById("1")).thenReturn(Optional.of(clientOne));
 
         //WHEN
-        Job actual = jobService.addJob(jobDTO);
+        Job actual = jobService.addJob("1", jobDTO);
 
         //Then
         verify(jobRepository).save(jobOne);
@@ -58,6 +58,6 @@ class JobServiceTest {
         when(idService.generateId()).thenReturn("1");
         when(clientRepository.findById("1")).thenReturn(Optional.empty());
 
-        assertThrows(NoSuchElementException.class, () -> jobService.addJob(jobDTO));
+        assertThrows(NoSuchElementException.class, () -> jobService.addJob("1", jobDTO));
     }
 }

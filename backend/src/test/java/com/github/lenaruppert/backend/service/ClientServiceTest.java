@@ -28,7 +28,7 @@ class ClientServiceTest {
         clientService = new ClientService(clientRepository, idService);
         clientOne = new Client("1", "nameOfClient", Collections.emptyList());
         clientDto = new ClientDTO("nameOfClient");
-        updateClient = new Client(clientOne.id(), clientDto.name(), clientOne.jobList());
+        updateClient = new Client(clientOne.id(), clientDto.name(), clientOne.idJobs());
     }
 
     @Test

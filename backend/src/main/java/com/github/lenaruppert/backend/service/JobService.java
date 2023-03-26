@@ -19,14 +19,15 @@ public class JobService {
 
     private final ClientRepository clientRepository;
 
-    public Job addJob(JobDTO jobDTO) {
-        Client client = clientRepository.findById(jobDTO.clientId()).orElseThrow(NoSuchElementException::new);
+    public Job addJob(String clientId, JobDTO jobDTO) {
+        Client client = clientRepository.findById(clientId).orElseThrow(NoSuchElementException::new);
         Job jobToSave = new Job(
                 idService.generateId(),
-                jobDTO.title()
+                jobDTO.title(),
+                clientId
         );
 
-        client.jobList().add(jobToSave);
+        client.idJobs().add(jobToSave.id());
         clientRepository.save(client);
         jobRepository.save(jobToSave);
 
