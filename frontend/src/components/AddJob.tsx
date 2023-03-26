@@ -47,8 +47,8 @@ export default function AddJob(props: AddJobProps) {
             autoComplete="off"
             onSubmit={handleSubmit}
         >
-            <Typography sx={{textAlign: 'center'}} variant='h5'>Neuer Job</Typography>
-            <TextField id="outlined-basic" label="Name" variant="outlined" value={jobToAdd.title}
+            <Typography sx={{textAlign: 'center'}} variant='h5'>Neuer Auftrag</Typography>
+            <TextField id="outlined-basic" label="Titel" variant="outlined" value={jobToAdd.title}
                        onChange={handleChangeTitle}/>
             <Button variant="contained" type="submit">hinzufügen</Button>
         </Box>
