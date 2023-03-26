@@ -75,7 +75,7 @@ class ClientServiceTest {
     }
 
     @Test
-    void whenUpdateClientWithValidId_thenReturnUpdatedClient2() {
+    void whenUpdateClientWithValidId_thenReturnUpdatedClient() {
         //GIVEN
         String clientId = "1";
         when(clientRepository.existsById(clientId)).thenReturn(true);
@@ -89,7 +89,7 @@ class ClientServiceTest {
 
         //THEN
         verify(clientRepository).save(any(Client.class));
-        verify(clientRepository).existsById(clientId);
+        verify(clientRepository).findById(clientId);
         assertEquals(expected, actual);
     }
 
@@ -102,7 +102,7 @@ class ClientServiceTest {
             clientService.updateClient("1", clientDto);
         });
 
-        verify(clientRepository).existsById(clientOne.id());
+        verify(clientRepository).findById("1");
 
     }
 
