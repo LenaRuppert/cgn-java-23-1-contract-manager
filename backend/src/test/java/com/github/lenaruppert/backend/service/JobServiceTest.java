@@ -9,9 +9,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 class JobServiceTest {
@@ -36,7 +38,7 @@ class JobServiceTest {
     }
 
     @Test
-    void whenAddJob_ThenReturnNewJob() {
+    void whenAddJobWithClientWithGivenIdExists_ThenReturnNewJob() {
         //GIVEN
         when(idService.generateId()).thenReturn("1");
         when(jobRepository.save(jobOne)).thenReturn(jobOne);
@@ -49,5 +51,13 @@ class JobServiceTest {
         //Then
         verify(jobRepository).save(jobOne);
         assertEquals(actual, jobOne);
+    }
+
+    @Test
+    void whenAddJobWithGivenNonExistentClientId_thenThrowException() {
+        when(idService.generateId()).thenReturn("1");
+        when(clientRepository.findById("1")).thenReturn(Optional.empty());
+
+        assertThrows(NoSuchElementException.class, () -> jobService.addJob(jobDTO));
     }
 }
