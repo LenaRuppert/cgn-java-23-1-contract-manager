@@ -16,7 +16,7 @@ public class JobController {
 
     private final JobService jobService;
 
-    @PostMapping
+    @PostMapping("/add")
     public Job addJob(@RequestBody JobDTO jobDTO) {
         return jobService.addJob(jobDTO);
     }

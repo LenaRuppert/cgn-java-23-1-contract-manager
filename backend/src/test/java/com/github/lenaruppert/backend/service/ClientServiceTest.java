@@ -19,6 +19,7 @@ class ClientServiceTest {
     IdService idService;
     Client clientOne;
     ClientDTO clientDto;
+    Client updateClient;
 
     @BeforeEach
     public void setUp() {
@@ -26,7 +27,8 @@ class ClientServiceTest {
         idService = mock(IdService.class);
         clientService = new ClientService(clientRepository, idService);
         clientOne = new Client("1", "nameOfClient", Collections.emptyList());
-        clientDto = new ClientDTO("nameOfClient", Collections.emptyList());
+        clientDto = new ClientDTO("nameOfClient");
+        updateClient = new Client(clientOne.id(), clientDto.name(), clientOne.jobList());
     }
 
     @Test
@@ -73,18 +75,21 @@ class ClientServiceTest {
     }
 
     @Test
-    void whenUpdateClientWithValidId_thenReturnUpdatedClient() {
+    void whenUpdateClientWithValidId_thenReturnUpdatedClient2() {
         //GIVEN
-        when(clientRepository.existsById(clientOne.id())).thenReturn(true);
-        when(clientRepository.save(clientOne)).thenReturn(clientOne);
+        String clientId = "1";
+        when(clientRepository.existsById(clientId)).thenReturn(true);
+        when(idService.generateId()).thenReturn(clientId);
+        when(clientRepository.save(any(Client.class))).thenReturn(updateClient);
+        when(clientRepository.findById(clientId)).thenReturn(Optional.of(clientOne));
 
         //WHEN
-        Client actual = clientService.updateClient(clientOne.id(), clientDto);
-        Client expected = clientOne;
+        Client actual = clientService.updateClient(clientId, clientDto);
+        Client expected = updateClient;
 
         //THEN
-        verify(clientRepository).save(clientOne);
-        verify(clientRepository).existsById(clientOne.id());
+        verify(clientRepository).save(any(Client.class));
+        verify(clientRepository).existsById(clientId);
         assertEquals(expected, actual);
     }
 

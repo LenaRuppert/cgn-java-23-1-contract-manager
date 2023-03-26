@@ -32,13 +32,15 @@ public class ClientService {
     }
 
     public Client updateClient(String id, ClientDTO clientToUpdate) {
+        Optional<Client> currentClient = clientRepository.findById(id);
         if (!clientRepository.existsById(id)) {
             throw new NoSuchElementException(id);
         }
         clientRepository.deleteById(id);
-        Client updatedClient = new Client(id, clientToUpdate.name(), clientToUpdate.jobList());
+        Client updatedClient = new Client(id, clientToUpdate.name(), currentClient.get().jobList());
         return clientRepository.save(updatedClient);
     }
+
     public Client deleteClientById(String id) {
         Optional<Client> clientToDelete = clientRepository.findById(id);
         if (!clientToDelete.isPresent()) {
