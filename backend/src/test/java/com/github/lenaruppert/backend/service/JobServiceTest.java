@@ -1,11 +1,15 @@
 package com.github.lenaruppert.backend.service;
 
+import com.github.lenaruppert.backend.model.Client;
 import com.github.lenaruppert.backend.model.Job;
 import com.github.lenaruppert.backend.model.JobDTO;
 import com.github.lenaruppert.backend.repository.ClientRepository;
 import com.github.lenaruppert.backend.repository.JobRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -18,6 +22,7 @@ class JobServiceTest {
     JobService jobService;
     Job jobOne;
     JobDTO jobDTO;
+    Client clientOne;
 
     @BeforeEach
     void setUp() {
@@ -26,7 +31,8 @@ class JobServiceTest {
         clientRepository = mock(ClientRepository.class);
         jobService = new JobService(jobRepository, idService, clientRepository);
         jobOne = new Job("1", "titleOfJob");
-        jobDTO = new JobDTO("titleOfJob", "10");
+        jobDTO = new JobDTO("titleOfJob", "1");
+        clientOne = new Client("1", "nameOfClient", new ArrayList<>());
     }
 
     @Test
@@ -34,6 +40,8 @@ class JobServiceTest {
         //GIVEN
         when(idService.generateId()).thenReturn("1");
         when(jobRepository.save(jobOne)).thenReturn(jobOne);
+        when(clientRepository.save(clientOne)).thenReturn(clientOne);
+        when(clientRepository.findById("1")).thenReturn(Optional.of(clientOne));
 
         //WHEN
         Job actual = jobService.addJob(jobDTO);
