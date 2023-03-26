@@ -37,7 +37,7 @@ public class ClientService {
             throw new NoSuchElementException(id);
         }
         clientRepository.deleteById(id);
-        Client updatedClient = new Client(id, clientToUpdate.name(), currentClient.get().idJobs());
+        Client updatedClient = new Client(id, clientToUpdate.name(), currentClient.get().jobId());
         return clientRepository.save(updatedClient);
     }
 

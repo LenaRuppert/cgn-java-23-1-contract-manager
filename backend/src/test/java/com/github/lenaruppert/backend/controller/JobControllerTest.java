@@ -39,7 +39,7 @@ class JobControllerTest {
     @Test
     @DirtiesContext
     void whenAddJob_thenReturnNewJob() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/jobs/add/1")
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/clients/1/addJob")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {

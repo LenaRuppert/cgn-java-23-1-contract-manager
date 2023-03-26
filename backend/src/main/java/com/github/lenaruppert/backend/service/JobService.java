@@ -27,7 +27,7 @@ public class JobService {
                 clientId
         );
 
-        client.idJobs().add(jobToSave.id());
+        client.jobId().add(jobToSave.id());
         clientRepository.save(client);
         jobRepository.save(jobToSave);
 

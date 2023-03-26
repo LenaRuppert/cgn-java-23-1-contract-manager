@@ -1,5 +1,5 @@
 export type Job = {
-    id?: string,
+    JobId?: string,
     title: string,
     clientId: string
 }

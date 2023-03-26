@@ -10,5 +10,5 @@ public record Client(
         @Id
         String id,
         String name,
-        List<String> idJobs) {
+        List<String> jobId) {
 }
