@@ -33,7 +33,7 @@ public class ClientService {
 
     public Client updateClient(String id, ClientDTO clientToUpdate) {
         Optional<Client> currentClient = clientRepository.findById(id);
-        if (!clientRepository.existsById(id)) {
+        if (!currentClient.isPresent()) {
             throw new NoSuchElementException(id);
         }
         clientRepository.deleteById(id);
