@@ -12,7 +12,7 @@ import {useJobs} from "./hooks/useJobs";
 function App() {
 
     const {clients, addClient, updateClient, deleteClient} = useClients()
-    const {jobs, addJob} = useJobs()
+    const {addJob} = useJobs()
 
     return (
         <>
