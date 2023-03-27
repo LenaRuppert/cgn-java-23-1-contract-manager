@@ -6,10 +6,7 @@ import com.github.lenaruppert.backend.repository.ClientRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -22,14 +19,16 @@ class ClientServiceTest {
     IdService idService;
     Client clientOne;
     ClientDTO clientDto;
+    Client updateClient;
 
     @BeforeEach
     public void setUp() {
         clientRepository = mock(ClientRepository.class);
         idService = mock(IdService.class);
         clientService = new ClientService(clientRepository, idService);
-        clientOne = new Client("1", "nameOfClient");
+        clientOne = new Client("1", "nameOfClient", Collections.emptyList());
         clientDto = new ClientDTO("nameOfClient");
+        updateClient = new Client(clientOne.id(), clientDto.name(), clientOne.jobId());
     }
 
     @Test
@@ -78,16 +77,19 @@ class ClientServiceTest {
     @Test
     void whenUpdateClientWithValidId_thenReturnUpdatedClient() {
         //GIVEN
-        when(clientRepository.existsById(clientOne.id())).thenReturn(true);
-        when(clientRepository.save(clientOne)).thenReturn(clientOne);
+        String clientId = "1";
+        when(clientRepository.existsById(clientId)).thenReturn(true);
+        when(idService.generateId()).thenReturn(clientId);
+        when(clientRepository.save(any(Client.class))).thenReturn(updateClient);
+        when(clientRepository.findById(clientId)).thenReturn(Optional.of(clientOne));
 
         //WHEN
-        Client actual = clientService.updateClient(clientOne.id(), clientDto);
-        Client expected = clientOne;
+        Client actual = clientService.updateClient(clientId, clientDto);
+        Client expected = updateClient;
 
         //THEN
-        verify(clientRepository).save(clientOne);
-        verify(clientRepository).existsById(clientOne.id());
+        verify(clientRepository).save(any(Client.class));
+        verify(clientRepository).findById(clientId);
         assertEquals(expected, actual);
     }
 
@@ -100,7 +102,7 @@ class ClientServiceTest {
             clientService.updateClient("1", clientDto);
         });
 
-        verify(clientRepository).existsById(clientOne.id());
+        verify(clientRepository).findById("1");
 
     }
 

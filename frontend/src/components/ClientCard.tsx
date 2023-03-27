@@ -5,6 +5,7 @@ import React, {useState} from "react";
 import SaveIcon from "@mui/icons-material/Save";
 import EditIcon from '@mui/icons-material/Edit';
 import ClearIcon from '@mui/icons-material/Clear';
+import {Link} from "react-router-dom";
 
 type ClientCardProps = {
     client: Client
@@ -72,8 +73,9 @@ export default function ClientCard(props: ClientCardProps) {
                 <Button onClick={handleDelete}>
                     <DeleteForeverIcon color="action"/>
                 </Button>
+                <Link to={"/clients/" + props.client.id + "/addJob"} style={{textDecoration: "none", color: "#0077FF"}}>neuer
+                    Job</Link>
             </CardActions>
         </Card>
     )
 }
-
