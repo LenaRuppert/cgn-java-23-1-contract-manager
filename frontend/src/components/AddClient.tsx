@@ -13,7 +13,7 @@ export default function AddClient(props: AddClientProps) {
 
     const [clientToAdd, setClientToAdd] = useState<Client>({
         id: "",
-        name: "",
+        name: ""
     })
 
     function handleChangeName(event: ChangeEvent<HTMLInputElement>) {
