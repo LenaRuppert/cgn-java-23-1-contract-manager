@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -59,5 +60,35 @@ class JobServiceTest {
         when(clientRepository.findById("1")).thenReturn(Optional.empty());
 
         assertThrows(NoSuchElementException.class, () -> jobService.addJob("1", jobDTO));
+    }
+
+    @Test
+    void whenListAllJosAndJobListIsEmpty_thenReturnEmptyList() {
+        //GIVEN
+        List<Job> expected = new ArrayList<>();
+        when(jobRepository.findAll()).thenReturn(expected);
+
+        //WHEN
+        List<Job> actual = jobService.listAllJobs();
+
+        //THEN
+        verify(jobRepository).findAll();
+        assertEquals(actual, expected);
+
+    }
+
+    @Test
+    void whenListAllJobsAndListContainsOneJob_thenReturnListWithOneJob() {
+        //GIVEN
+        List<Job> expected = new ArrayList<>();
+        expected.add(jobOne);
+        when(jobRepository.findAll()).thenReturn(expected);
+
+        //WHEN
+        List<Job> actual = jobService.listAllJobs();
+
+        //THEN
+        verify(jobRepository).findAll();
+        assertEquals(actual, expected);
     }
 }
