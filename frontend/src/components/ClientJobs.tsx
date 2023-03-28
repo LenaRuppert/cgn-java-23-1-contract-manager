@@ -5,13 +5,14 @@ import axios from "axios";
 import JobCard from "./JobCard";
 import {Grid} from "@mui/material";
 
+
 export default function ClientJobs() {
     const params = useParams()
     const id: string | undefined = params.id
 
     const [jobsClient, setJobsClient] = useState<Job[] | undefined>()
 
-    const requestURL: string = "/api/clients/" + {id} + "getJobs"
+    const requestURL: string = "/api/clients/" + id + "/getJobs"
 
     useEffect(() => {
         axios.get(requestURL)
