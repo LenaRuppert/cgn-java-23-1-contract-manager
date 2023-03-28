@@ -65,15 +65,14 @@ class JobServiceTest {
     @Test
     void whenListAllJosAndJobListIsEmpty_thenReturnEmptyList() {
         //GIVEN
-        List<Job> expected = new ArrayList<>();
-        when(jobRepository.findAll()).thenReturn(expected);
+        when(jobRepository.findAll()).thenReturn(Collections.emptyList());
 
         //WHEN
         List<Job> actual = jobService.listAllJobs();
 
         //THEN
         verify(jobRepository).findAll();
-        assertEquals(actual, expected);
+        assertEquals(actual, Collections.emptyList());
 
     }
 
