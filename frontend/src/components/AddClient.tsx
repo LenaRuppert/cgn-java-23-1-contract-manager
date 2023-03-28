@@ -2,6 +2,7 @@ import * as React from 'react';
 import {ChangeEvent, FormEvent, useState} from 'react';
 import {Client} from "../model/Client";
 import {Box, Button, TextField, Typography} from "@mui/material";
+import {useNavigate} from "react-router-dom";
 
 
 type AddClientProps = {
@@ -15,6 +16,8 @@ export default function AddClient(props: AddClientProps) {
         id: "",
         name: ""
     })
+
+    const navigate = useNavigate()
 
     function handleChangeName(event: ChangeEvent<HTMLInputElement>) {
         setClientToAdd({
@@ -30,6 +33,7 @@ export default function AddClient(props: AddClientProps) {
             ...clientToAdd,
             name: ""
         })
+        navigate("/")
     }
 
     return (
@@ -48,7 +52,7 @@ export default function AddClient(props: AddClientProps) {
                 <Typography sx={{textAlign: 'center'}} variant='h5'>Neuer Kunde</Typography>
             <TextField id="outlined-basic" label="Name" variant="outlined" value={clientToAdd.name}
                        onChange={handleChangeName}/>
-                <Button variant="contained" type="submit">hinzufügen</Button>
+            <Button variant="contained" type="submit">hinzufügen</Button>
             </Box>
     )
 }
