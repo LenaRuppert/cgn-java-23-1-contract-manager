@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Job} from "../model/Job";
 import axios from "axios";
 
@@ -13,6 +13,10 @@ export function useJobs() {
             })
             .catch(console.error)
     }
+
+    useEffect(() => {
+        getAllJobs()
+    }, [])
 
     function addJob(id: string | undefined, job: Job) {
         return axios.post("/api/clients/" + id + "/addJob", job)
