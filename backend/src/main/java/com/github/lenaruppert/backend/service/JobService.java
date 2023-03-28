@@ -8,6 +8,7 @@ import com.github.lenaruppert.backend.repository.JobRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @RequiredArgsConstructor
@@ -32,5 +33,9 @@ public class JobService {
         jobRepository.save(jobToSave);
 
         return jobToSave;
+    }
+
+    public List<Job> listAllJobs() {
+        return jobRepository.findAll();
     }
 }
