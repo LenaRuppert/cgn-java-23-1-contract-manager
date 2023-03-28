@@ -1,8 +1,9 @@
 import {Job} from "../model/Job";
 import * as React from "react";
 import {ChangeEvent, FormEvent, useState} from "react";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {Box, Button, TextField, Typography} from "@mui/material";
+import {useClients} from "../hooks/useClients";
 
 type AddJobProps = {
     addJob: (id: string | undefined, jobToAdd: Job) => void
@@ -18,6 +19,11 @@ export default function AddJob(props: AddJobProps) {
         "clientId": id ? id : ""
     })
 
+    const {clients} = useClients();
+    const client = clients.find(c => c.id === id)
+
+    const navigate = useNavigate()
+
     function handleChangeTitle(event: ChangeEvent<HTMLInputElement>) {
         setJobToAdd({
             ...jobToAdd,
@@ -32,6 +38,7 @@ export default function AddJob(props: AddJobProps) {
             ...jobToAdd,
             title: ""
         })
+        navigate("/")
     }
 
     return (
@@ -47,7 +54,7 @@ export default function AddJob(props: AddJobProps) {
             autoComplete="off"
             onSubmit={handleSubmit}
         >
-            <Typography sx={{textAlign: 'center'}} variant='h5'>Neuer Auftrag</Typography>
+            <Typography sx={{textAlign: 'center'}} variant='h6'>Neuer Auftrag {client?.name}</Typography>
             <TextField id="outlined-basic" label="Titel" variant="outlined" value={jobToAdd.title}
                        onChange={handleChangeTitle}/>
             <Button variant="contained" type="submit">hinzufügen</Button>

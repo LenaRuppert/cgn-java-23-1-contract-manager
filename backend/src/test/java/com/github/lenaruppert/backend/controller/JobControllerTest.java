@@ -1,6 +1,7 @@
 package com.github.lenaruppert.backend.controller;
 
 import com.github.lenaruppert.backend.model.Client;
+import com.github.lenaruppert.backend.model.Job;
 import com.github.lenaruppert.backend.repository.ClientRepository;
 import com.github.lenaruppert.backend.repository.JobRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,11 +30,14 @@ class JobControllerTest {
     MockMvc mockMvc;
 
     Client clientOne;
+    Job jobOne;
 
     @BeforeEach
     void setUp() {
         clientOne = new Client("1", "nameOfClient", new ArrayList<>());
+        jobOne = new Job("1", "titleOfJob", "1");
         clientRepository.save(clientOne);
+        jobRepository.save(jobOne);
     }
 
     @Test
@@ -58,4 +62,20 @@ class JobControllerTest {
                 )
                 .andExpect(jsonPath("$.id").isNotEmpty());
     }
+
+    @Test
+    @DirtiesContext
+    void whenGetJobsByClientId_thenReturnListOfJobs() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/clients/1/getJobs"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                        [
+                        {"id": "1",
+                        "title": "titleOfJob",
+                        "clientId": "1"}
+                        ]
+                        """));
+    }
+
+
 }
