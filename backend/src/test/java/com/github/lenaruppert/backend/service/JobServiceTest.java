@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import java.util.*;
 
 import static com.mongodb.internal.connection.tlschannel.util.Util.assertTrue;
+import static org.bson.assertions.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
@@ -65,15 +66,14 @@ class JobServiceTest {
     @Test
     void whenListAllJosAndJobListIsEmpty_thenReturnEmptyList() {
         //GIVEN
-        when(jobRepository.findAll()).thenReturn(Collections.emptyList());
+        when(jobRepository.findByClientId("3")).thenReturn(null);
 
         //WHEN
-        List<Job> actual = jobService.listAllJobs();
+        List<Job> result = jobService.getJobsByClientId("3");
 
         //THEN
-        verify(jobRepository).findAll();
-        assertEquals(actual, Collections.emptyList());
-
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
     }
 
     @Test
