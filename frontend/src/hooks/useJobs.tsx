@@ -11,7 +11,9 @@ export function useJobs() {
             .then(response => {
                 setJobs(response.data)
             })
-            .catch(console.error)
+            .catch(error => {
+                console.error("Sorry, something went wrong." + error)
+            })
     }
 
     useEffect(() => {
