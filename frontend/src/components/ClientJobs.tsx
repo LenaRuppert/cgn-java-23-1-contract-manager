@@ -30,13 +30,12 @@ export default function ClientJobs() {
         <JobCard job={job} key={job.id}/>)
 
     return (
-        (
-            <Grid sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                <Typography sx={{textAlign: 'center'}} variant='h6'>Aufträge von {client?.name}</Typography>
-                <Grid container item xs={10} justifyContent='center' marginTop={5}>
-                    {jobCards}
-                </Grid>
+        <Grid sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+            <Typography sx={{textAlign: 'center'}} variant='h6'>Aufträge von {client?.name}</Typography>
+            <Grid container item xs={10} justifyContent='center' marginTop={5}>
+                {jobCards}
             </Grid>
-        )
+        </Grid>
+
     )
 }

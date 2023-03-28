@@ -62,7 +62,6 @@ class JobServiceTest {
 
         assertThrows(NoSuchElementException.class, () -> jobService.addJob("1", jobDTO));
     }
-
     @Test
     void whenListAllJosAndJobListIsEmpty_thenReturnEmptyList() {
         //GIVEN
@@ -90,7 +89,6 @@ class JobServiceTest {
         verify(jobRepository).findAll();
         assertEquals(actual, expected);
     }
-
     @Test
     void whenGetJobsByClientIdWithValidClientId_thenReturnJobsOfClient() {
         //GIVEN
