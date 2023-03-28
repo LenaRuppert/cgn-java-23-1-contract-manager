@@ -8,6 +8,7 @@ import com.github.lenaruppert.backend.repository.JobRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -37,5 +38,13 @@ public class JobService {
 
     public List<Job> listAllJobs() {
         return jobRepository.findAll();
+    }
+
+    public List<Job> getJobsByClientId(String clientId) {
+        List<Job> jobs = jobRepository.findByClientId(clientId);
+        if (jobs == null) {
+            return Collections.emptyList();
+        }
+        return jobs;
     }
 }

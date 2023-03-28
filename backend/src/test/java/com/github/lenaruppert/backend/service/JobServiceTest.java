@@ -8,11 +8,9 @@ import com.github.lenaruppert.backend.repository.JobRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 
+import static com.mongodb.internal.connection.tlschannel.util.Util.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
@@ -24,6 +22,7 @@ class JobServiceTest {
     ClientRepository clientRepository;
     JobService jobService;
     Job jobOne;
+    Job jobTwo;
     JobDTO jobDTO;
     Client clientOne;
 
@@ -34,6 +33,7 @@ class JobServiceTest {
         clientRepository = mock(ClientRepository.class);
         jobService = new JobService(jobRepository, idService, clientRepository);
         jobOne = new Job("1", "titleOfJob", "1");
+        jobTwo = new Job("2", "titleOfJobTwo", "1");
         jobDTO = new JobDTO("titleOfJob");
         clientOne = new Client("1", "nameOfClient", new ArrayList<>());
     }
@@ -90,5 +90,32 @@ class JobServiceTest {
         //THEN
         verify(jobRepository).findAll();
         assertEquals(actual, expected);
+    }
+
+    @Test
+    void whenGetJobsByClientIdWithValidClientId_thenReturnJobsOfClient() {
+        //GIVEN
+        List<Job> jobList = new ArrayList<>();
+        jobList.add(jobOne);
+        jobList.add(jobTwo);
+        when(jobRepository.findByClientId("1")).thenReturn(jobList);
+
+        //WHEN
+        List<Job> actual = jobService.getJobsByClientId("1");
+        List<Job> expected = jobList;
+
+        //THEN
+        verify(jobRepository).findByClientId("1");
+        assertEquals(actual, expected);
+    }
+
+    @Test
+    void whenGetJobByClientIdWithNotValidClientId_thenReturnEmptyList() {
+        when(jobRepository.findByClientId("2")).thenReturn(Collections.emptyList());
+
+        List<Job> actual = jobService.getJobsByClientId("2");
+
+        verify(jobRepository).findByClientId("2");
+        assertTrue(actual.isEmpty());
     }
 }
