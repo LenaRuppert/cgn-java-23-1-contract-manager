@@ -7,12 +7,13 @@ import {Route, Routes} from "react-router-dom";
 import AppHeader from "./components/AppHeader";
 import AddJob from "./components/AddJob";
 import {useJobs} from "./hooks/useJobs";
+import JobGallery from "./components/JobGallery";
 
 
 function App() {
 
     const {clients, addClient, updateClient, deleteClient} = useClients()
-    const {addJob} = useJobs()
+    const {jobs, addJob} = useJobs()
 
     return (
         <>
@@ -22,6 +23,7 @@ function App() {
                                                           updateClient={updateClient}/>}/>
                 <Route path={"/clients/add"} element={<AddClient addClient={addClient}/>}/>
                 <Route path={"/clients/:id/addJob"} element={<AddJob addJob={addJob}/>}/>
+                <Route path={"/jobs/all"} element={<JobGallery jobs={jobs}/>}/>
             </Routes>
         </>
     );

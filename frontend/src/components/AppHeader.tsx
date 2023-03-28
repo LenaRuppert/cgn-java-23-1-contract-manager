@@ -12,7 +12,7 @@ import MenuItem from '@mui/material/MenuItem';
 import ExtensionRoundedIcon from '@mui/icons-material/ExtensionRounded';
 import {Link} from "react-router-dom";
 
-const pages = ['Kundenübersicht'];
+const pages = ['Kundenübersicht', 'Auftragsübersicht'];
 
 function ResponsiveAppBar() {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -76,15 +76,20 @@ function ResponsiveAppBar() {
                                 display: {xs: 'block', md: 'none'},
                             }}
                         >
-                            {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">
-                                        <Link style={{textDecoration: "none", color: "black"}} to={'/'}>
-                                            {page}
-                                        </Link>
-                                    </Typography>
-                                </MenuItem>
-                            ))}
+                            <MenuItem key="Kundenübersicht" onClick={handleCloseNavMenu}>
+                                <Typography textAlign="center">
+                                    <Link style={{textDecoration: "none", color: "black"}} to={'/'}>
+                                        Kundenübersicht
+                                    </Link>
+                                </Typography>
+                            </MenuItem>
+                            <MenuItem key="Auftragsübersicht" onClick={handleCloseNavMenu}>
+                                <Typography textAlign="center">
+                                    <Link style={{textDecoration: "none", color: "black"}} to={'/jobs/all'}>
+                                        Auftragsübersicht
+                                    </Link>
+                                </Typography>
+                            </MenuItem>
                         </Menu>
                     </Box>
                     <ExtensionRoundedIcon sx={{display: {xs: 'flex', md: 'none'}, mr: 1}}/>
