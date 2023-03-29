@@ -115,4 +115,27 @@ class JobServiceTest {
         verify(jobRepository).findByClientId("2");
         assertTrue(actual.isEmpty());
     }
+
+    @Test
+    void whenGetJobByIdWithValidId_thenReturnJob() {
+        //GIVEN
+        when(jobRepository.findById("1")).thenReturn(Optional.of(jobOne));
+
+        //WHEN
+        Job actual = jobService.getJobById("1");
+        Job expected = jobOne;
+
+        //THEN
+        verify(jobRepository).findById("1");
+        assertEquals(actual, expected);
+    }
+
+    @Test
+    void whenGetJobByIdWithNotValidId_thenThrowException() {
+        when(jobRepository.findById("2")).thenReturn(Optional.empty());
+
+        assertThrows(NoSuchElementException.class, () -> jobService.getJobById("2"));
+
+        verify(jobRepository).findById("2");
+    }
 }
