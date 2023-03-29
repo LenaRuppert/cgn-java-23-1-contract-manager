@@ -30,7 +30,10 @@ export default function JobDetails() {
                 }}>
                     <Card sx={{marginBottom: 5, width: '80%', justifyContent: 'space-around'}}>
                         <CardContent>
-                            <Typography>{details?.title}</Typography>
+                            <Typography variant="h6">{details?.title}</Typography>
+                            <Typography sx={{mt: 2}}>{details?.description}</Typography>
+                            <Typography sx={{mt: 3}}>{details?.street} {details?.houseNumber}</Typography>
+                            <Typography>{details?.postalCode}{details?.city}</Typography>
                         </CardContent>
                     </Card>
                 </Box>

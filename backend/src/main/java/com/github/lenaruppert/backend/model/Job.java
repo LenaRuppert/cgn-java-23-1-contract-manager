@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public record Job(
         @Id String id,
         String title,
+        String description,
         String street,
         String houseNumber,
         String postalCode,

@@ -35,7 +35,7 @@ class JobClientControllerTest {
     @BeforeEach
     void setUp() {
         clientOne = new Client("1", "nameOfClient", new ArrayList<>());
-        jobOne = new Job("1", "titleOfJob", "street", "houseNumber", "postalCode", "city", "1");
+        jobOne = new Job("1", "titleOfJob", "description", "street", "houseNumber", "postalCode", "city", "1");
         clientRepository.save(clientOne);
         jobRepository.save(jobOne);
     }
