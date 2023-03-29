@@ -33,9 +33,9 @@ class JobServiceTest {
         idService = mock(IdService.class);
         clientRepository = mock(ClientRepository.class);
         jobService = new JobService(jobRepository, idService, clientRepository);
-        jobOne = new Job("1", "titleOfJob", "1");
-        jobTwo = new Job("2", "titleOfJobTwo", "1");
-        jobDTO = new JobDTO("titleOfJob");
+        jobOne = new Job("1", "titleOfJob", "street", "1", "postalCode", "city", "1");
+        jobTwo = new Job("2", "titleOfJobTwo", "street2", "1", "postalCode", "city", "1");
+        jobDTO = new JobDTO("titleOfJob", "street", "1", "postalCode", "city");
         clientOne = new Client("1", "nameOfClient", new ArrayList<>());
     }
 

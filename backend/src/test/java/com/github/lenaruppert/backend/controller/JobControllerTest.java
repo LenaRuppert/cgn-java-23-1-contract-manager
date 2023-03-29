@@ -27,7 +27,7 @@ class JobControllerTest {
 
     @BeforeEach
     void setUp() {
-        jobOne = new Job("1", "titleOfJob", "1");
+        jobOne = new Job("1", "titleOfJob", "street", "1a", "11111", "city", "1");
     }
 
     @Test
@@ -48,6 +48,10 @@ class JobControllerTest {
                         [
                         {"id": "1",
                         "title":  "titleOfJob",
+                        "street": "street",
+                        "houseNumber": "1a",
+                        "postalCode": "11111",
+                        "city": "city",
                         "clientId": "1"}
                         ]
                         """));
@@ -62,6 +66,10 @@ class JobControllerTest {
                 .andExpect(content().json("""
                         {
                         "title": "titleOfJob",
+                        "street": "street",
+                        "houseNumber": "1a",
+                        "postalCode": "11111",
+                        "city": "city",
                         "clientId": "1"
                         }
                         """));

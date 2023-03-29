@@ -2,7 +2,7 @@ import {useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import {Job} from "../model/Job";
 import axios from "axios";
-import {Card, CardContent} from "@mui/material";
+import {Box, Card, CardContent, Typography} from "@mui/material";
 
 export default function JobDetails() {
     const params = useParams()
@@ -19,11 +19,23 @@ export default function JobDetails() {
     }, [requestURL])
 
     return (
-        <Card sx={{marginBottom: 5, width: '90%'}}>
-            <CardContent>
-                <div>{details?.title}</div>
-            </CardContent>
-        </Card>
+        <>
+            <Box sx={{
+                marginTop: '30px'
+            }}>
+                <Box sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-around'
+                }}>
+                    <Card sx={{marginBottom: 5, width: '80%', justifyContent: 'space-around'}}>
+                        <CardContent>
+                            <Typography>{details?.title}</Typography>
+                        </CardContent>
+                    </Card>
+                </Box>
+            </Box>
+        </>
     )
 
 }

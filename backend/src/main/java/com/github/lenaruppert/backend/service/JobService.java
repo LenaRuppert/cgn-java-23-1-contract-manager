@@ -26,6 +26,10 @@ public class JobService {
         Job jobToSave = new Job(
                 idService.generateId(),
                 jobDTO.title(),
+                jobDTO.street(),
+                jobDTO.houseNumber(),
+                jobDTO.postalCode(),
+                jobDTO.city(),
                 clientId
         );
 
