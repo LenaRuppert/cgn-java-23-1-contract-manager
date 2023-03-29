@@ -47,4 +47,8 @@ public class JobService {
         }
         return jobs;
     }
+
+    public Job getJobById(String id) {
+        return jobRepository.findById(id).orElseThrow(NoSuchElementException::new);
+    }
 }
