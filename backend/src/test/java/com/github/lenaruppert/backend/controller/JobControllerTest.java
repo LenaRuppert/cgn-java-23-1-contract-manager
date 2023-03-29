@@ -52,4 +52,19 @@ class JobControllerTest {
                         ]
                         """));
     }
+
+    @Test
+    @DirtiesContext
+    void whenGetJobById_thenReturnJob() throws Exception {
+        jobRepository.save(jobOne);
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/jobs/1"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                        {
+                        "title": "titleOfJob",
+                        "clientId": "1"
+                        }
+                        """));
+
+    }
 }
