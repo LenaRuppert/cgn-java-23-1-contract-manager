@@ -35,7 +35,7 @@ class JobClientControllerTest {
     @BeforeEach
     void setUp() {
         clientOne = new Client("1", "nameOfClient", new ArrayList<>());
-        jobOne = new Job("1", "titleOfJob", "description", "street", "houseNumber", "postalCode", "city", "1");
+        jobOne = new Job("1", "titleOfJob", "description", "street", "1", "11111", "city", "1");
         clientRepository.save(clientOne);
         jobRepository.save(jobOne);
     }
@@ -48,14 +48,25 @@ class JobClientControllerTest {
                         .content("""
                                 {
                                 "title": "titleOfJob",
+                                "description": "description",
+                                "street": "street",
+                                "houseNumber": "1",
+                                "postalCode": "11111",
+                                "city": "city",
                                 "clientId": "1"
                                 }
                                 """))
                 .andExpect(status().isOk())
                 .andExpect(content().json(
-                                """
+                        """
                                         {
-                                        "title": "titleOfJob"
+                                        "title": "titleOfJob",
+                                "description": "description",
+                                "street": "street",
+                                "houseNumber": "1",
+                                "postalCode": "11111",
+                                "city": "city",
+                                "clientId": "1"
                                         }
                                         """
                         )
@@ -72,6 +83,11 @@ class JobClientControllerTest {
                         [
                         {"id": "1",
                         "title": "titleOfJob",
+                        "description": "description",
+                        "street": "street",
+                        "houseNumber": "1",
+                        "postalCode": "11111",
+                        "city": "city",
                         "clientId": "1"}
                         ]
                         """));
