@@ -81,39 +81,50 @@ export default function AddJob(props: AddJobProps) {
     }
 
     return (
-        <Box
-            component="form"
-            sx={{
+        <>
+            <Box sx={{
                 display: 'flex',
                 alignItems: 'center',
                 flexDirection: 'column',
-                '& > :not(style)': {m: 1, width: '25ch'},
-            }}
-            noValidate
-            autoComplete="off"
-            onSubmit={handleSubmit}
-        >
-            <Typography sx={{textAlign: 'center'}} variant='h6'>Neuer Auftrag von {client?.name}</Typography>
-            <TextField id="outlined-basic" label="Titel" variant="outlined" value={jobToAdd.title}
-                       onChange={handleChangeTitle}/>
-            <TextField
-                id="outlined-multiline-static"
-                label="Beschreibung"
-                multiline
-                rows={4}
-                value={jobToAdd.description}
-                onChange={handleChangeDescription}
-            />
-            <Typography sx={{textAlign: 'center'}}>Adresse</Typography>
-            <TextField id="outlined-basic" label="Straße" variant="outlined" value={jobToAdd.street}
-                       onChange={handleChangeStreet}/>
-            <TextField id="outlined-basic" label="Hausnummer" variant="outlined" value={jobToAdd.houseNumber}
-                       onChange={handleChangeHouseNumber}/>
-            <TextField id="outlined-basic" label="Postleitzahl" variant="outlined" value={jobToAdd.postalCode}
-                       onChange={handleChangePostalCode}/>
-            <TextField id="outlined-basic" label="Ort" variant="outlined" value={jobToAdd.city}
-                       onChange={handleChangeCity}/>
-            <Button variant="contained" type="submit">hinzufügen</Button>
-        </Box>
+                marginTop: 2,
+                marginBottom: 2
+            }}>
+                <Typography sx={{textAlign: 'center'}} variant='h6'>Neuer Auftrag von</Typography>
+                <Typography sx={{textAlign: 'center'}} variant='h6'>{client?.name}</Typography>
+            </Box>
+            <Box
+                component="form"
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    flexDirection: 'column',
+                    '& > :not(style)': {m: 1, width: '25ch'},
+                }}
+                noValidate
+                autoComplete="off"
+                onSubmit={handleSubmit}
+            >
+                <TextField id="outlined-basic" label="Titel" variant="outlined" value={jobToAdd.title}
+                           onChange={handleChangeTitle}/>
+                <TextField
+                    id="outlined-multiline-static"
+                    label="Beschreibung"
+                    multiline
+                    rows={4}
+                    value={jobToAdd.description}
+                    onChange={handleChangeDescription}
+                />
+                <Typography sx={{textAlign: 'center'}}>Adresse</Typography>
+                <TextField id="outlined-basic" label="Straße" variant="outlined" value={jobToAdd.street}
+                           onChange={handleChangeStreet}/>
+                <TextField id="outlined-basic" label="Hausnummer" variant="outlined" value={jobToAdd.houseNumber}
+                           onChange={handleChangeHouseNumber}/>
+                <TextField id="outlined-basic" label="Postleitzahl" variant="outlined" value={jobToAdd.postalCode}
+                           onChange={handleChangePostalCode}/>
+                <TextField id="outlined-basic" label="Ort" variant="outlined" value={jobToAdd.city}
+                           onChange={handleChangeCity}/>
+                <Button variant="contained" type="submit">hinzufügen</Button>
+            </Box>
+        </>
     )
 }
