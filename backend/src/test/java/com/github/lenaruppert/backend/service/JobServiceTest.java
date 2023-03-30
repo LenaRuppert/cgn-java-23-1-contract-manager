@@ -33,9 +33,9 @@ class JobServiceTest {
         idService = mock(IdService.class);
         clientRepository = mock(ClientRepository.class);
         jobService = new JobService(jobRepository, idService, clientRepository);
-        jobOne = new Job("1", "titleOfJob", "1");
-        jobTwo = new Job("2", "titleOfJobTwo", "1");
-        jobDTO = new JobDTO("titleOfJob");
+        jobOne = new Job("1", "titleOfJob", "description", "street", "1", "postalCode", "city", "1");
+        jobTwo = new Job("2", "titleOfJobTwo", "description", "street2", "1", "postalCode", "city", "1");
+        jobDTO = new JobDTO("titleOfJob", "description", "street", "1", "postalCode", "city");
         clientOne = new Client("1", "nameOfClient", new ArrayList<>());
     }
 
@@ -114,5 +114,28 @@ class JobServiceTest {
 
         verify(jobRepository).findByClientId("2");
         assertTrue(actual.isEmpty());
+    }
+
+    @Test
+    void whenGetJobByIdWithValidId_thenReturnJob() {
+        //GIVEN
+        when(jobRepository.findById("1")).thenReturn(Optional.of(jobOne));
+
+        //WHEN
+        Job actual = jobService.getJobById("1");
+        Job expected = jobOne;
+
+        //THEN
+        verify(jobRepository).findById("1");
+        assertEquals(actual, expected);
+    }
+
+    @Test
+    void whenGetJobByIdWithNotValidId_thenThrowException() {
+        when(jobRepository.findById("2")).thenReturn(Optional.empty());
+
+        assertThrows(NoSuchElementException.class, () -> jobService.getJobById("2"));
+
+        verify(jobRepository).findById("2");
     }
 }

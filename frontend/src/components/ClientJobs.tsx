@@ -1,4 +1,4 @@
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import * as React from "react";
 import {useEffect, useState} from "react";
 import {Job} from "../model/Job";
@@ -32,10 +32,11 @@ export default function ClientJobs() {
     return (
         <Grid sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
             <Typography sx={{textAlign: 'center'}} variant='h6'>Aufträge von {client?.name}</Typography>
+            <Link to={"/clients/" + id + "/addJob"} style={{textDecoration: "none", color: "#0077FF"}}>NEUER
+                AUFTRAG</Link>
             <Grid container item xs={10} justifyContent='center' marginTop={5}>
                 {jobCards}
             </Grid>
         </Grid>
-
     )
 }

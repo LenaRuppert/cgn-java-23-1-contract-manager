@@ -9,6 +9,7 @@ import AddJob from "./components/AddJob";
 import {useJobs} from "./hooks/useJobs";
 import JobGallery from "./components/JobGallery";
 import ClientJobs from "./components/ClientJobs";
+import JobDetails from "./components/JobDetails";
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
                 <Route path={"/clients/:id/addJob"} element={<AddJob addJob={addJob}/>}/>
                 <Route path={"/jobs/all"} element={<JobGallery jobs={jobs}/>}/>
                 <Route path={"/clients/:id/getJobs"} element={<ClientJobs/>}/>
+                <Route path={"/jobs/:id"} element={<JobDetails/>}/>
             </Routes>
         </>
     );

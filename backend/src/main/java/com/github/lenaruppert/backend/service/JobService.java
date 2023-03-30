@@ -26,6 +26,11 @@ public class JobService {
         Job jobToSave = new Job(
                 idService.generateId(),
                 jobDTO.title(),
+                jobDTO.description(),
+                jobDTO.street(),
+                jobDTO.houseNumber(),
+                jobDTO.postalCode(),
+                jobDTO.city(),
                 clientId
         );
 
@@ -46,5 +51,9 @@ public class JobService {
             return Collections.emptyList();
         }
         return jobs;
+    }
+
+    public Job getJobById(String id) {
+        return jobRepository.findById(id).orElseThrow(NoSuchElementException::new);
     }
 }

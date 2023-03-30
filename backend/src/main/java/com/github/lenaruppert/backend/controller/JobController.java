@@ -1,27 +1,29 @@
 package com.github.lenaruppert.backend.controller;
 
 import com.github.lenaruppert.backend.model.Job;
-import com.github.lenaruppert.backend.model.JobDTO;
 import com.github.lenaruppert.backend.service.JobService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RequestMapping("api/clients/{id}")
 @RequiredArgsConstructor
+@RequestMapping("api/jobs")
 @RestController
 public class JobController {
 
     private final JobService jobService;
 
-    @PostMapping("/addJob")
-    public Job addJob(@PathVariable String id, @RequestBody JobDTO jobDTO) {
-        return jobService.addJob(id, jobDTO);
+    @GetMapping("/all")
+    public List<Job> listAllJobs() {
+        return jobService.listAllJobs();
     }
 
-    @GetMapping("/getJobs")
-    public List<Job> getJobsByClientId(@PathVariable String id) {
-        return jobService.getJobsByClientId(id);
+    @GetMapping("{id}")
+    public Job getJobById(@PathVariable String id) {
+        return jobService.getJobById(id);
     }
 }
