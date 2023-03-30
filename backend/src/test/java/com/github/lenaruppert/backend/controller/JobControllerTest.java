@@ -7,10 +7,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -32,17 +34,19 @@ class JobControllerTest {
 
     @Test
     @DirtiesContext
+    @WithMockUser(username = "user", password = "password")
     void whenListAllJobsAndJobListIsEmpty_thenReturnEmptyList() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/jobs/all"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/jobs/all").with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(content().json("[]"));
     }
 
     @Test
     @DirtiesContext
+    @WithMockUser(username = "user", password = "password")
     void whenListAllJobsWithOneJobInDataBase_thenReturnListWithOneJob() throws Exception {
         jobRepository.save(jobOne);
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/jobs/all"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/jobs/all").with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
                         [
@@ -60,9 +64,10 @@ class JobControllerTest {
 
     @Test
     @DirtiesContext
+    @WithMockUser(username = "user", password = "password")
     void whenGetJobById_thenReturnJob() throws Exception {
         jobRepository.save(jobOne);
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/jobs/1"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/jobs/1").with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
                         {
@@ -74,6 +79,5 @@ class JobControllerTest {
                         "clientId": "1"
                         }
                         """));
-
     }
 }
