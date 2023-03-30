@@ -21,7 +21,6 @@ public class MongoUserDetailsService implements UserDetailsService {
         this.mongoUserRepository = mongoUserRepository;
     }
 
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         MongoUser mongoUser = mongoUserRepository.findByUsername(username)
