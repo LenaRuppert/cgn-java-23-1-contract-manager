@@ -10,17 +10,31 @@ import {useJobs} from "./hooks/useJobs";
 import JobGallery from "./components/JobGallery";
 import ClientJobs from "./components/ClientJobs";
 import JobDetails from "./components/JobDetails";
+import axios from "axios";
+import Cookies from "js-cookie";
+import SignInPage from "./components/SignInPage";
+import SignUpPage from "./components/SignUpPager";
 
+axios.interceptors.request.use(function (config) {
+    return fetch("/api/csrf").then(() => {
+        config.headers["X-XSRF-TOKEN"] = Cookies.get("XSRF-TOKEN");
+        return config;
+    });
+}, function (error) {
+    return Promise.reject(error);
+});
 
 function App() {
 
-    const {clients, addClient, updateClient, deleteClient} = useClients()
+    const {clients, addClient, updateClient, deleteClient, getAllClients} = useClients()
     const {jobs, addJob} = useJobs()
 
     return (
         <>
             <AppHeader/>
             <Routes>
+                <Route path={"/sign-in"} element={<SignInPage getAllClients={getAllClients}/>}/>
+                <Route path={"/sign-up"} element={<SignUpPage/>}/>
                 <Route path={"/"} element={<ClientGallery clients={clients} deleteClient={deleteClient}
                                                           updateClient={updateClient}/>}/>
                 <Route path={"/clients/add"} element={<AddClient addClient={addClient}/>}/>
