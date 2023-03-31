@@ -1,7 +1,8 @@
 import React, {ChangeEvent, FormEvent, useState} from "react";
 import axios from 'axios'
 import {useNavigate} from "react-router-dom";
-import {Box, Button, Container, TextField} from "@mui/material";
+import {Box, Button, Container, TextField, Typography} from "@mui/material";
+import ExtensionRoundedIcon from '@mui/icons-material/ExtensionRounded';
 
 type SignInPageProps = {
     getAllClients: () => void
@@ -36,7 +37,7 @@ export default function Login(props: SignInPageProps) {
 
     return (
         <>
-            <Container>
+            <Container sx={{marginTop: 15}}>
                 <Box component={"form"} onSubmit={handleSubmit}
                      sx={{
                          display: 'flex',
@@ -44,6 +45,29 @@ export default function Login(props: SignInPageProps) {
                          margin: 2,
                      }}
                 >
+                    <Box sx={{
+                        display: 'flex',
+                        flexDirection: 'row'
+                    }}>
+                        <ExtensionRoundedIcon color="primary"/>
+                        <Typography
+                            variant="h5"
+                            marginLeft={1}
+                            noWrap
+                            sx={{
+                                mr: 2,
+                                display: {xs: 'flex', md: 'none'},
+                                flexGrow: 1,
+                                fontFamily: 'monospace',
+                                fontWeight: 700,
+                                letterSpacing: '.3rem',
+                                color: 'inherit',
+                                textDecoration: 'none',
+                            }}
+                        >
+                            Orderly
+                        </Typography>
+                    </Box>
                     <TextField placeholder="Benutzername" value={username} fullWidth
                                margin="normal" onChange={handleUsernameChange}/>
                     <TextField placeholder="Passwort" type={"password"} value={password}

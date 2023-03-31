@@ -129,4 +129,4 @@ function ResponsiveAppBar() {
     );
 }
 
-export default ResponsiveAppBar;
+export default ResponsiveAppBar

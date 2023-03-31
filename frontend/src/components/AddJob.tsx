@@ -3,6 +3,7 @@ import * as React from "react";
 import {ChangeEvent, FormEvent, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {Box, Button, TextField, Typography} from "@mui/material";
+import Layout from "./Layout";
 import {useClients} from "../hooks/useClients";
 
 type AddJobProps = {
@@ -14,6 +15,9 @@ export default function AddJob(props: AddJobProps) {
     const params = useParams();
     const id: string | undefined = params.id;
 
+    const {clients} = useClients();
+    const client = clients.find(c => c.id === id)
+
     const [jobToAdd, setJobToAdd] = useState<Job>({
         "title": "",
         "description": "",
@@ -23,9 +27,6 @@ export default function AddJob(props: AddJobProps) {
         "city": "",
         "clientId": id ? id : ""
     })
-
-    const {clients} = useClients();
-    const client = clients.find(c => c.id === id)
 
     const navigate = useNavigate()
 
@@ -81,7 +82,7 @@ export default function AddJob(props: AddJobProps) {
     }
 
     return (
-        <>
+        <Layout>
             <Box sx={{
                 display: 'flex',
                 alignItems: 'center',
@@ -89,7 +90,6 @@ export default function AddJob(props: AddJobProps) {
                 marginTop: 2,
                 marginBottom: 2
             }}>
-                <Typography sx={{textAlign: 'center'}} variant='h6'>Neuer Auftrag von</Typography>
                 <Typography sx={{textAlign: 'center'}} variant='h6'>{client?.name}</Typography>
             </Box>
             <Box
@@ -125,6 +125,6 @@ export default function AddJob(props: AddJobProps) {
                            onChange={handleChangeCity}/>
                 <Button variant="contained" type="submit">hinzufügen</Button>
             </Box>
-        </>
+        </Layout>
     )
 }

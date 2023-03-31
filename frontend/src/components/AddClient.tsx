@@ -3,6 +3,7 @@ import {ChangeEvent, FormEvent, useState} from 'react';
 import {Client} from "../model/Client";
 import {Box, Button, TextField, Typography} from "@mui/material";
 import {useNavigate} from "react-router-dom";
+import Layout from "./Layout";
 
 
 type AddClientProps = {
@@ -37,8 +38,9 @@ export default function AddClient(props: AddClientProps) {
     }
 
     return (
-        <Box
-            component="form"
+        <Layout>
+            <Box
+                component="form"
                 sx={{
                     display: 'flex',
                     alignItems: 'center',
@@ -50,9 +52,10 @@ export default function AddClient(props: AddClientProps) {
                 onSubmit={handleSubmit}
             >
                 <Typography sx={{textAlign: 'center'}} variant='h5'>Neuer Kunde</Typography>
-            <TextField id="outlined-basic" label="Name" variant="outlined" value={clientToAdd.name}
-                       onChange={handleChangeName}/>
-            <Button variant="contained" type="submit">hinzufügen</Button>
+                <TextField id="outlined-basic" label="Name" variant="outlined" value={clientToAdd.name}
+                           onChange={handleChangeName}/>
+                <Button variant="contained" type="submit">hinzufügen</Button>
             </Box>
+        </Layout>
     )
 }
