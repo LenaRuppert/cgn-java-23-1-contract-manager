@@ -3,6 +3,7 @@ package com.github.lenaruppert.backend.controller;
 import com.github.lenaruppert.backend.model.MongoUser;
 import com.github.lenaruppert.backend.model.MongoUserDTO;
 import com.github.lenaruppert.backend.repository.MongoUserRepository;
+import com.github.lenaruppert.backend.service.IdService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("api/user")
@@ -21,6 +21,7 @@ public class MongoUserController {
 
     private final MongoUserRepository mongoUserRepository;
     private final PasswordEncoder passwordEncoder;
+    private final IdService idService;
 
     @PostMapping
     public MongoUser create(@RequestBody MongoUserDTO user) {
@@ -40,7 +41,7 @@ public class MongoUserController {
         }
 
         MongoUser newUser = new MongoUser(
-                UUID.randomUUID().toString(),
+                idService.generateId(),
                 user.username(),
                 passwordEncoder.encode(user.password()),
                 "BASIC"
