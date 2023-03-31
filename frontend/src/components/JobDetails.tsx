@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import {Job} from "../model/Job";
 import axios from "axios";
 import {Box, Card, CardContent, Typography} from "@mui/material";
+import Layout from "./Layout";
 
 export default function JobDetails() {
     const params = useParams()
@@ -19,7 +20,7 @@ export default function JobDetails() {
     }, [requestURL])
 
     return (
-        <>
+        <Layout>
             <Box sx={{
                 marginTop: '30px'
             }}>
@@ -38,7 +39,6 @@ export default function JobDetails() {
                     </Card>
                 </Box>
             </Box>
-        </>
-    )
+        </Layout>)
 
 }

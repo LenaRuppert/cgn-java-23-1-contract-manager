@@ -4,6 +4,7 @@ import {ChangeEvent, FormEvent, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {Box, Button, TextField, Typography} from "@mui/material";
 import {useClients} from "../hooks/useClients";
+import Layout from "./Layout";
 
 type AddJobProps = {
     addJob: (id: string | undefined, jobToAdd: Job) => void
@@ -81,7 +82,7 @@ export default function AddJob(props: AddJobProps) {
     }
 
     return (
-        <>
+        <Layout>
             <Box sx={{
                 display: 'flex',
                 alignItems: 'center',
@@ -125,6 +126,6 @@ export default function AddJob(props: AddJobProps) {
                            onChange={handleChangeCity}/>
                 <Button variant="contained" type="submit">hinzufügen</Button>
             </Box>
-        </>
+        </Layout>
     )
 }
