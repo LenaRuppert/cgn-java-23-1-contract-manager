@@ -1,6 +1,5 @@
 import React, {ChangeEvent, useState} from "react";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
 import {Box, Button, TextField} from "@mui/material";
 import Container from "@mui/material/Container";
 
@@ -13,7 +12,6 @@ type AuthFormProps = {
 export default function AuthForm(props: AuthFormProps) {
     const [username, setUsername] = useState<string>("")
     const [password, setPassword] = useState<string>("")
-    const navigate = useNavigate();
 
     function handleUsernameChange(event: ChangeEvent<HTMLInputElement>) {
         setUsername(event.target.value)
