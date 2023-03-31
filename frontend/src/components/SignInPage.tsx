@@ -44,13 +44,13 @@ export default function Login(props: SignInPageProps) {
                          margin: 2,
                      }}
                 >
-                    <TextField placeholder="Username" value={username} fullWidth
+                    <TextField placeholder="Benutzername" value={username} fullWidth
                                margin="normal" onChange={handleUsernameChange}/>
-                    <TextField placeholder="Password" type={"password"} value={password}
+                    <TextField placeholder="Passwort" type={"password"} value={password}
                                margin="normal" fullWidth onChange={handlePasswordChange}/>
                     <Button variant="contained" type={"submit"} sx={{
                         m: 1
-                    }}>Log in</Button>
+                    }}>Login</Button>
                 </Box>
             </Container>
         </>
