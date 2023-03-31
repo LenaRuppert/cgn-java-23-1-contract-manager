@@ -59,7 +59,7 @@ public class MongoUserController {
 
     @PostMapping("/login")
     public MongoUser login(Principal principal) {
-        return getMe1(principal);
+        return getMe(principal);
     }
 
     @PostMapping("/logout")
@@ -69,7 +69,7 @@ public class MongoUserController {
     }
 
     @GetMapping("/me")
-    public MongoUser getMe1(Principal principal) {
+    public MongoUser getMe(Principal principal) {
         MongoUser me = mongoUserRepository
                 .findByUsername(principal.getName())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED));
@@ -80,24 +80,6 @@ public class MongoUserController {
                 null,
                 me.role()
         );
-    }
-
-    @GetMapping("/me2")
-    public String getMe2() {
-        return SecurityContextHolder
-                .getContext()
-                .getAuthentication()
-                .getName();
-    }
-
-    @GetMapping("/admin")
-    public String getAdminStatus() {
-        return "Admin OK";
-    }
-
-    @GetMapping
-    public String getStatus() {
-        return "OK";
     }
 }
 
