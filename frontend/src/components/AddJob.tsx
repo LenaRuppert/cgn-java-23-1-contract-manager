@@ -3,7 +3,6 @@ import * as React from "react";
 import {ChangeEvent, FormEvent, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {Box, Button, TextField, Typography} from "@mui/material";
-import {useClients} from "../hooks/useClients";
 import Layout from "./Layout";
 
 type AddJobProps = {
@@ -24,9 +23,6 @@ export default function AddJob(props: AddJobProps) {
         "city": "",
         "clientId": id ? id : ""
     })
-
-    const {clients} = useClients();
-    const client = clients.find(c => c.id === id)
 
     const navigate = useNavigate()
 
@@ -90,8 +86,7 @@ export default function AddJob(props: AddJobProps) {
                 marginTop: 2,
                 marginBottom: 2
             }}>
-                <Typography sx={{textAlign: 'center'}} variant='h6'>Neuer Auftrag von</Typography>
-                <Typography sx={{textAlign: 'center'}} variant='h6'>{client?.name}</Typography>
+                <Typography sx={{textAlign: 'center'}} variant='h6'>Neuer Auftrag</Typography>
             </Box>
             <Box
                 component="form"
