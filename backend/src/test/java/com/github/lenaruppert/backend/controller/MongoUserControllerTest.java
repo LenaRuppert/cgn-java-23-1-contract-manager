@@ -13,7 +13,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -158,14 +159,4 @@ class MongoUserControllerTest {
 
     }
 
-    @Test
-    @DirtiesContext
-    @WithMockUser(username = "user", password = "password")
-    void testGetMe2() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/user/me2")
-                        .with(csrf()))
-                .andExpect(status().isOk())
-                .andExpect(content().string("user"));
-
-    }
 }

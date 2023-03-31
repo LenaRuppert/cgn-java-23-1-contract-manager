@@ -81,5 +81,10 @@ public class MongoUserController {
                 me.role()
         );
     }
+
+    @GetMapping
+    public String getStatus() {
+        return "OK";
+    }
 }
 
