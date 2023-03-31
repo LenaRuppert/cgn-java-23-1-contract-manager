@@ -4,7 +4,6 @@ import {useClients} from "./hooks/useClients";
 import AddClient from "./components/AddClient";
 import ClientGallery from "./components/ClientGallery";
 import {Route, Routes} from "react-router-dom";
-import AppHeader from "./components/AppHeader";
 import AddJob from "./components/AddJob";
 import {useJobs} from "./hooks/useJobs";
 import JobGallery from "./components/JobGallery";
@@ -30,7 +29,6 @@ function App() {
 
     return (
         <>
-            <AppHeader/>
             <Routes>
                 <Route path={"/login"} element={<SignInPage getAllClients={getAllClients} getAllJobs={getAllJobs}/>}/>
                 <Route path={"/"} element={<ClientGallery clients={clients} deleteClient={deleteClient}

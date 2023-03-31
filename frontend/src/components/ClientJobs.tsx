@@ -6,6 +6,7 @@ import axios from "axios";
 import JobCard from "./JobCard";
 import {Box, Grid, Typography} from "@mui/material";
 import {useClients} from "../hooks/useClients";
+import Layout from "./Layout";
 
 
 export default function ClientJobs() {
@@ -30,15 +31,18 @@ export default function ClientJobs() {
         <JobCard job={job} key={job.id}/>)
 
     return (
-        <Grid sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-            <Typography sx={{textAlign: 'center', marginTop: 3}} variant='h6'>Aufträge von {client?.name}</Typography>
-            <Box sx={{marginTop: 3}}>
-                <Link to={"/clients/" + id + "/addJob"} style={{textDecoration: "none", color: "#0077FF"}}>NEUER
-                    AUFTRAG</Link>
-            </Box>
-            <Grid container item xs={10} justifyContent='center' marginTop={5}>
-                {jobCards}
+        <Layout>
+            <Grid sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                <Typography sx={{textAlign: 'center', marginTop: 3}} variant='h6'>Aufträge
+                    von {client?.name}</Typography>
+                <Box sx={{marginTop: 3}}>
+                    <Link to={"/clients/" + id + "/addJob"} style={{textDecoration: "none", color: "#0077FF"}}>NEUER
+                        AUFTRAG</Link>
+                </Box>
+                <Grid container item xs={10} justifyContent='center' marginTop={5}>
+                    {jobCards}
+                </Grid>
             </Grid>
-        </Grid>
+        </Layout>
     )
 }
