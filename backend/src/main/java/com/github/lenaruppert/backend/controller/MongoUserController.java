@@ -24,11 +24,11 @@ public class MongoUserController {
 
     @PostMapping
     public MongoUser create(@RequestBody MongoUserDTO user) {
-        if (user.username() == null || user.username().length() == 0) {
+        if (user.username() == null || user.username().isBlank()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username is required");
         }
 
-        if (user.password() == null || user.password().length() == 0) {
+        if (user.password() == null || user.password().isBlank()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Password is required");
         }
 
