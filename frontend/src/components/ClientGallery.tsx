@@ -3,6 +3,7 @@ import ClientCard from "./ClientCard";
 import {Link} from "react-router-dom";
 import {Button, Grid} from "@mui/material";
 import Layout from "./Layout";
+import * as React from "react";
 
 
 type ClientGalleryProps = {
