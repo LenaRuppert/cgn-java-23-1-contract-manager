@@ -3,7 +3,11 @@ import axios from 'axios'
 import {useNavigate} from "react-router-dom";
 import {Box, Button, Container, TextField} from "@mui/material";
 
-export default function Login() {
+type SignInPageProps = {
+    getAllClients: () => void
+    getAllJobs: () => void
+}
+export default function Login(props: SignInPageProps) {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const navigate = useNavigate()
@@ -24,6 +28,8 @@ export default function Login() {
                 {headers: {Authorization: `Basic ${authorization}`}})
             .then(() => {
                 navigate(window.sessionStorage.getItem('signInRedirect') || '/')
+                props.getAllClients()
+                props.getAllJobs()
             })
             .catch(error => console.log(error))
     }
@@ -36,10 +42,6 @@ export default function Login() {
                          display: 'flex',
                          flexDirection: 'column',
                          margin: 2,
-                         '&:hover': {
-                             backgroundColor: '',
-                             opacity: [0.9, 0.8, 0.7],
-                         },
                      }}
                 >
                     <TextField placeholder="Username" value={username} fullWidth
