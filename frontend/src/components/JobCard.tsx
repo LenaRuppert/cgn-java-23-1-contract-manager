@@ -1,4 +1,4 @@
-import {Card, CardActions, CardContent} from "@mui/material";
+import {Card, CardActions, CardContent, Typography} from "@mui/material";
 import {Job} from "../model/Job";
 import React from "react";
 import {Link} from "react-router-dom";
@@ -11,7 +11,8 @@ export default function JobCard(props: JobCardProps) {
     return (
         <Card sx={{marginBottom: 5, width: '90%'}}>
             <CardContent>
-                <div>{props.job.title}</div>
+                <Typography variant='h6'>{props.job.title}</Typography>
+                <Typography sx={{marginTop: 2}}>{props.job.description}</Typography>
             </CardContent>
             <CardActions sx={{justifyContent: "flex-end"}}>
                 <Link to={"/jobs/" + props.job.id}
