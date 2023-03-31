@@ -1,6 +1,7 @@
 package com.github.lenaruppert.backend.controller;
 
 import com.github.lenaruppert.backend.model.MongoUser;
+import com.github.lenaruppert.backend.model.MongoUserDTO;
 import com.github.lenaruppert.backend.repository.MongoUserRepository;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,7 @@ public class MongoUserController {
     private final PasswordEncoder passwordEncoder;
 
     @PostMapping
-    public MongoUser create(@RequestBody MongoUser user) {
+    public MongoUser create(@RequestBody MongoUserDTO user) {
         if (user.username() == null || user.username().length() == 0) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username is required");
         }
