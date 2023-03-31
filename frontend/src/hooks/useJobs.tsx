@@ -26,5 +26,5 @@ export function useJobs() {
             .then(data => setJobs(prevState => [...prevState, data]))
     }
 
-    return {jobs, addJob}
+    return {jobs, addJob, getAllJobs}
 }
