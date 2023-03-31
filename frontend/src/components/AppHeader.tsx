@@ -10,13 +10,12 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import ExtensionRoundedIcon from '@mui/icons-material/ExtensionRounded';
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 const pages = ['Kundenübersicht', 'Auftragsübersicht'];
 
 function ResponsiveAppBar() {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-    const navigate = useNavigate()
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
@@ -25,10 +24,6 @@ function ResponsiveAppBar() {
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
     };
-
-    const handleLogoutSubmit = () => {
-        navigate('/logout');
-    }
 
     return (
         <AppBar position="static">
