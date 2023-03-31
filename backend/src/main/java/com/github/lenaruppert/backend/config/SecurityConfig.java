@@ -37,7 +37,6 @@ public class SecurityConfig {
                         config.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
                 .authorizeHttpRequests()
                 .requestMatchers(HttpMethod.GET, "/api/csrf").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/status/admin").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.POST, "/api/user").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/clients").permitAll()
                 .requestMatchers("/api/**").authenticated()
