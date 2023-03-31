@@ -1,16 +1,10 @@
 import React, {ChangeEvent, useState} from "react";
-import {useNavigate} from "react-router-dom";
 import axios from "axios";
-import Container from "@mui/material/Container";
+import {useNavigate} from "react-router-dom";
 import {Box, Button, TextField} from "@mui/material";
+import Container from "@mui/material/Container";
 
-
-type SignInPageProps = {
-    getAllClients: () => void
-    getAllJobs: () => void
-}
-
-export default function SignInPage(props: SignInPageProps) {
+export default function SignUpPage() {
     const [username, setUsername] = useState<string>("")
     const [password, setPassword] = useState<string>("")
     const navigate = useNavigate();
@@ -25,21 +19,15 @@ export default function SignInPage(props: SignInPageProps) {
 
     function handleSubmit(event: ChangeEvent<HTMLInputElement>) {
         event.preventDefault()
-        const authorization = window.btoa(`${username}:${password}`)
         axios
-            .post(
-                "/api/user/login",
-                {},
-                {
-                    headers: {Authorization: `Basic ${authorization}`}
-                })
+            .post("/api/user", {username, password})
             .then(() => {
-                navigate(window.sessionStorage.getItem('signInRedirect') || '/')
-                props.getAllClients()
-                props.getAllJobs()
+                navigate("/sign-in");
             })
-            .catch(error => console.log(error))
-    }
+            .catch((err) => {
+                alert(err.response.data.error);
+            });
+    };
 
     return (
         <>
@@ -61,9 +49,9 @@ export default function SignInPage(props: SignInPageProps) {
                                margin="normal" fullWidth onChange={handlePasswordChange}/>
                     <Button variant="contained" type={"submit"} sx={{
                         m: 1
-                    }}>login</Button>
+                    }}>registrieren</Button>
                 </Box>
             </Container>
         </>
-    );
+    )
 }
