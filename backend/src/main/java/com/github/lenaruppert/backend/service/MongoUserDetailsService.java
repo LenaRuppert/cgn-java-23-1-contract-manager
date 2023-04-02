@@ -10,9 +10,11 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.security.Principal;
 import java.util.List;
 
 @Service
@@ -20,6 +22,8 @@ import java.util.List;
 public class MongoUserDetailsService implements UserDetailsService {
 
     private final MongoUserRepository mongoUserRepository;
+    private final IdService idService;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -29,6 +33,19 @@ public class MongoUserDetailsService implements UserDetailsService {
                 mongoUser.username(),
                 mongoUser.password(),
                 List.of(new SimpleGrantedAuthority("ROLE_" + mongoUser.role()))
+        );
+    }
+
+    public MongoUser getMe(Principal principal) {
+        MongoUser me = mongoUserRepository
+                .findByUsername(principal.getName())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED));
+
+        return new MongoUser(
+                me.id(),
+                me.username(),
+                null,
+                me.role()
         );
     }
 
@@ -47,4 +64,21 @@ public class MongoUserDetailsService implements UserDetailsService {
                     "User already exists"
             );
         }
+        MongoUser newUser = new MongoUser(
+                idService.generateId(),
+                user.username(),
+                passwordEncoder.encode(user.password()),
+                "BASIC"
+        );
+        MongoUser out = mongoUserRepository.save(newUser);
+
+        return new MongoUser(
+                out.id(),
+                out.username(),
+                null,
+                out.role()
+        );
     }
+}
+
+

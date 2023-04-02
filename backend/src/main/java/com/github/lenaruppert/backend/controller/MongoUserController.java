@@ -1,18 +1,12 @@
 package com.github.lenaruppert.backend.controller;
 
 import com.github.lenaruppert.backend.model.MongoUser;
-import com.github.lenaruppert.backend.repository.MongoUserRepository;
-import com.github.lenaruppert.backend.service.IdService;
+import com.github.lenaruppert.backend.model.MongoUserDTO;
+import com.github.lenaruppert.backend.service.MongoUserDetailsService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
@@ -21,28 +15,11 @@ import java.security.Principal;
 @RequiredArgsConstructor
 public class MongoUserController {
 
-    private final MongoUserRepository mongoUserRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final IdService idService;
+    private final MongoUserDetailsService mongoUserDetailsService;
 
     @PostMapping
-
-
-        MongoUser newUser = new MongoUser(
-                idService.generateId(),
-                user.username(),
-                passwordEncoder.encode(user.password()),
-                "BASIC"
-        );
-
-        MongoUser out = mongoUserRepository.save(newUser);
-
-        return new MongoUser(
-                out.id(),
-                out.username(),
-                null,
-                out.role()
-        );
+    public MongoUser create(@RequestBody MongoUserDTO user) {
+        return mongoUserDetailsService.create(user);
     }
 
     @PostMapping("/login")
@@ -58,17 +35,7 @@ public class MongoUserController {
 
     @GetMapping("/me")
     public MongoUser getMe(Principal principal) {
-        MongoUser me = mongoUserRepository
-                .findByUsername(principal.getName())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED));
 
-        return new MongoUser(
-                me.id(),
-                me.username(),
-                null,
-                me.role()
-        );
-    }
 
     @GetMapping
     public String getStatus() {
