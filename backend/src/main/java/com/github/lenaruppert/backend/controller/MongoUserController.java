@@ -1,7 +1,7 @@
 package com.github.lenaruppert.backend.controller;
 
-import com.github.lenaruppert.backend.model.MongoUser;
-import com.github.lenaruppert.backend.model.MongoUserDTO;
+import com.github.lenaruppert.backend.model.MongoUserRequest;
+import com.github.lenaruppert.backend.model.MongoUserResponse;
 import com.github.lenaruppert.backend.service.MongoUserDetailsService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -18,12 +18,12 @@ public class MongoUserController {
     private final MongoUserDetailsService mongoUserDetailsService;
 
     @PostMapping
-    public MongoUser create(@RequestBody MongoUserDTO user) {
+    public MongoUserResponse create(@RequestBody MongoUserRequest user) {
         return mongoUserDetailsService.create(user);
     }
 
     @PostMapping("/login")
-    public MongoUser login(Principal principal) {
+    public MongoUserResponse login(Principal principal) {
         return getMe(principal);
     }
 
@@ -34,8 +34,9 @@ public class MongoUserController {
     }
 
     @GetMapping("/me")
-    public MongoUser getMe(Principal principal) {
-
+    public MongoUserResponse getMe(Principal principal) {
+        return mongoUserDetailsService.getMe(principal);
+    }
 
     @GetMapping
     public String getStatus() {

@@ -1,7 +1,8 @@
 package com.github.lenaruppert.backend.service;
 
 import com.github.lenaruppert.backend.model.MongoUser;
-import com.github.lenaruppert.backend.model.MongoUserDTO;
+import com.github.lenaruppert.backend.model.MongoUserRequest;
+import com.github.lenaruppert.backend.model.MongoUserResponse;
 import com.github.lenaruppert.backend.repository.MongoUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -36,20 +37,19 @@ public class MongoUserDetailsService implements UserDetailsService {
         );
     }
 
-    public MongoUser getMe(Principal principal) {
+    public MongoUserResponse getMe(Principal principal) {
         MongoUser me = mongoUserRepository
                 .findByUsername(principal.getName())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED));
 
-        return new MongoUser(
+        return new MongoUserResponse(
                 me.id(),
                 me.username(),
-                null,
                 me.role()
         );
     }
 
-    public MongoUser create(MongoUserDTO user) {
+    public MongoUserResponse create(MongoUserRequest user) {
         if (user.username() == null || user.username().isBlank()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username is required");
         }
@@ -72,10 +72,9 @@ public class MongoUserDetailsService implements UserDetailsService {
         );
         MongoUser out = mongoUserRepository.save(newUser);
 
-        return new MongoUser(
+        return new MongoUserResponse(
                 out.id(),
                 out.username(),
-                null,
                 out.role()
         );
     }
