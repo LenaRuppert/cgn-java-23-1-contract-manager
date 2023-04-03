@@ -34,8 +34,9 @@ export default function JobCard(props: JobCardProps) {
                 </CardContent>
                 <CardActions sx={{justifyContent: "flex-end"}}>
                     <Button onClick={handleDelete}>
-                        <DeleteForeverIcon color="action"/>
+                        {open ? <DeleteForeverIcon color="error"/> : <DeleteForeverIcon color="action"/>}
                     </Button>
+                    <Link to={"/jobs/" + props.job.id} style={{textDecoration: "none", color: "#0077FF"}}>Details</Link>
                     <Link to={"/jobs/" + props.job.id}
                           style={{textDecoration: "none", color: "#0077FF"}}> Details </Link>
                 </CardActions>
@@ -44,7 +45,7 @@ export default function JobCard(props: JobCardProps) {
                 open={open}
                 onClose={handleClose}
             >
-                <DialogTitle>Auftrag löschen?</DialogTitle>
+                <DialogTitle>Auftrag {props.job.title} löschen?</DialogTitle>
                 <DialogActions>
                     <Button onClick={handleClose}>abbrechen</Button>
                     <Button onClick={handleConfirmDelete} autoFocus>
