@@ -15,7 +15,7 @@ export default function AddClient(props: AddClientProps) {
 
     const [clientToAdd, setClientToAdd] = useState<Client>({
         id: "",
-        name: ""
+        name: "",
     })
 
     const navigate = useNavigate()
