@@ -23,7 +23,6 @@ export default function ClientCard(props: ClientCardProps) {
     function handleDelete() {
         props.deleteClient(props.client.id)
     }
-
     function handleUpdateClick() {
         setIsUpdateVisible(true);
     }

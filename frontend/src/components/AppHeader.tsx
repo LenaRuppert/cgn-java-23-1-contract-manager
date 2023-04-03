@@ -12,6 +12,7 @@ import MenuItem from '@mui/material/MenuItem';
 import ExtensionRoundedIcon from '@mui/icons-material/ExtensionRounded';
 import {Link} from "react-router-dom";
 
+
 const pages = ['Kundenübersicht', 'Auftragsübersicht'];
 
 function ResponsiveAppBar() {

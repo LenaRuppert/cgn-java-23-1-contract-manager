@@ -34,7 +34,7 @@ class MongoUserDetailsServiceTest {
     }
 
     @Test
-    void loadUserByUsername() {
+    void whenLoadUserByUsername_thenLoadUser() {
         //GIVEN
         when(mongoUserRepository.findByUsername("username")).thenReturn(Optional.of(mongoUser));
         //WHEN
@@ -47,7 +47,7 @@ class MongoUserDetailsServiceTest {
     }
 
     @Test
-    void create() {
+    void whenCreateMongoUser_thenReturnNewMongoUser() {
         //GIVEN
         when(passwordEncoder.encode(mongoUser.password())).thenReturn(mongoUser.password());
         when(idService.generateId()).thenReturn(mongoUser.id());
@@ -57,7 +57,6 @@ class MongoUserDetailsServiceTest {
         //WHEN
         MongoUserResponse actual = mongoUserDetailsService.create(mongoUserDTO);
         MongoUserResponse expected = new MongoUserResponse(mongoUser.id(), mongoUser.username(), mongoUser.role());
-
 
         //THEN
         verify(passwordEncoder).encode(mongoUser.password());
