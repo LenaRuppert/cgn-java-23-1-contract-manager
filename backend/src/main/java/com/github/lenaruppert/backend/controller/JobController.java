@@ -26,12 +26,12 @@ public class JobController {
     }
 
     @PostMapping("/add/{clientId}")
-    public Job addJob(@PathVariable String id, @RequestBody JobDTO jobDTO) {
-        return jobService.addJob(id, jobDTO);
+    public Job addJob(@PathVariable String clientId, @RequestBody JobDTO jobDTO) {
+        return jobService.addJob(clientId, jobDTO);
     }
 
-    @GetMapping("/getJobs/{clientId}")
-    public List<Job> getJobsByClientId(@PathVariable String id) {
-        return jobService.getJobsByClientId(id);
+    @GetMapping("/get/{clientId}")
+    public List<Job> getJobsByClientId(@PathVariable String clientId) {
+        return jobService.getJobsByClientId(clientId);
     }
 }
