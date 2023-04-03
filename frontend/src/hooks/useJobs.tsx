@@ -34,6 +34,7 @@ export function useJobs() {
                     const currentJobs = prevState.filter(job => job.id !== id)
                     return currentJobs
                 })
+                return id
             })
             .catch(console.error)
     }

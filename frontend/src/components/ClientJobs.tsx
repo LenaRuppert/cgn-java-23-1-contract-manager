@@ -30,8 +30,20 @@ export default function ClientJobs(props: ClientJobsProps) {
             .catch(error => console.error(error))
     }, [requestURL])
 
+    function handleDelete(id: string | undefined) {
+        props.deleteJobById(id)
+        setJobsClient(prevState => {
+            if (prevState) {
+                const updatedJobs = prevState.filter(job => job.id !== id)
+                return updatedJobs
+            }
+            return undefined
+        })
+
+    }
+
     const jobCards = jobsClient?.map(job =>
-        <JobCard job={job} key={job.id} deleteJobById={props.deleteJobById}/>)
+        <JobCard job={job} key={job.id} deleteJobById={handleDelete}/>)
 
     return (
         <Layout>
