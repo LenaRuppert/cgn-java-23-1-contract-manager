@@ -8,7 +8,11 @@ import {Box, Button, Grid, Typography} from "@mui/material";
 import Layout from "./Layout";
 import {useClients} from "../hooks/useClients";
 
-export default function ClientJobs() {
+type ClientJobsProps = {
+    deleteJobById: (id: string | undefined) => void
+}
+
+export default function ClientJobs(props: ClientJobsProps) {
     const params = useParams()
     const id: string | undefined = params.id
 
@@ -27,7 +31,7 @@ export default function ClientJobs() {
     }, [requestURL])
 
     const jobCards = jobsClient?.map(job =>
-        <JobCard job={job} key={job.id}/>)
+        <JobCard job={job} key={job.id} deleteJobById={props.deleteJobById}/>)
 
     return (
         <Layout>

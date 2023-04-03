@@ -5,12 +5,13 @@ import Layout from "./Layout";
 
 type JobGalleryProps = {
     jobs: Job[]
+    deleteJobById: (id: string | undefined) => void
 }
 
 export default function JobGallery(props: JobGalleryProps) {
     const jobCards = props.jobs.map(job => {
         return (
-            <JobCard job={job} key={job.id}/>
+            <JobCard job={job} key={job.id} deleteJobById={props.deleteJobById}/>
         )
     })
 
