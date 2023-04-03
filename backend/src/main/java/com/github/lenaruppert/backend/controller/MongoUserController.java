@@ -1,16 +1,12 @@
 package com.github.lenaruppert.backend.controller;
 
-import com.github.lenaruppert.backend.model.MongoUser;
-import com.github.lenaruppert.backend.model.MongoUserDTO;
-import com.github.lenaruppert.backend.repository.MongoUserRepository;
-import com.github.lenaruppert.backend.service.IdService;
+import com.github.lenaruppert.backend.model.MongoUserRequest;
+import com.github.lenaruppert.backend.model.MongoUserResponse;
+import com.github.lenaruppert.backend.service.MongoUserDetailsService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 
@@ -19,46 +15,15 @@ import java.security.Principal;
 @RequiredArgsConstructor
 public class MongoUserController {
 
-    private final MongoUserRepository mongoUserRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final IdService idService;
+    private final MongoUserDetailsService mongoUserDetailsService;
 
     @PostMapping
-    public MongoUser create(@RequestBody MongoUserDTO user) {
-        if (user.username() == null || user.username().isBlank()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username is required");
-        }
-
-        if (user.password() == null || user.password().isBlank()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Password is required");
-        }
-
-        if (mongoUserRepository.existsByUsername(user.username())) {
-            throw new ResponseStatusException(
-                    HttpStatus.CONFLICT,
-                    "User already exists"
-            );
-        }
-
-        MongoUser newUser = new MongoUser(
-                idService.generateId(),
-                user.username(),
-                passwordEncoder.encode(user.password()),
-                "BASIC"
-        );
-
-        MongoUser out = mongoUserRepository.save(newUser);
-
-        return new MongoUser(
-                out.id(),
-                out.username(),
-                null,
-                out.role()
-        );
+    public MongoUserResponse create(@RequestBody MongoUserRequest user) {
+        return mongoUserDetailsService.create(user);
     }
 
     @PostMapping("/login")
-    public MongoUser login(Principal principal) {
+    public MongoUserResponse login(Principal principal) {
         return getMe(principal);
     }
 
@@ -69,17 +34,8 @@ public class MongoUserController {
     }
 
     @GetMapping("/me")
-    public MongoUser getMe(Principal principal) {
-        MongoUser me = mongoUserRepository
-                .findByUsername(principal.getName())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED));
-
-        return new MongoUser(
-                me.id(),
-                me.username(),
-                null,
-                me.role()
-        );
+    public MongoUserResponse getMe(Principal principal) {
+        return mongoUserDetailsService.getMe(principal);
     }
 
     @GetMapping

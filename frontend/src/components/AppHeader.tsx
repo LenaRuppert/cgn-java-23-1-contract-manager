@@ -11,6 +11,8 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import ExtensionRoundedIcon from '@mui/icons-material/ExtensionRounded';
 import {Link} from "react-router-dom";
+import axios from "axios";
+
 
 const pages = ['Kundenübersicht', 'Auftragsübersicht'];
 
@@ -24,6 +26,12 @@ function ResponsiveAppBar() {
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
     };
+
+    const handleLogout = () => {
+        setAnchorElNav(null);
+        axios.post('/api/user/logout')
+            .then(() => window.location.href = '/login')
+    }
 
     return (
         <AppBar position="static">
@@ -89,6 +97,9 @@ function ResponsiveAppBar() {
                                         Auftragsübersicht
                                     </Link>
                                 </Typography>
+                            </MenuItem>
+                            <MenuItem key={"logout"} onClick={handleLogout}>
+                                <Typography textAlign="center">Logout</Typography>
                             </MenuItem>
                         </Menu>
                     </Box>
