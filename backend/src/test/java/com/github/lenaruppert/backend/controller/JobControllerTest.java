@@ -39,9 +39,6 @@ class JobControllerTest {
     void setUp() {
 
         jobOne = new Job("1", "titleOfJob", "description", "street", "1a", "11111", "city", "1");
-        clientOne = new Client("1", "nameOfClient", new ArrayList<>());
-        clientRepository.save(clientOne);
-        jobRepository.save(jobOne);
     }
 
     @Test
@@ -97,6 +94,9 @@ class JobControllerTest {
     @DirtiesContext
     @WithMockUser(username = "user", password = "password")
     void whenAddJob_thenReturnNewJob() throws Exception {
+        clientOne = new Client("1", "nameOfClient", new ArrayList<>());
+        clientRepository.save(clientOne);
+        jobRepository.save(jobOne);
         mockMvc.perform(MockMvcRequestBuilders.post("/api/jobs/add/1").with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
@@ -132,6 +132,9 @@ class JobControllerTest {
     @DirtiesContext
     @WithMockUser(username = "user", password = "password")
     void whenGetJobsByClientId_thenReturnListOfJobs() throws Exception {
+        clientOne = new Client("1", "nameOfClient", new ArrayList<>());
+        clientRepository.save(clientOne);
+        jobRepository.save(jobOne);
         mockMvc.perform(MockMvcRequestBuilders.get("/api/jobs/get/1").with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
