@@ -12,7 +12,6 @@ import JobDetails from "./components/JobDetails";
 import axios from "axios";
 import Cookies from "js-cookie";
 import SignInPage from "./components/SignInPage";
-import SignUpPage from "./components/SignUpPage";
 
 axios.interceptors.request.use(function (config) {
     return fetch("/api/csrf").then(() => {
@@ -32,7 +31,6 @@ function App() {
         <>
             <Routes>
                 <Route path={"/login"} element={<SignInPage getAllClients={getAllClients} getAllJobs={getAllJobs}/>}/>
-                <Route path={"/signup"} element={<SignUpPage/>}/>
                 <Route path={"/"} element={<ClientGallery clients={clients} deleteClient={deleteClient}
                                                           updateClient={updateClient}/>}/>
                 <Route path={"/clients/add"} element={<AddClient addClient={addClient}/>}/>
