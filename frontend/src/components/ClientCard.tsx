@@ -72,7 +72,7 @@ export default function ClientCard(props: ClientCardProps) {
                 <Button onClick={handleDelete}>
                     <DeleteForeverIcon color="action"/>
                 </Button>
-                <Link to={"/clients/" + props.client.id + "/getJobs"}
+                <Link to={"/jobs/get/" + props.client.id}
                       style={{textDecoration: "none", color: "#0077FF"}}> Aufträge </Link>
             </CardActions>
         </Card>

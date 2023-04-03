@@ -130,7 +130,6 @@ class MongoUserControllerTest {
                                                 """));
     }
 
-
     @Test
     @DirtiesContext
     void loginUserWithInvalidUsernameAndPassword_Then401() throws Exception {

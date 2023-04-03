@@ -13,7 +13,7 @@ export default function ClientJobs() {
     const id: string | undefined = params.id
 
     const [jobsClient, setJobsClient] = useState<Job[] | undefined>()
-    const requestURL: string = "/api/clients/" + id + "/getJobs"
+    const requestURL: string = "/api/jobs/get/" + id
 
     const {clients} = useClients();
     const client = clients.find(c => c.id === id)
@@ -34,7 +34,7 @@ export default function ClientJobs() {
             <Grid sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 3}}>
                 <Typography sx={{textAlign: 'center'}} variant='h6'>{client?.name}</Typography>
                 <Box sx={{marginTop: 3}}>
-                    <Button sx={{marginTop: 2}} variant="contained" component={Link} to={`/clients/${id}/addJob`}>
+                    <Button sx={{marginTop: 2}} variant="contained" component={Link} to={`/jobs/add/${id}`}>
                         NEUER AUFTRAG
                     </Button>
                 </Box>

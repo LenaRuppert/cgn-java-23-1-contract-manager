@@ -34,9 +34,9 @@ function App() {
                 <Route path={"/"} element={<ClientGallery clients={clients} deleteClient={deleteClient}
                                                           updateClient={updateClient}/>}/>
                 <Route path={"/clients/add"} element={<AddClient addClient={addClient}/>}/>
-                <Route path={"/clients/:id/addJob"} element={<AddJob addJob={addJob}/>}/>
+                <Route path={"/jobs/add/:id"} element={<AddJob addJob={addJob}/>}/>
                 <Route path={"/jobs/all"} element={<JobGallery jobs={jobs}/>}/>
-                <Route path={"/clients/:id/getJobs"} element={<ClientJobs/>}/>
+                <Route path={"/jobs/get/:id"} element={<ClientJobs/>}/>
                 <Route path={"/jobs/:id"} element={<JobDetails/>}/>
             </Routes>
         </>

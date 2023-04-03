@@ -20,8 +20,8 @@ export function useJobs() {
         getAllJobs()
     }, [])
 
-    function addJob(id: string | undefined, job: Job) {
-        return axios.post("/api/clients/" + id + "/addJob", job)
+    function addJob(clientId: string | undefined, job: Job) {
+        return axios.post("/api/jobs/add/" + clientId, job)
             .then(response => response.data)
             .then(data => setJobs(prevState => [...prevState, data]))
     }
