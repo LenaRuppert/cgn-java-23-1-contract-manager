@@ -1,6 +1,7 @@
 package com.github.lenaruppert.backend.controller;
 
 import com.github.lenaruppert.backend.repository.MongoUserRepository;
+import com.github.lenaruppert.backend.service.MongoUserDetailsService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -12,6 +13,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -21,7 +24,10 @@ class MongoUserControllerTest {
     MockMvc mockMvc;
 
     @Autowired
+    MongoUserDetailsService userDetailsService;
     MongoUserRepository mongoUserRepository;
+
+
     @Test
     @DirtiesContext
     void create_whenValid_then200() throws Exception {
@@ -101,22 +107,29 @@ class MongoUserControllerTest {
     }
 
     @Test
-    @DirtiesContext
-    @WithMockUser(username = "user", password = "password")
-    void loginUserWithValidUsernameAndPassword_Then200() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/user/login")
-                .with(csrf())
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("""
-                        {
-                            "username": "user",
-                            "password": "password"
-                        }
-                        """));
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/user")
+    void login() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/user")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                "username": "user",
+                                "password": "123"
+                                }
+                                """)
                         .with(csrf()))
                 .andExpect(status().isOk());
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/user/login")
+                        .with(httpBasic("user", "123"))
+                        .with(csrf()))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                        {
+                        "username": "user",
+                        "role": "BASIC"
+                        }
+                                                """));
     }
+
 
     @Test
     @DirtiesContext

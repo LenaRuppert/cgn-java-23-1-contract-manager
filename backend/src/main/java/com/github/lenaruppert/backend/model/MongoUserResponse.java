@@ -1,4 +1,4 @@
 package com.github.lenaruppert.backend.model;
 
-public record MongoUserResponse(String id, String name, String role) {
+public record MongoUserResponse(String id, String username, String role) {
 }
