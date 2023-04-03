@@ -138,4 +138,33 @@ class JobServiceTest {
 
         verify(jobRepository).findById("2");
     }
+
+    @Test
+    void whenDeleteJobByIdWithExistingId_thenReturnClientToDelete() {
+        //GIVEN
+        when(jobRepository.findById(jobOne.id())).thenReturn(Optional.of(jobOne));
+        when(clientRepository.findById(jobOne.clientId())).thenReturn(Optional.of(clientOne));
+        //WHEN
+        Job actual = jobService.deleteJobById(clientOne.id());
+        Job expected = jobOne;
+
+        //THEN
+        verify(jobRepository).findById(jobOne.id());
+        verify(clientRepository).findById(jobOne.clientId());
+        assertEquals(expected, actual);
+
+    }
+
+    @Test
+    void whenDeleteJobByIdWithNonExistingId_thenThrowNoSuchElementException() {
+        //GIVEN
+        String nonExistingJobId = "non-existing-job-id";
+        when(jobRepository.findById(nonExistingJobId)).thenReturn(Optional.empty());
+
+        //WHEN + THEN
+        assertThrows(NoSuchElementException.class, () -> jobService.deleteJobById(nonExistingJobId));
+
+        //VERIFY
+        verify(jobRepository).findById(nonExistingJobId);
+    }
 }
