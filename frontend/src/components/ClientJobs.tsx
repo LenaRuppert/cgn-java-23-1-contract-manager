@@ -39,7 +39,6 @@ export default function ClientJobs(props: ClientJobsProps) {
             }
             return undefined
         })
-
     }
 
     const jobCards = jobsClient?.map(job =>
