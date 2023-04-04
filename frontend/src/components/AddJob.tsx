@@ -5,6 +5,11 @@ import {useNavigate, useParams} from "react-router-dom";
 import {Box, Button, TextField, Typography} from "@mui/material";
 import Layout from "./Layout";
 import {useClients} from "../hooks/useClients";
+import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
+import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
+import {DateField} from "@mui/x-date-pickers";
+import dayjs, {Dayjs} from 'dayjs';
+import 'dayjs/locale/de';
 
 type AddJobProps = {
     addJob: (id: string | undefined, jobToAdd: Job) => void
@@ -14,6 +19,8 @@ export default function AddJob(props: AddJobProps) {
 
     const params = useParams();
     const id: string | undefined = params.id;
+
+    const [value, setValue] = React.useState<Dayjs | undefined>(dayjs());
 
     const {clients} = useClients();
     const client = clients.find(c => c.id === id)
@@ -25,6 +32,7 @@ export default function AddJob(props: AddJobProps) {
         "houseNumber": "",
         "postalCode": "",
         "city": "",
+        "orderDate": dayjs().format('YYYY-MM-DD'),
         "clientId": id ? id : ""
     })
 
@@ -72,6 +80,14 @@ export default function AddJob(props: AddJobProps) {
         })
     }
 
+    function handleChangeDate(date: Date | undefined) {
+        const formattedDate = date ? dayjs(date).format('YYYY-MM-DD') : '';
+        setJobToAdd({
+            ...jobToAdd,
+            orderDate: formattedDate
+        })
+    }
+
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
         props.addJob(id, jobToAdd)
@@ -114,6 +130,19 @@ export default function AddJob(props: AddJobProps) {
                     value={jobToAdd.description}
                     onChange={handleChangeDescription}
                 />
+                <LocalizationProvider dateAdapter={AdapterDayjs}
+                                      adapterLocale="de"
+                >
+                    <DateField
+                        label="Auftragsdatum"
+                        value={value}
+                        onChange={(newValue) => {
+                            setValue(newValue || undefined);
+                            handleChangeDate(newValue?.toDate());
+                        }}
+                    />
+
+                </LocalizationProvider>
                 <Typography sx={{textAlign: 'center'}}>Adresse</Typography>
                 <TextField id="outlined-basic" label="Straße" variant="outlined" value={jobToAdd.street}
                            onChange={handleChangeStreet}/>

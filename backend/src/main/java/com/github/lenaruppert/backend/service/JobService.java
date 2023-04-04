@@ -31,6 +31,7 @@ public class JobService {
                 jobDTO.houseNumber(),
                 jobDTO.postalCode(),
                 jobDTO.city(),
+                jobDTO.orderDate(),
                 id
         );
 
