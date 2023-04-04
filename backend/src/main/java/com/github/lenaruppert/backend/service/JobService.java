@@ -56,4 +56,14 @@ public class JobService {
     public Job getJobById(String id) {
         return jobRepository.findById(id).orElseThrow(NoSuchElementException::new);
     }
+
+    public Job deleteJobById(String id) {
+        Job job = getJobById(id);
+        Client client = clientRepository.findById(job.clientId())
+                .orElseThrow(NoSuchElementException::new);
+        client.jobId().remove(id);
+        clientRepository.save(client);
+        jobRepository.delete(job);
+        return job;
+    }
 }

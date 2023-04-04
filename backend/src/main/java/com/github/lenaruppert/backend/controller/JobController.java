@@ -34,4 +34,9 @@ public class JobController {
     public List<Job> getJobsByClientId(@PathVariable String clientId) {
         return jobService.getJobsByClientId(clientId);
     }
+
+    @DeleteMapping("/{id}")
+    public Job deleteJobById(@PathVariable String id) {
+        return jobService.deleteJobById(id);
+    }
 }

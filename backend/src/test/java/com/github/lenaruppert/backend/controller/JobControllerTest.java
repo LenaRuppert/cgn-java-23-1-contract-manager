@@ -150,4 +150,27 @@ class JobControllerTest {
                         ]
                         """));
     }
+
+    @Test
+    @DirtiesContext
+    @WithMockUser(username = "user", password = "password")
+    void whenDeleteJobByIdWithExistingId_thenReturnJobToDelete() throws Exception {
+        clientOne = new Client("1", "nameOfClient", new ArrayList<>());
+        clientRepository.save(clientOne);
+        jobRepository.save(jobOne);
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/jobs/1").with(csrf()))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                        {
+                                                "id" : "1",
+                                                "title": "titleOfJob",
+                                                "description": "description",
+                                                "street": "street",
+                                                "houseNumber": "1a",
+                                                "postalCode": "11111",
+                                                "city": "city",
+                                                "clientId": "1"
+                                                }
+                        """));
+    }
 }

@@ -26,5 +26,18 @@ export function useJobs() {
             .then(data => setJobs(prevState => [...prevState, data]))
     }
 
-    return {jobs, addJob, getAllJobs}
+    function deleteJobById(id: string | undefined) {
+        axios.delete("/api/jobs/" + id)
+            .then(response => response.data)
+            .then(data => {
+                setJobs(prevState => {
+                    const currentJobs = prevState.filter(job => job.id !== data.id)
+                    return currentJobs
+                })
+                return id
+            })
+            .catch(console.error)
+    }
+
+    return {jobs, addJob, getAllJobs, deleteJobById}
 }

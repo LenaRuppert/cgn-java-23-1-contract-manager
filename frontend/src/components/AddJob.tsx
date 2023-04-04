@@ -78,7 +78,7 @@ export default function AddJob(props: AddJobProps) {
         setJobToAdd({
             ...jobToAdd,
         })
-        navigate("/")
+        navigate("/jobs/get/" + id)
     }
 
     return (
