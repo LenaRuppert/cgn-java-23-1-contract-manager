@@ -6,5 +6,6 @@ export type Job = {
     houseNumber: string,
     postalCode: string,
     city: string,
+    orderDate: string,
     clientId: string
 }
