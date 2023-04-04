@@ -8,6 +8,7 @@ public record JobDTO(
         String street,
         String houseNumber,
         String postalCode,
-        LocalDate orderDate,
-        String city) {
+        String city,
+        LocalDate orderDate
+) {
 }

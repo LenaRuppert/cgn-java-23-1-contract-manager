@@ -15,6 +15,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -38,7 +39,7 @@ class JobControllerTest {
     @BeforeEach
     void setUp() {
 
-        jobOne = new Job("1", "titleOfJob", "description", "street", "1a", "11111", "city", "1");
+        jobOne = new Job("1", "titleOfJob", "description", "street", "1a", "11111", "city", LocalDate.of(2023, 3, 3), "1");
     }
 
     @Test
@@ -66,6 +67,7 @@ class JobControllerTest {
                         "houseNumber": "1a",
                         "postalCode": "11111",
                         "city": "city",
+                        "orderDate": "2023-03-03",
                         "clientId": "1"}
                         ]
                         """));
@@ -85,6 +87,7 @@ class JobControllerTest {
                         "houseNumber": "1a",
                         "postalCode": "11111",
                         "city": "city",
+                        "orderDate": "2023-03-03",
                         "clientId": "1"
                         }
                         """));
@@ -107,22 +110,24 @@ class JobControllerTest {
                                 "houseNumber": "1",
                                 "postalCode": "11111",
                                 "city": "city",
+                                "orderDate": "2023-03-03",
                                 "clientId": "1"
                                 }
                                 """))
                 .andExpect(status().isOk())
                 .andExpect(content().json(
-                                """
-                                                {
-                                                "title": "titleOfJob",
-                                        "description": "description",
-                                        "street": "street",
-                                        "houseNumber": "1",
-                                        "postalCode": "11111",
-                                        "city": "city",
-                                        "clientId": "1"
-                                                }
-                                                """
+                        """
+                                        {
+                                        "title": "titleOfJob",
+                                "description": "description",
+                                "street": "street",
+                                "houseNumber": "1",
+                                "postalCode": "11111",
+                                "city": "city",
+                                "orderDate": "2023-03-03",
+                                "clientId": "1"
+                                        }
+                                        """
                         )
                 )
                 .andExpect(jsonPath("$.id").isNotEmpty());
@@ -146,6 +151,7 @@ class JobControllerTest {
                         "houseNumber": "1a",
                         "postalCode": "11111",
                         "city": "city",
+                        "orderDate": "2023-03-03",
                         "clientId": "1"}
                         ]
                         """));
@@ -169,6 +175,7 @@ class JobControllerTest {
                                                 "houseNumber": "1a",
                                                 "postalCode": "11111",
                                                 "city": "city",
+                                                "orderDate": "2023-03-03",
                                                 "clientId": "1"
                                                 }
                         """));

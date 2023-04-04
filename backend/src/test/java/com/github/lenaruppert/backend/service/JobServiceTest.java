@@ -8,6 +8,7 @@ import com.github.lenaruppert.backend.repository.JobRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.*;
 
 import static com.mongodb.internal.connection.tlschannel.util.Util.assertTrue;
@@ -33,9 +34,9 @@ class JobServiceTest {
         idService = mock(IdService.class);
         clientRepository = mock(ClientRepository.class);
         jobService = new JobService(jobRepository, idService, clientRepository);
-        jobOne = new Job("1", "titleOfJob", "description", "street", "1", "postalCode", "city", "1");
-        jobTwo = new Job("2", "titleOfJobTwo", "description", "street2", "1", "postalCode", "city", "1");
-        jobDTO = new JobDTO("titleOfJob", "description", "street", "1", "postalCode", "city");
+        jobOne = new Job("1", "titleOfJob", "description", "street", "1", "postalCode", "city", LocalDate.of(2023, 3, 3), "1");
+        jobTwo = new Job("2", "titleOfJobTwo", "description", "street2", "1", "postalCode", "city", LocalDate.of(2023, 3, 3), "1");
+        jobDTO = new JobDTO("titleOfJob", "description", "street", "1", "postalCode", "city", LocalDate.of(2023, 3, 3));
         clientOne = new Client("1", "nameOfClient", new ArrayList<>());
     }
 
