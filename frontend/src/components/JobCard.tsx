@@ -37,8 +37,6 @@ export default function JobCard(props: JobCardProps) {
                         {open ? <DeleteForeverIcon color="error"/> : <DeleteForeverIcon color="action"/>}
                     </Button>
                     <Link to={"/jobs/" + props.job.id} style={{textDecoration: "none", color: "#0077FF"}}>Details</Link>
-                    <Link to={"/jobs/" + props.job.id}
-                          style={{textDecoration: "none", color: "#0077FF"}}> Details </Link>
                 </CardActions>
             </Card>
             <Dialog
