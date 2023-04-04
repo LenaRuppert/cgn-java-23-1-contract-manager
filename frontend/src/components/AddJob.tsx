@@ -5,6 +5,12 @@ import {useNavigate, useParams} from "react-router-dom";
 import {Box, Button, TextField, Typography} from "@mui/material";
 import Layout from "./Layout";
 import {useClients} from "../hooks/useClients";
+import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
+import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
+import {DatePicker} from "@mui/x-date-pickers";
+import {deDE} from '@mui/x-date-pickers/locales';
+import dayjs from 'dayjs';
+import 'dayjs/locale/de';
 
 type AddJobProps = {
     addJob: (id: string | undefined, jobToAdd: Job) => void
@@ -25,6 +31,7 @@ export default function AddJob(props: AddJobProps) {
         "houseNumber": "",
         "postalCode": "",
         "city": "",
+        "orderDate": "",
         "clientId": id ? id : ""
     })
 
@@ -72,6 +79,14 @@ export default function AddJob(props: AddJobProps) {
         })
     }
 
+    function handleChangeDate(date: Date | null) {
+        const formattedDate = date ? dayjs(date).format('YYYY-MM-DD') : '';
+        setJobToAdd({
+            ...jobToAdd,
+            orderDate: formattedDate
+        })
+    }
+
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
         props.addJob(id, jobToAdd)
@@ -114,6 +129,15 @@ export default function AddJob(props: AddJobProps) {
                     value={jobToAdd.description}
                     onChange={handleChangeDescription}
                 />
+                <LocalizationProvider dateAdapter={AdapterDayjs}
+                                      localeText={deDE.components.MuiLocalizationProvider.defaultProps.localeText}
+                                      adapterLocale="de"
+                >
+                    <DatePicker label="Auftragsdatum"
+                                format="DD.MM.YYYY"
+                                onChange={handleChangeDate}
+                    />
+                </LocalizationProvider>
                 <Typography sx={{textAlign: 'center'}}>Adresse</Typography>
                 <TextField id="outlined-basic" label="Straße" variant="outlined" value={jobToAdd.street}
                            onChange={handleChangeStreet}/>
