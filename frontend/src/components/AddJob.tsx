@@ -7,9 +7,8 @@ import Layout from "./Layout";
 import {useClients} from "../hooks/useClients";
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
-import {DatePicker} from "@mui/x-date-pickers";
-import {deDE} from '@mui/x-date-pickers/locales';
-import dayjs from 'dayjs';
+import {DateField} from "@mui/x-date-pickers";
+import dayjs, {Dayjs} from 'dayjs';
 import 'dayjs/locale/de';
 
 type AddJobProps = {
@@ -21,6 +20,8 @@ export default function AddJob(props: AddJobProps) {
     const params = useParams();
     const id: string | undefined = params.id;
 
+    const [value, setValue] = React.useState<Dayjs | undefined>(dayjs());
+
     const {clients} = useClients();
     const client = clients.find(c => c.id === id)
 
@@ -31,7 +32,7 @@ export default function AddJob(props: AddJobProps) {
         "houseNumber": "",
         "postalCode": "",
         "city": "",
-        "orderDate": "",
+        "orderDate": dayjs().format('YYYY-MM-DD'),
         "clientId": id ? id : ""
     })
 
@@ -79,7 +80,7 @@ export default function AddJob(props: AddJobProps) {
         })
     }
 
-    function handleChangeDate(date: Date | null) {
+    function handleChangeDate(date: Date | undefined) {
         const formattedDate = date ? dayjs(date).format('YYYY-MM-DD') : '';
         setJobToAdd({
             ...jobToAdd,
@@ -130,13 +131,17 @@ export default function AddJob(props: AddJobProps) {
                     onChange={handleChangeDescription}
                 />
                 <LocalizationProvider dateAdapter={AdapterDayjs}
-                                      localeText={deDE.components.MuiLocalizationProvider.defaultProps.localeText}
                                       adapterLocale="de"
                 >
-                    <DatePicker label="Auftragsdatum"
-                                format="DD.MM.YYYY"
-                                onChange={handleChangeDate}
+                    <DateField
+                        label="Auftragsdatum"
+                        value={value}
+                        onChange={(newValue) => {
+                            setValue(newValue || undefined);
+                            handleChangeDate(newValue?.toDate());
+                        }}
                     />
+
                 </LocalizationProvider>
                 <Typography sx={{textAlign: 'center'}}>Adresse</Typography>
                 <TextField id="outlined-basic" label="Straße" variant="outlined" value={jobToAdd.street}

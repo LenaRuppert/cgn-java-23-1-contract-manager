@@ -36,7 +36,7 @@ export default function JobCard(props: JobCardProps) {
                     <Typography variant='h6'>{props.job.title}</Typography>
                     <Typography sx={{marginTop: 2}}>{props.job.description}</Typography>
                     <Typography sx={{marginTop: 4}}>Auftrag
-                        vom: {new Date(props.job.orderDate).toLocaleDateString()}</Typography>
+                        vom: {props.job.orderDate ? new Date(props.job.orderDate).toLocaleDateString() : ""}</Typography>
                     <Typography sx={{marginTop: 1}}>{client?.name}</Typography>
                 </CardContent>
                 <CardActions sx={{justifyContent: "flex-end"}}>
