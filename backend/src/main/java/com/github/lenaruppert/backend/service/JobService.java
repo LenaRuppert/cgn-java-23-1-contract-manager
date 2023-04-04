@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -59,11 +58,7 @@ public class JobService {
     }
 
     public Job deleteJobById(String id) {
-        Optional<Job> jobToDelete = jobRepository.findById(id);
-        if (!jobToDelete.isPresent()) {
-            throw new NoSuchElementException(id);
-        }
-        Job job = jobToDelete.get();
+        Job job = getJobById(id);
         Client client = clientRepository.findById(job.clientId())
                 .orElseThrow(NoSuchElementException::new);
         client.jobId().remove(id);

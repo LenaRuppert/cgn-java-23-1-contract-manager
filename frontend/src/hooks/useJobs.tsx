@@ -31,7 +31,7 @@ export function useJobs() {
             .then(response => response.data)
             .then(data => {
                 setJobs(prevState => {
-                    const currentJobs = prevState.filter(job => job.id !== id)
+                    const currentJobs = prevState.filter(job => job.id !== data.id)
                     return currentJobs
                 })
                 return id

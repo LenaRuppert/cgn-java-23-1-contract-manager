@@ -1,5 +1,5 @@
 import {Client} from "../model/Client";
-import {Button, Card, CardActions, CardContent, TextField} from "@mui/material";
+import {Button, Card, CardActions, CardContent, Dialog, DialogActions, DialogTitle, TextField} from "@mui/material";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import React, {useState} from "react";
 import SaveIcon from "@mui/icons-material/Save";
@@ -20,9 +20,21 @@ export default function ClientCard(props: ClientCardProps) {
     });
     const [isUpdateVisible, setIsUpdateVisible] = useState(false);
 
+    const [open, setOpen] = useState(false)
+
     function handleDelete() {
-        props.deleteClient(props.client.id)
+        setOpen(true);
     }
+
+    function handleClose() {
+        setOpen(false);
+    }
+
+    function handleConfirmDelete() {
+        props.deleteClient(props.client.id);
+        setOpen(false);
+    }
+
     function handleUpdateClick() {
         setIsUpdateVisible(true);
     }
@@ -37,46 +49,61 @@ export default function ClientCard(props: ClientCardProps) {
     }
 
     return (
-        <Card sx={{marginBottom: 5, width: '90%'}}>
-            {isUpdateVisible ? (
-                <CardContent>
-                    <TextField
-                        label="Name"
-                        variant="standard"
-                        value={updatedClient.name}
-                        onChange={(e) =>
-                            setUpdatedClient({...updatedClient, name: e.target.value})
-                        }
-                        sx={{width: '94%', textDecoration: 'none'}}
-                    />
-                    <CardActions sx={{justifyContent: "flex-end", color: "black"}}>
-                        <Button onClick={handleUpdateCancel} sx={{color: 'black',}}>
-                            <ClearIcon color="action"/>
-                        </Button>
-                        <Button onClick={handleUpdateSave}>
-                            <SaveIcon color="action"/>
-                        </Button>
-                    </CardActions>
-                </CardContent>
-            ) : (
-                <CardContent>
-                    <div>{props.client.name}</div>
-                </CardContent>
-            )}
-            <CardActions sx={{justifyContent: "flex-end"}}>
-                {!isUpdateVisible && (
-                    <Button onClick={handleUpdateClick}>
-                        <EditIcon color="action"/>
-                    </Button>
+        <>
+            <Card sx={{marginBottom: 5, width: '90%'}}>
+                {isUpdateVisible ? (
+                    <CardContent>
+                        <TextField
+                            label="Name"
+                            variant="standard"
+                            value={updatedClient.name}
+                            onChange={(e) =>
+                                setUpdatedClient({...updatedClient, name: e.target.value})
+                            }
+                            sx={{width: '94%', textDecoration: 'none'}}
+                        />
+                        <CardActions sx={{justifyContent: "flex-end", color: "black"}}>
+                            <Button onClick={handleUpdateCancel} sx={{color: 'black',}}>
+                                <ClearIcon color="action"/>
+                            </Button>
+                            <Button onClick={handleUpdateSave}>
+                                <SaveIcon color="action"/>
+                            </Button>
+                        </CardActions>
+                    </CardContent>
+                ) : (
+                    <CardContent>
+                        <div>{props.client.name}</div>
+                    </CardContent>
                 )}
-                <Button onClick={handleDelete}>
-                    <DeleteForeverIcon color="action"/>
-                </Button>
-                <Link to={"/jobs/get/" + props.client.id}
-                      style={{textDecoration: "none", color: "#0077FF"}}> Aufträge </Link>
-            </CardActions>
-        </Card>
+                <CardActions sx={{justifyContent: "flex-end"}}>
+                    {!isUpdateVisible && (
+                        <Button onClick={handleUpdateClick}>
+                            <EditIcon color="action"/>
+                        </Button>
+                    )}
+                    <Button onClick={handleDelete}>
+                        {open ? <DeleteForeverIcon color="error"/> : <DeleteForeverIcon color="action"/>}
+                    </Button>
+                    <Link to={"/jobs/get/" + props.client.id}
+                          style={{textDecoration: "none", color: "#0077FF"}}> Aufträge </Link>
+                </CardActions>
+            </Card>
+            <Dialog
+                open={open}
+                onClose={handleClose}
+            >
+                <DialogTitle>Kunde {props.client.name} löschen?</DialogTitle>
+                <DialogActions>
+                    <Button onClick={handleClose}>abbrechen</Button>
+                    <Button onClick={handleConfirmDelete} autoFocus>
+                        löschen
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        </>
     )
+
 }
 
 

@@ -4,9 +4,8 @@ import {useEffect, useState} from "react";
 import {Job} from "../model/Job";
 import axios from "axios";
 import JobCard from "./JobCard";
-import {Box, Button, Grid, Typography} from "@mui/material";
+import {Box, Button, Grid} from "@mui/material";
 import Layout from "./Layout";
-import {useClients} from "../hooks/useClients";
 
 type ClientJobsProps = {
     deleteJobById: (id: string | undefined) => void
@@ -18,9 +17,6 @@ export default function ClientJobs(props: ClientJobsProps) {
 
     const [jobsClient, setJobsClient] = useState<Job[] | undefined>()
     const requestURL: string = "/api/jobs/get/" + id
-
-    const {clients} = useClients();
-    const client = clients.find(c => c.id === id)
 
     useEffect(() => {
         axios.get(requestURL)
@@ -47,7 +43,6 @@ export default function ClientJobs(props: ClientJobsProps) {
     return (
         <Layout>
             <Grid sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 3}}>
-                <Typography sx={{textAlign: 'center'}} variant='h6'>{client?.name}</Typography>
                 <Box sx={{marginTop: 3}}>
                     <Button sx={{marginTop: 2}} variant="contained" component={Link} to={`/jobs/add/${id}`}>
                         NEUER AUFTRAG

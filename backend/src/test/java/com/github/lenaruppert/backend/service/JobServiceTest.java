@@ -140,12 +140,12 @@ class JobServiceTest {
     }
 
     @Test
-    void whenDeleteJobByIdWithExistingId_thenReturnClientToDelete() {
+    void whenDeleteJobByIdWithExistingId_thenReturnJobToDelete() {
         //GIVEN
         when(jobRepository.findById(jobOne.id())).thenReturn(Optional.of(jobOne));
         when(clientRepository.findById(jobOne.clientId())).thenReturn(Optional.of(clientOne));
         //WHEN
-        Job actual = jobService.deleteJobById(clientOne.id());
+        Job actual = jobService.deleteJobById(jobOne.id());
         Job expected = jobOne;
 
         //THEN
