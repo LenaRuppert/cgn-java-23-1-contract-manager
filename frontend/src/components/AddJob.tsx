@@ -8,14 +8,20 @@ import {useClients} from "../hooks/useClients";
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 import {DateField} from "@mui/x-date-pickers";
-import dayjs, {Dayjs} from 'dayjs';
 import 'dayjs/locale/de';
+import dayjs, {Dayjs} from "dayjs";
 
 type AddJobProps = {
     addJob: (id: string | undefined, jobToAdd: Job) => void
 }
 
 export default function AddJob(props: AddJobProps) {
+
+    const top100Films = [
+        {title: 'The Shawshank Redemption', year: 1994},
+        {title: 'The Godfather', year: 1972},
+        {title: 'The Godfather: Part II', year: 1974},]
+
 
     const params = useParams();
     const id: string | undefined = params.id;
@@ -157,3 +163,6 @@ export default function AddJob(props: AddJobProps) {
         </Layout>
     )
 }
+
+
+

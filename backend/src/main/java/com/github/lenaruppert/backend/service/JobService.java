@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -66,5 +67,15 @@ public class JobService {
         clientRepository.save(client);
         jobRepository.delete(job);
         return job;
+    }
+
+    public Job updateJob(String id, JobDTO jobToUpdate) {
+        Optional<Job> currentJob = jobRepository.findById(id);
+        if (!currentJob.isPresent()) {
+            throw new NoSuchElementException(id);
+        }
+        jobRepository.deleteById(id);
+        Job updatedJob = new Job(id, jobToUpdate.title(), jobToUpdate.description(), jobToUpdate.street(), jobToUpdate.houseNumber(), jobToUpdate.postalCode(), jobToUpdate.city(), currentJob.get().orderDate(), currentJob.get().clientId());
+        return jobRepository.save(updatedJob);
     }
 }
