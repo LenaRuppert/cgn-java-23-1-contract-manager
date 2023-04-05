@@ -75,7 +75,7 @@ public class JobService {
             throw new NoSuchElementException(id);
         }
         jobRepository.deleteById(id);
-        Job updatedJob = new Job(id, jobToUpdate.title(), jobToUpdate.description(), jobToUpdate.street(), jobToUpdate.houseNumber(), jobToUpdate.postalCode(), jobToUpdate.city(), currentJob.get().orderDate(), currentJob.get().clientId());
+        Job updatedJob = new Job(id, jobToUpdate.title(), jobToUpdate.description(), jobToUpdate.street(), jobToUpdate.houseNumber(), jobToUpdate.postalCode(), jobToUpdate.city(), jobToUpdate.orderDate(), currentJob.get().clientId());
         return jobRepository.save(updatedJob);
     }
 }

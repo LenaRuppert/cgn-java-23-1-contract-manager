@@ -180,4 +180,45 @@ class JobControllerTest {
                                                 }
                         """));
     }
+
+    @Test
+    @DirtiesContext
+    @WithMockUser(username = "user", password = "password")
+    void whenUpdateJobWithValidId_thenReturnUpdatedJob() throws Exception {
+        jobRepository.save(jobOne);
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/jobs/1").with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                         {
+                                "title": "titleOfJob",
+                                "street": "street",
+                                "houseNumber": "1a",
+                                "postalCode": "11111",
+                                "city": "city",
+                                "orderDate": "2023-03-03"
+                                         }
+                                         """))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                        {
+                        "id" : "1",
+                        "title": "titleOfJob",
+                        "street": "street",
+                        "houseNumber": "1a",
+                        "postalCode": "11111",
+                        "city": "city",
+                        "orderDate": "2023-03-03",
+                        "clientId" : "1"
+                        }
+                        """));
+    }
+
+    @Test
+    @DirtiesContext
+    @WithMockUser(username = "user", password = "password")
+    void whenUpdateJobWithNotExistingId_thenReturnStatusIsBadRequest() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/jobs/2").with(csrf()))
+                .andExpect(status().isBadRequest());
+
+    }
 }
