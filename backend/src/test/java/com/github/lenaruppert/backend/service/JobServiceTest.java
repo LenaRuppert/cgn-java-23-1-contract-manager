@@ -25,6 +25,7 @@ class JobServiceTest {
     JobService jobService;
     Job jobOne;
     Job jobTwo;
+    Job updateJob;
     JobDTO jobDTO;
     Client clientOne;
 
@@ -38,6 +39,7 @@ class JobServiceTest {
         jobTwo = new Job("2", "titleOfJobTwo", "description", "street2", "1", "postalCode", "city", LocalDate.of(2023, 3, 3), "1");
         jobDTO = new JobDTO("titleOfJob", "description", "street", "1", "postalCode", "city", LocalDate.of(2023, 3, 3));
         clientOne = new Client("1", "nameOfClient", new ArrayList<>());
+        updateJob = new Job(jobOne.id(), jobDTO.title(), jobDTO.description(), jobDTO.street(), jobDTO.houseNumber(), jobDTO.postalCode(), jobDTO.street(), jobDTO.orderDate(), jobOne.clientId());
     }
 
     @Test
@@ -167,5 +169,35 @@ class JobServiceTest {
 
         //VERIFY
         verify(jobRepository).findById(nonExistingJobId);
+    }
+
+    @Test
+    void whenUpdateJobWithValidId_thenReturnUpdatedJob() {
+        //GIVEN
+        String jobId = "1";
+        when(jobRepository.existsById(jobId)).thenReturn(true);
+        when(idService.generateId()).thenReturn(jobId);
+        when(jobRepository.save(any(Job.class))).thenReturn(updateJob);
+        when(jobRepository.findById(jobId)).thenReturn(Optional.of(jobOne));
+
+        //WHEN
+        Job actual = jobService.updateJob(jobId, jobDTO);
+        Job expected = updateJob;
+
+        //THEN
+        verify(jobRepository).save(any(Job.class));
+        verify(jobRepository).findById(jobId);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void whenUpdateJobWithNotExistingId_thenThrowNoSuchElementException() {
+        when(clientRepository.existsById(clientOne.id())).thenReturn(false);
+
+        assertThrows(NoSuchElementException.class, () -> {
+            jobService.updateJob("1", jobDTO);
+        });
+
+        verify(jobRepository).findById("1");
     }
 }
