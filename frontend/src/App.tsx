@@ -25,7 +25,7 @@ axios.interceptors.request.use(function (config) {
 function App() {
 
     const {clients, addClient, updateClient, deleteClient, getAllClients} = useClients()
-    const {jobs, addJob, getAllJobs, deleteJobById} = useJobs()
+    const {jobs, addJob, getAllJobs, deleteJobById, updateJob} = useJobs()
 
     return (
         <>
@@ -37,7 +37,7 @@ function App() {
                 <Route path={"/jobs/add/:id"} element={<AddJob addJob={addJob}/>}/>
                 <Route path={"/jobs/all"} element={<JobGallery jobs={jobs} deleteJobById={deleteJobById}/>}/>
                 <Route path={"/jobs/get/:id"} element={<ClientJobs deleteJobById={deleteJobById}/>}/>
-                <Route path={"/jobs/:id"} element={<JobDetails/>}/>
+                <Route path={"/jobs/:id"} element={<JobDetails updateJob={updateJob}/>}/>
             </Routes>
         </>
     );

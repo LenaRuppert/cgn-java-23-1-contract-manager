@@ -2,8 +2,11 @@ import {useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import {Job} from "../model/Job";
 import axios from "axios";
-import {Box, Card, CardContent, Typography} from "@mui/material";
+import {Box, Button, Card, CardActions, CardContent, TextField, Typography} from "@mui/material";
 import Layout from "./Layout";
+import ClearIcon from "@mui/icons-material/Clear";
+import SaveIcon from "@mui/icons-material/Save";
+import EditIcon from "@mui/icons-material/Edit";
 
 type JobDetailsProps = {
     updateJob: (id: string | undefined, updatedJob: Job) => void
@@ -19,19 +22,30 @@ export default function JobDetails(props: JobDetailsProps) {
         axios.get(requestURL)
             .then((response) => {
                 setDetails(response.data)
+                const initialUpdatedJob: Job = {
+                    id: id ? id : "",
+                    title: response.data.title ?? "",
+                    description: response.data.description ?? "",
+                    street: response.data.street ?? "",
+                    houseNumber: response.data.houseNumber ?? "",
+                    postalCode: response.data.postalCode ?? "",
+                    city: response.data.city ?? "",
+                    clientId: response.data.clientId ?? ""
+                };
+                setUpdatedJob(initialUpdatedJob);
             })
             .catch((error) => console.error(error))
     }, [requestURL])
 
     const [updatedJob, setUpdatedJob] = useState<Job>({
         id: id ? id : "",
-        title: details?.title ?? "",
-        description: details?.description ?? "",
-        street: details?.street ?? "",
-        houseNumber: details?.houseNumber ?? "",
-        postalCode: details?.postalCode ?? "",
-        city: details?.city ?? "",
-        clientId: details?.clientId ?? ""
+        title: "",
+        description: "",
+        street: "",
+        houseNumber: "",
+        postalCode: "",
+        city: "",
+        clientId: ""
     });
     const [isUpdateVisible, setIsUpdateVisible] = useState(false);
 
@@ -49,24 +63,89 @@ export default function JobDetails(props: JobDetailsProps) {
     }
 
     return (
-        <Layout>
-            <Box sx={{
-                marginTop: '30px'
-            }}>
+        <>
+            <Layout>
                 <Box sx={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'space-around'
+                    marginTop: '30px'
                 }}>
-                    <Card sx={{marginBottom: 5, width: '80%', justifyContent: 'space-around'}}>
-                        <CardContent>
-                            <Typography variant="h6">{details?.title}</Typography>
-                            <Typography sx={{mt: 2}}>{details?.description}</Typography>
-                            <Typography sx={{mt: 3}}>{details?.street} {details?.houseNumber}</Typography>
-                            <Typography>{details?.postalCode} {details?.city}</Typography>
-                        </CardContent>
-                    </Card>
+                    <Box sx={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'space-around'
+                    }}>
+                        {isUpdateVisible ? (
+                            <Box sx={{
+                                direction: 'row'
+                            }}>
+                                <TextField
+                                    label="Titel"
+                                    variant="standard"
+                                    value={updatedJob.title}
+                                    onChange={(e) => setUpdatedJob({...updatedJob, title: e.target.value})}
+                                    sx={{width: '94%', textDecoration: 'none'}}/>
+                                <TextField
+                                    label="Beschreibung"
+                                    variant="standard"
+                                    value={updatedJob.description}
+                                    onChange={(e) => setUpdatedJob({...updatedJob, description: e.target.value})}
+                                    sx={{width: '94%', textDecoration: 'none'}}/>
+                                <TextField
+                                    label="Straße"
+                                    variant="standard"
+                                    value={updatedJob.street}
+                                    onChange={(e) => setUpdatedJob({...updatedJob, street: e.target.value})}
+                                    sx={{width: '94%', textDecoration: 'none'}}/>
+                                <TextField
+                                    label="Hausnummer"
+                                    variant="standard"
+                                    value={updatedJob.houseNumber}
+                                    onChange={(e) => setUpdatedJob({...updatedJob, houseNumber: e.target.value})}
+                                    sx={{width: '94%', textDecoration: 'none'}}/>
+                                <TextField
+                                    label="Postleitzahl"
+                                    variant="standard"
+                                    value={updatedJob.postalCode}
+                                    onChange={(e) => setUpdatedJob({...updatedJob, postalCode: e.target.value})}
+                                    sx={{width: '94%', textDecoration: 'none'}}/>
+                                <TextField
+                                    label="Stadt"
+                                    variant="standard"
+                                    value={updatedJob.city}
+                                    onChange={(e) => setUpdatedJob({...updatedJob, city: e.target.value})}
+                                    sx={{width: '94%', textDecoration: 'none'}}/>
+
+
+                                <CardActions sx={{justifyContent: "flex-end", color: "black"}}>
+                                    <Button onClick={handleUpdateCancel} sx={{color: 'black',}}>
+                                        <ClearIcon color="action"/>
+                                    </Button>
+                                    <Button onClick={handleUpdateSave}>
+                                        <SaveIcon color="action"/>
+                                    </Button>
+                                </CardActions>
+                            </Box>
+                        ) : (
+                            <Card sx={{marginBottom: 5, width: '80%', justifyContent: 'space-around'}}>
+                                <CardContent>
+                                    <Typography variant="h6">{details?.title}</Typography>
+                                    <Typography sx={{mt: 2}}>{details?.description}</Typography>
+                                    <Typography sx={{mt: 3}}>{details?.street} {details?.houseNumber}</Typography>
+                                    <Typography>{details?.postalCode} {details?.city}</Typography>
+                                    <Typography
+                                        sx={{mt: 3}}>Auftragsdatum: {details?.orderDate ? new Date(details.orderDate).toLocaleDateString() : ""}</Typography>
+                                </CardContent>
+                                <CardActions sx={{justifyContent: "flex-end"}}>
+                                    {!isUpdateVisible && (
+                                        <Button onClick={handleUpdateClick}>
+                                            <EditIcon color="action"/>
+                                        </Button>
+                                    )}
+                                </CardActions>
+                            </Card>
+                        )}
+                    </Box>
                 </Box>
-            </Box>
-        </Layout>)
+            </Layout>
+        </>
+    )
 }

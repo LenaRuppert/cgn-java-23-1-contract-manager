@@ -54,5 +54,5 @@ export function useJobs() {
             })
     }
 
-    return {jobs, addJob, getAllJobs, deleteJobById}
+    return {jobs, addJob, getAllJobs, deleteJobById, updateJob}
 }

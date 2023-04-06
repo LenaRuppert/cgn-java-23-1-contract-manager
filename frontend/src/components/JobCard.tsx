@@ -46,7 +46,6 @@ export default function JobCard(props: JobCardProps) {
             <Card sx={{marginBottom: 5, width: '90%'}}>
                 <CardContent>
                     <Typography variant='h6'>{props.job.title}</Typography>
-                    <Typography sx={{marginTop: 2}}>{props.job.description}</Typography>
                     <Typography sx={{marginTop: 4}}>Auftrag
                         vom: {props.job.orderDate ? new Date(props.job.orderDate).toLocaleDateString() : ""}</Typography>
                     <Typography sx={{marginTop: 1}}>{client?.name}</Typography>
