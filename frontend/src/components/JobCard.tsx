@@ -16,6 +16,18 @@ export default function JobCard(props: JobCardProps) {
     const {clients} = useClients();
     const client = clients.find(c => c.id === props.job.clientId)
 
+    const [updatedJob, setUpdatedJob] = useState<Job>({
+        id: props.job.id,
+        title: props.job.title,
+        description: props.job.description,
+        street: props.job.street,
+        houseNumber: props.job.houseNumber,
+        postalCode: props.job.postalCode,
+        city: props.job.city,
+        clientId: props.job.clientId
+    });
+    const [isUpdateVisible, setIsUpdateVisible] = useState(false);
+
     function handleDelete() {
         setOpen(true);
     }

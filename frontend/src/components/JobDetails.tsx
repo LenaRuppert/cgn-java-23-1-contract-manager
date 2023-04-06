@@ -5,7 +5,11 @@ import axios from "axios";
 import {Box, Card, CardContent, Typography} from "@mui/material";
 import Layout from "./Layout";
 
-export default function JobDetails() {
+type JobDetailsProps = {
+    updateJob: (id: string | undefined, updatedJob: Job) => void
+}
+
+export default function JobDetails(props: JobDetailsProps) {
     const params = useParams()
     const id: string | undefined = params.id
     const [details, setDetails] = useState<Job | undefined>()
@@ -18,6 +22,31 @@ export default function JobDetails() {
             })
             .catch((error) => console.error(error))
     }, [requestURL])
+
+    const [updatedJob, setUpdatedJob] = useState<Job>({
+        id: id ? id : "",
+        title: details?.title ?? "",
+        description: details?.description ?? "",
+        street: details?.street ?? "",
+        houseNumber: details?.houseNumber ?? "",
+        postalCode: details?.postalCode ?? "",
+        city: details?.city ?? "",
+        clientId: details?.clientId ?? ""
+    });
+    const [isUpdateVisible, setIsUpdateVisible] = useState(false);
+
+    function handleUpdateClick() {
+        setIsUpdateVisible(true);
+    }
+
+    function handleUpdateCancel() {
+        setIsUpdateVisible(false);
+    }
+
+    function handleUpdateSave() {
+        setIsUpdateVisible(false);
+        props.updateJob(updatedJob.id, updatedJob);
+    }
 
     return (
         <Layout>
@@ -40,5 +69,4 @@ export default function JobDetails() {
                 </Box>
             </Box>
         </Layout>)
-
 }
