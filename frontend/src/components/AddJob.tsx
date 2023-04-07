@@ -17,12 +17,6 @@ type AddJobProps = {
 
 export default function AddJob(props: AddJobProps) {
 
-    const top100Films = [
-        {title: 'The Shawshank Redemption', year: 1994},
-        {title: 'The Godfather', year: 1972},
-        {title: 'The Godfather: Part II', year: 1974},]
-
-
     const params = useParams();
     const id: string | undefined = params.id;
 
