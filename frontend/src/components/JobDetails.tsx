@@ -84,37 +84,38 @@ export default function JobDetails(props: JobDetailsProps) {
                                         variant="standard"
                                         value={updatedJob.title}
                                         onChange={(e) => setUpdatedJob({...updatedJob, title: e.target.value})}
-                                        sx={{width: '94%', textDecoration: 'none'}}/>
+                                        sx={{marginTop: 2, width: '94%', textDecoration: 'none'}}/>
                                     <TextField
                                         label="Beschreibung"
                                         variant="standard"
+                                        multiline
                                         value={updatedJob.description}
-                                    onChange={(e) => setUpdatedJob({...updatedJob, description: e.target.value})}
-                                    sx={{width: '94%', textDecoration: 'none'}}/>
-                                <TextField
-                                    label="Straße"
-                                    variant="standard"
-                                    value={updatedJob.street}
-                                    onChange={(e) => setUpdatedJob({...updatedJob, street: e.target.value})}
-                                    sx={{width: '94%', textDecoration: 'none'}}/>
-                                <TextField
-                                    label="Hausnummer"
-                                    variant="standard"
-                                    value={updatedJob.houseNumber}
-                                    onChange={(e) => setUpdatedJob({...updatedJob, houseNumber: e.target.value})}
-                                    sx={{width: '94%', textDecoration: 'none'}}/>
-                                <TextField
-                                    label="Postleitzahl"
-                                    variant="standard"
-                                    value={updatedJob.postalCode}
-                                    onChange={(e) => setUpdatedJob({...updatedJob, postalCode: e.target.value})}
-                                    sx={{width: '94%', textDecoration: 'none'}}/>
+                                        onChange={(e) => setUpdatedJob({...updatedJob, description: e.target.value})}
+                                        sx={{marginTop: 2, width: '94%', textDecoration: 'none'}}/>
+                                    <TextField
+                                        label="Straße"
+                                        variant="standard"
+                                        value={updatedJob.street}
+                                        onChange={(e) => setUpdatedJob({...updatedJob, street: e.target.value})}
+                                        sx={{marginTop: 2, width: '94%', textDecoration: 'none'}}/>
+                                    <TextField
+                                        label="Hausnummer"
+                                        variant="standard"
+                                        value={updatedJob.houseNumber}
+                                        onChange={(e) => setUpdatedJob({...updatedJob, houseNumber: e.target.value})}
+                                        sx={{marginTop: 2, width: '94%', textDecoration: 'none'}}/>
+                                    <TextField
+                                        label="Postleitzahl"
+                                        variant="standard"
+                                        value={updatedJob.postalCode}
+                                        onChange={(e) => setUpdatedJob({...updatedJob, postalCode: e.target.value})}
+                                        sx={{marginTop: 2, width: '94%', textDecoration: 'none'}}/>
                                     <TextField
                                         label="Stadt"
                                         variant="standard"
                                         value={updatedJob.city}
                                         onChange={(e) => setUpdatedJob({...updatedJob, city: e.target.value})}
-                                        sx={{width: '94%', textDecoration: 'none'}}/>
+                                        sx={{marginTop: 2, width: '94%', textDecoration: 'none'}}/>
                                 </CardContent>
                                 <CardActions sx={{justifyContent: "flex-end", color: "black"}}>
                                     <Button onClick={handleUpdateCancel} sx={{color: 'black',}}>
