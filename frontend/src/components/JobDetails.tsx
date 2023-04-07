@@ -30,6 +30,7 @@ export default function JobDetails(props: JobDetailsProps) {
                     houseNumber: response.data.houseNumber ?? "",
                     postalCode: response.data.postalCode ?? "",
                     city: response.data.city ?? "",
+                    orderDate: response.data.orderDate ?? "",
                     clientId: response.data.clientId ?? ""
                 };
                 setUpdatedJob(initialUpdatedJob);
@@ -45,6 +46,7 @@ export default function JobDetails(props: JobDetailsProps) {
         houseNumber: "",
         postalCode: "",
         city: "",
+        orderDate: "",
         clientId: ""
     });
     const [isUpdateVisible, setIsUpdateVisible] = useState(false);
@@ -59,7 +61,8 @@ export default function JobDetails(props: JobDetailsProps) {
 
     function handleUpdateSave() {
         setIsUpdateVisible(false);
-        props.updateJob(updatedJob.id, updatedJob);
+        props.updateJob(updatedJob.id, updatedJob)
+        setDetails(updatedJob)
     }
 
     return (
@@ -74,19 +77,18 @@ export default function JobDetails(props: JobDetailsProps) {
                         justifyContent: 'space-around'
                     }}>
                         {isUpdateVisible ? (
-                            <Box sx={{
-                                direction: 'row'
-                            }}>
-                                <TextField
-                                    label="Titel"
-                                    variant="standard"
-                                    value={updatedJob.title}
-                                    onChange={(e) => setUpdatedJob({...updatedJob, title: e.target.value})}
-                                    sx={{width: '94%', textDecoration: 'none'}}/>
-                                <TextField
-                                    label="Beschreibung"
-                                    variant="standard"
-                                    value={updatedJob.description}
+                            <Card sx={{marginBottom: 5, width: '80%', justifyContent: 'space-around'}}>
+                                <CardContent>
+                                    <TextField
+                                        label="Titel"
+                                        variant="standard"
+                                        value={updatedJob.title}
+                                        onChange={(e) => setUpdatedJob({...updatedJob, title: e.target.value})}
+                                        sx={{width: '94%', textDecoration: 'none'}}/>
+                                    <TextField
+                                        label="Beschreibung"
+                                        variant="standard"
+                                        value={updatedJob.description}
                                     onChange={(e) => setUpdatedJob({...updatedJob, description: e.target.value})}
                                     sx={{width: '94%', textDecoration: 'none'}}/>
                                 <TextField
@@ -107,14 +109,13 @@ export default function JobDetails(props: JobDetailsProps) {
                                     value={updatedJob.postalCode}
                                     onChange={(e) => setUpdatedJob({...updatedJob, postalCode: e.target.value})}
                                     sx={{width: '94%', textDecoration: 'none'}}/>
-                                <TextField
-                                    label="Stadt"
-                                    variant="standard"
-                                    value={updatedJob.city}
-                                    onChange={(e) => setUpdatedJob({...updatedJob, city: e.target.value})}
-                                    sx={{width: '94%', textDecoration: 'none'}}/>
-
-
+                                    <TextField
+                                        label="Stadt"
+                                        variant="standard"
+                                        value={updatedJob.city}
+                                        onChange={(e) => setUpdatedJob({...updatedJob, city: e.target.value})}
+                                        sx={{width: '94%', textDecoration: 'none'}}/>
+                                </CardContent>
                                 <CardActions sx={{justifyContent: "flex-end", color: "black"}}>
                                     <Button onClick={handleUpdateCancel} sx={{color: 'black',}}>
                                         <ClearIcon color="action"/>
@@ -123,7 +124,7 @@ export default function JobDetails(props: JobDetailsProps) {
                                         <SaveIcon color="action"/>
                                     </Button>
                                 </CardActions>
-                            </Box>
+                            </Card>
                         ) : (
                             <Card sx={{marginBottom: 5, width: '80%', justifyContent: 'space-around'}}>
                                 <CardContent>
