@@ -69,7 +69,23 @@ export default function SignUp() {
                                 display: "flex",
                                 flexDirection: "row",
                             }}
+                        ><Typography
+                            variant="h5"
+                            marginLeft={1}
+                            noWrap
+                            sx={{
+                                mr: 2,
+                                display: {xs: 'flex', md: 'none'},
+                                flexGrow: 1,
+                                fontFamily: 'monospace',
+                                fontWeight: 500,
+                                letterSpacing: '.3rem',
+                                color: 'inherit',
+                                textDecoration: 'none',
+                            }}
                         >
+                            Neuer Nutzer:
+                        </Typography>
                         </Box>
                         <TextField
                             placeholder="Benutzername"

@@ -12,9 +12,10 @@ import MenuItem from '@mui/material/MenuItem';
 import ExtensionRoundedIcon from '@mui/icons-material/ExtensionRounded';
 import {Link} from "react-router-dom";
 import axios from "axios";
+import useAuth from "../hooks/useAuth";
 
 
-const pages = ['Kundenübersicht', 'Auftragsübersicht'];
+const pages = ['Kundenübersicht', 'Auftragsübersicht', 'Nuter anlegen'];
 
 function ResponsiveAppBar() {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -32,6 +33,9 @@ function ResponsiveAppBar() {
         axios.post('/api/user/logout')
             .then(() => window.location.href = '/login')
     }
+
+    const {user} = useAuth(true);
+    const isAdmin = user?.role === "admin";
 
     return (
         <AppBar position="static">
@@ -98,6 +102,15 @@ function ResponsiveAppBar() {
                                     </Link>
                                 </Typography>
                             </MenuItem>
+                            {isAdmin && (
+                                <MenuItem key={"Nutzer anlegen"} onClick={handleCloseNavMenu}>
+                                    <Typography textAlign="center">
+                                        <Link style={{textDecoration: "none", color: "black"}} to={'/sign-up'}>
+                                            Nutzer anlegen
+                                        </Link>
+                                    </Typography>
+                                </MenuItem>
+                            )}
                             <MenuItem key={"logout"} onClick={handleLogout}>
                                 <Typography textAlign="center">Logout</Typography>
                             </MenuItem>
