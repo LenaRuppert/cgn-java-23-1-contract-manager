@@ -1,9 +1,9 @@
 import React, {ChangeEvent, FormEvent, useState} from "react";
 import axios from "axios";
 import {Box, Button, Container, TextField, Typography} from "@mui/material";
-import ExtensionRoundedIcon from "@mui/icons-material/ExtensionRounded";
 import {useNavigate} from "react-router-dom";
 import Layout from "./Layout";
+import useAuth from "../hooks/useAuth";
 
 
 export default function SignUp() {
@@ -12,6 +12,8 @@ export default function SignUp() {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState("");
     const navigate = useNavigate();
+    const {user} = useAuth(true);
+    const isAdmin = user?.role === "admin";
 
     function handleUsernameChange(event: ChangeEvent<HTMLInputElement>) {
         setUsername(event.target.value);
@@ -28,6 +30,10 @@ export default function SignUp() {
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
+        if (!isAdmin) {
+            setError("Nur Administratoren dürfen neue Nutzer registrieren.")
+        }
+
         if (password !== confirmPassword) {
             setError("Passwörter stimmen nicht überein.");
             return;
@@ -36,7 +42,7 @@ export default function SignUp() {
         axios
             .post("/api/user", {username, password})
             .then(() => {
-                navigate(window.sessionStorage.getItem("signInRedirect") || "/");
+                navigate("/");
             })
             .catch((error) =>
                 setError(
@@ -64,24 +70,6 @@ export default function SignUp() {
                                 flexDirection: "row",
                             }}
                         >
-                            <ExtensionRoundedIcon color="primary"/>
-                            <Typography
-                                variant="h5"
-                                marginLeft={1}
-                                noWrap
-                                sx={{
-                                    mr: 2,
-                                    display: {xs: "flex", md: "none"},
-                                    flexGrow: 1,
-                                    fontFamily: "monospace",
-                                    fontWeight: 700,
-                                    letterSpacing: ".3rem",
-                                    color: "inherit",
-                                    textDecoration: "none",
-                                }}
-                            >
-                                Orderly
-                            </Typography>
                         </Box>
                         <TextField
                             placeholder="Benutzername"

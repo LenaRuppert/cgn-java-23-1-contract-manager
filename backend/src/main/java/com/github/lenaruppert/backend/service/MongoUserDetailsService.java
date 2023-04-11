@@ -68,7 +68,7 @@ public class MongoUserDetailsService implements UserDetailsService {
                 idService.generateId(),
                 user.username(),
                 passwordEncoder.encode(user.password()),
-                "BASIC"
+                "basic"
         );
         MongoUser out = mongoUserRepository.save(newUser);
 
