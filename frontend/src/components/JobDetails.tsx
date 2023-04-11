@@ -7,6 +7,8 @@ import Layout from "./Layout";
 import ClearIcon from "@mui/icons-material/Clear";
 import SaveIcon from "@mui/icons-material/Save";
 import EditIcon from "@mui/icons-material/Edit";
+import Divider from '@mui/material/Divider';
+import {useClients} from "../hooks/useClients";
 
 type JobDetailsProps = {
     updateJob: (id: string | undefined, updatedJob: Job) => void
@@ -51,6 +53,9 @@ export default function JobDetails(props: JobDetailsProps) {
     });
     const [isUpdateVisible, setIsUpdateVisible] = useState(false);
 
+    const {clients} = useClients();
+    const client = clients.find(c => c.id === details?.clientId)
+
     function handleUpdateClick() {
         setIsUpdateVisible(true);
     }
@@ -69,7 +74,7 @@ export default function JobDetails(props: JobDetailsProps) {
         <>
             <Layout>
                 <Box sx={{
-                    marginTop: '30px'
+                    marginTop: '60px'
                 }}>
                     <Box sx={{
                         display: 'flex',
@@ -130,11 +135,14 @@ export default function JobDetails(props: JobDetailsProps) {
                             <Card sx={{marginBottom: 5, width: '80%', justifyContent: 'space-around'}}>
                                 <CardContent>
                                     <Typography variant="h6">{details?.title}</Typography>
-                                    <Typography sx={{mt: 2}}>{details?.description}</Typography>
-                                    <Typography sx={{mt: 3}}>{details?.street} {details?.houseNumber}</Typography>
+                                    <Typography sx={{mt: 3}}>{details?.description}</Typography>
+                                    <Divider sx={{mt: 4}}>Adresse</Divider>
+                                    <Typography sx={{mt: 1}}>{details?.street} {details?.houseNumber}</Typography>
                                     <Typography>{details?.postalCode} {details?.city}</Typography>
-                                    <Typography
-                                        sx={{mt: 3}}>Auftragsdatum: {details?.orderDate ? new Date(details.orderDate).toLocaleDateString() : ""}</Typography>
+                                    <Divider sx={{mt: 4}}>Auftragsdatum</Divider>
+                                    <Typography>{details?.orderDate ? new Date(details.orderDate).toLocaleDateString() : ""}</Typography>
+                                    <Divider sx={{mt: 4}}>Auftraggeber</Divider>
+                                    <Typography sx={{mt: 1}}>{client?.name}</Typography>
                                 </CardContent>
                                 <CardActions sx={{justifyContent: "flex-end"}}>
                                     {!isUpdateVisible && (
