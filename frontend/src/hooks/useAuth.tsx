@@ -11,12 +11,14 @@ export type User = {
 type AuthState = {
     user?: User;
     isLoading: boolean;
+    error?: string;
 };
 
-export default function useAuth(redirectToSignIn?: boolean) {
+export default function useAuth(redirectToSignIn?: boolean): AuthState {
     const [authState, setAuthState] = useState<AuthState>({
         user: undefined,
         isLoading: true,
+        error: undefined,
     });
     const navigate = useNavigate();
     const {pathname} = useLocation();
@@ -25,14 +27,25 @@ export default function useAuth(redirectToSignIn?: boolean) {
         axios
             .get("/api/user/me")
             .then((res) => {
-                setAuthState({user: res.data, isLoading: false});
+                setAuthState({user: res.data, isLoading: false, error: undefined});
             })
             .catch((e) => {
-                if (redirectToSignIn && e.response.status === 401) {
-                    window.sessionStorage.setItem("signInRedirect", pathname || "/");
-                    navigate("/login");
+                if (e.response?.status === 401) {
+                    setAuthState({
+                        user: undefined,
+                        isLoading: false,
+                        error: "Unauthorized",
+                    });
+                    if (redirectToSignIn) {
+                        window.sessionStorage.setItem("signInRedirect", pathname || "/");
+                        navigate("/login");
+                    }
                 } else {
-                    setAuthState({user: undefined, isLoading: false});
+                    setAuthState({
+                        user: undefined,
+                        isLoading: false,
+                        error: e.response?.data?.message || "Login failed",
+                    });
                 }
             });
     }, [pathname, navigate, redirectToSignIn]);
