@@ -34,7 +34,7 @@ export default function Login(props: SignInPageProps) {
                 props.getAllClients()
                 props.getAllJobs()
             })
-            .catch(error => setError(error.response?.data?.message || "Login fehlgeschlagen"))
+            .catch(error => setError(error.response?.data?.message || "Login fehlgeschlagen. Gültiger Nutzername und Passwort erforderlich."))
     }
 
     return (

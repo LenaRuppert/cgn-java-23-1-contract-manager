@@ -11,14 +11,12 @@ export type User = {
 type AuthState = {
     user?: User;
     isLoading: boolean;
-    error?: string;
 };
 
 export default function useAuth(redirectToSignIn?: boolean): AuthState {
     const [authState, setAuthState] = useState<AuthState>({
         user: undefined,
-        isLoading: true,
-        error: undefined,
+        isLoading: true
     });
     const navigate = useNavigate();
     const {pathname} = useLocation();
@@ -27,14 +25,13 @@ export default function useAuth(redirectToSignIn?: boolean): AuthState {
         axios
             .get("/api/user/me")
             .then((res) => {
-                setAuthState({user: res.data, isLoading: false, error: undefined});
+                setAuthState({user: res.data, isLoading: false});
             })
             .catch((e) => {
                 if (e.response?.status === 401) {
                     setAuthState({
                         user: undefined,
-                        isLoading: false,
-                        error: "Unauthorized",
+                        isLoading: false
                     });
                     if (redirectToSignIn) {
                         window.sessionStorage.setItem("signInRedirect", pathname || "/");
@@ -43,8 +40,7 @@ export default function useAuth(redirectToSignIn?: boolean): AuthState {
                 } else {
                     setAuthState({
                         user: undefined,
-                        isLoading: false,
-                        error: e.response?.data?.message || "Login failed",
+                        isLoading: false
                     });
                 }
             });
