@@ -14,7 +14,12 @@ type ClientGalleryProps = {
     updateClient: (id: string | undefined, updatedClient: Client) => void
 }
 export default function ClientGallery(props: ClientGalleryProps) {
-    const user = useAuth(true);
+    const {user, isLoading} = useAuth(true);
+
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+
     if (!user) {
         return <Navigate to="/login"/>;
     }

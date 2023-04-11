@@ -39,4 +39,9 @@ public class JobController {
     public Job deleteJobById(@PathVariable String id) {
         return jobService.deleteJobById(id);
     }
+
+    @PutMapping("/{id}")
+    public Job updateJob(@PathVariable String id, @RequestBody JobDTO jobToUpdate) {
+        return jobService.updateJob(id, jobToUpdate);
+    }
 }

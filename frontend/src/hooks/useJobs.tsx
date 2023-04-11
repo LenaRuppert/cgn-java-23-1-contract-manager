@@ -39,5 +39,20 @@ export function useJobs() {
             .catch(console.error)
     }
 
-    return {jobs, addJob, getAllJobs, deleteJobById}
+    function updateJob(id: string | undefined, updatedJob: Job) {
+        axios.put("/api/jobs/" + id, updatedJob)
+            .then(response => {
+                const index = jobs.findIndex((job) => job.id === id);
+                if (index !== -1) {
+                    const newJobs = [...jobs];
+                    newJobs[index] = updatedJob;
+                    setJobs(newJobs);
+                }
+            })
+            .catch(error => {
+                console.error(error);
+            })
+    }
+
+    return {jobs, addJob, getAllJobs, deleteJobById, updateJob}
 }

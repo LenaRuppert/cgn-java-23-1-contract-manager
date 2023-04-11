@@ -11,7 +11,9 @@ type SignInPageProps = {
 export default function Login(props: SignInPageProps) {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
+    const [error, setError] = useState("")
     const navigate = useNavigate()
+
 
     function handleUsernameChange(event: ChangeEvent<HTMLInputElement>) {
         setUsername(event.target.value)
@@ -32,7 +34,7 @@ export default function Login(props: SignInPageProps) {
                 props.getAllClients()
                 props.getAllJobs()
             })
-            .catch(error => console.log(error))
+            .catch(error => setError(error.response?.data?.message || "Login fehlgeschlagen. Gültiger Nutzername und Passwort erforderlich."))
     }
 
     return (
@@ -75,6 +77,7 @@ export default function Login(props: SignInPageProps) {
                     <Button variant="contained" type={"submit"} sx={{
                         m: 1
                     }}>Login</Button>
+                    {error && <Typography color='error'>{error}</Typography>}
                 </Box>
             </Container>
         </>
