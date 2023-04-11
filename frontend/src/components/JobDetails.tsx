@@ -38,7 +38,7 @@ export default function JobDetails(props: JobDetailsProps) {
                 setUpdatedJob(initialUpdatedJob);
             })
             .catch((error) => console.error(error))
-    }, [requestURL])
+    }, [id, requestURL])
 
     const [updatedJob, setUpdatedJob] = useState<Job>({
         id: id ? id : "",
