@@ -30,7 +30,7 @@ export default function Login(props: SignInPageProps) {
             .post("/api/user/login", {},
                 {headers: {Authorization: `Basic ${authorization}`}})
             .then(() => {
-                navigate(window.sessionStorage.getItem('signInRedirect') || '/')
+                navigate("/")
                 props.getAllClients()
                 props.getAllJobs()
             })

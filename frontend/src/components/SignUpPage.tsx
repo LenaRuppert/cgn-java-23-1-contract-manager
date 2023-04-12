@@ -1,14 +1,26 @@
 import React, {ChangeEvent, FormEvent, useState} from "react";
 import axios from "axios";
-import {Box, Button, Container, TextField, Typography} from "@mui/material";
+import {
+    Box,
+    Button,
+    Container,
+    FormControl,
+    InputLabel,
+    Select,
+    SelectChangeEvent,
+    TextField,
+    Typography
+} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import Layout from "./Layout";
 import useAuth from "../hooks/useAuth";
+import MenuItem from "@mui/material/MenuItem";
 
 
 export default function SignUp() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [role, setRole] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState("");
     const navigate = useNavigate();
@@ -27,6 +39,10 @@ export default function SignUp() {
         setConfirmPassword(event.target.value);
     }
 
+    const handleRoleChange = (event: SelectChangeEvent) => {
+        setRole(event.target.value as string);
+    }
+
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
@@ -40,7 +56,7 @@ export default function SignUp() {
         }
 
         axios
-            .post("/api/user", {username, password})
+            .post("/api/user", {username, password, role})
             .then(() => {
                 navigate("/");
             })
@@ -110,6 +126,18 @@ export default function SignUp() {
                             fullWidth
                             onChange={handleConfirmPasswordChange}
                         />
+                        <FormControl sx={{mt: 2}} fullWidth>
+                            <InputLabel id="demo-simple-select-label">Status</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={role}
+                                label="Status"
+                                onChange={handleRoleChange}
+                            >
+                                <MenuItem value="basic">Angestellter</MenuItem>
+                            </Select>
+                        </FormControl>
                         <Button variant="contained" type={"submit"} sx={{m: 1}}>
                             Registrieren
                         </Button>
