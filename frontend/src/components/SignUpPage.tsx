@@ -64,6 +64,11 @@ export default function SignUp() {
             .post("/api/user", {username, password, role})
             .then(() => {
                 handleOpenSnackbar()
+                handleOpenSnackbar()
+                setUsername("")
+                setPassword("")
+                setConfirmPassword("")
+                setRole("")
             })
             .catch((error) =>
                 setError(
