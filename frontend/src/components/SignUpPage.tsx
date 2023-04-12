@@ -12,7 +12,6 @@ import {
     TextField,
     Typography
 } from "@mui/material";
-import {useNavigate} from "react-router-dom";
 import Layout from "./Layout";
 import useAuth from "../hooks/useAuth";
 import MenuItem from "@mui/material/MenuItem";
@@ -23,7 +22,6 @@ export default function SignUp() {
     const [role, setRole] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState("");
-    const navigate = useNavigate();
     const {user} = useAuth(true);
     const isAdmin = user?.role === "admin";
 
