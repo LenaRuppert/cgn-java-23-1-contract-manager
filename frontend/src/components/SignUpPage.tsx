@@ -8,6 +8,7 @@ import {
     InputLabel,
     Select,
     SelectChangeEvent,
+    Snackbar,
     TextField,
     Typography
 } from "@mui/material";
@@ -15,7 +16,6 @@ import {useNavigate} from "react-router-dom";
 import Layout from "./Layout";
 import useAuth from "../hooks/useAuth";
 import MenuItem from "@mui/material/MenuItem";
-
 
 export default function SignUp() {
     const [username, setUsername] = useState("");
@@ -26,6 +26,11 @@ export default function SignUp() {
     const navigate = useNavigate();
     const {user} = useAuth(true);
     const isAdmin = user?.role === "admin";
+
+    const [openSnackbar, setOpenSnackbar] = useState(false);
+    const handleOpenSnackbar = () => {
+        setOpenSnackbar(true);
+    };
 
     function handleUsernameChange(event: ChangeEvent<HTMLInputElement>) {
         setUsername(event.target.value);
@@ -58,7 +63,7 @@ export default function SignUp() {
         axios
             .post("/api/user", {username, password, role})
             .then(() => {
-                navigate("/");
+                handleOpenSnackbar()
             })
             .catch((error) =>
                 setError(
@@ -145,6 +150,14 @@ export default function SignUp() {
                     </Box>
                 </Container>
             </Layout>
+            <Snackbar
+                anchorOrigin={{vertical: "top", horizontal: "center"}}
+                open={openSnackbar}
+                autoHideDuration={3000}
+                onClose={() => setOpenSnackbar(false)}
+                message="Nutzer erfolgreich registriert!"
+                style={{top: "80px"}}
+            />
         </>
     );
 }
