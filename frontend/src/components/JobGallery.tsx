@@ -3,6 +3,7 @@ import JobCard from "./JobCard";
 import {Grid} from "@mui/material";
 import Layout from "./Layout";
 import {ChangeEvent, useState} from "react";
+import SearchIcon from '@mui/icons-material/Search';
 
 type JobGalleryProps = {
     jobs: Job[]
@@ -45,6 +46,7 @@ export default function JobGallery(props: JobGalleryProps) {
             <Grid sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                 <Grid container item xs={10} justifyContent='center' marginTop={5}>
                     <input type='text' value={searchQuery} onChange={handleSearchChange} placeholder='Auftrag suchen'/>
+                    <SearchIcon/>
                 </Grid>
                 <Grid container item xs={10} justifyContent='center' marginTop={5}>
                     {jobCards}
