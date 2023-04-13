@@ -1,13 +1,26 @@
 import {Client} from "../model/Client";
-import {Button, Card, CardActions, CardContent, Dialog, DialogActions, DialogTitle, TextField} from "@mui/material";
+import {
+    Button,
+    Card,
+    CardActions,
+    CardContent,
+    Dialog,
+    DialogActions,
+    DialogTitle,
+    TextField,
+    Typography
+} from "@mui/material";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import React, {useState} from "react";
 import SaveIcon from "@mui/icons-material/Save";
 import EditIcon from '@mui/icons-material/Edit';
 import ClearIcon from '@mui/icons-material/Clear';
 import {Link} from "react-router-dom";
+import {Job} from "../model/Job";
 
 type ClientCardProps = {
+
+    jobs: Job[]
     client: Client
     deleteClient: (id: string | undefined) => void
     updateClient: (id: string | undefined, updatedClient: Client) => void
@@ -20,7 +33,9 @@ export default function ClientCard(props: ClientCardProps) {
     });
     const [isUpdateVisible, setIsUpdateVisible] = useState(false);
 
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(false);
+
+    const openJobsCount = props.jobs.filter(job => job.clientId === props.client.id).length;
 
     function handleDelete() {
         setOpen(true);
@@ -73,7 +88,8 @@ export default function ClientCard(props: ClientCardProps) {
                     </CardContent>
                 ) : (
                     <CardContent>
-                        <div>{props.client.name}</div>
+                        <Typography>{props.client.name}</Typography>
+                        <Typography sx={{mt: 2}}>offene Aufträge: {openJobsCount}</Typography>
                     </CardContent>
                 )}
                 <CardActions sx={{justifyContent: "flex-end"}}>
