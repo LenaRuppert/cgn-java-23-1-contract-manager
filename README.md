@@ -11,3 +11,12 @@ so they are always prepared.
 
 Please clone the project, load the maven project and run npm install. As a MongoDB is used to store data, please 
 set up a local MongoDB as specified in the application.properties file. Set the MONGODB_URL connection string as an environment variable.
+
+Please create an admin-user in your database with postman. The json should look like this:  
+{  
+"username": "Admin",  
+"password": "Admin",  
+"role": "admin"  
+}
+
+Now you can login to the app and experience the features.
