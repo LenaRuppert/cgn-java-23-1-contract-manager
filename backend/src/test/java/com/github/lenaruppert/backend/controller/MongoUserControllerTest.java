@@ -36,7 +36,8 @@ class MongoUserControllerTest {
                         .content("""
                                 {
                                     "username": "test",
-                                    "password": "test"
+                                    "password": "test",
+                                    "role": "basic"
                                 }
                                 """)
                         .with(csrf()))
@@ -59,7 +60,8 @@ class MongoUserControllerTest {
                         .content("""
                                 {
                                     "username": "",
-                                    "password": "test"
+                                    "password": "test",
+                                    "role": "basic"
                                 }
                                 """)
                         .with(csrf()))
@@ -74,7 +76,8 @@ class MongoUserControllerTest {
                         .content("""
                                 {
                                     "username": "test",
-                                    "password": ""
+                                    "password": "",
+                                    "role": "basic"
                                 }
                                 """)
                         .with(csrf()))
@@ -89,7 +92,8 @@ class MongoUserControllerTest {
                         .content("""
                                 {
                                     "username": "test",
-                                    "password": "test"
+                                    "password": "test",
+                                    "role": "basic"
                                 }
                                 """)
                         .with(csrf()))
@@ -99,7 +103,8 @@ class MongoUserControllerTest {
                         .content("""
                                 {
                                     "username": "test",
-                                    "password": "test"
+                                    "password": "test",
+                                    "basic": "test"
                                 }
                                 """)
                         .with(csrf()))
@@ -113,7 +118,8 @@ class MongoUserControllerTest {
                         .content("""
                                 {
                                 "username": "user",
-                                "password": "123"
+                                "password": "123",
+                                "role": "basic"
                                 }
                                 """)
                         .with(csrf()))
@@ -125,7 +131,7 @@ class MongoUserControllerTest {
                 .andExpect(content().json("""
                         {
                         "username": "user",
-                        "role": "BASIC"
+                        "role": "basic"
                         }
                                                 """));
     }
@@ -139,7 +145,8 @@ class MongoUserControllerTest {
                         .content("""
                                 {
                                     "username": "invalidUsername",
-                                    "password": "invalidPassword"
+                                    "password": "invalidPassword",
+                                    "role": "basic"
                                 }
                                 """))
 

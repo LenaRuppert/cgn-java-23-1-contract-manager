@@ -51,7 +51,7 @@ class MongoUserDetailsServiceTest {
         //GIVEN
         when(passwordEncoder.encode(mongoUser.password())).thenReturn(mongoUser.password());
         when(idService.generateId()).thenReturn(mongoUser.id());
-        MongoUserRequest mongoUserDTO = new MongoUserRequest(mongoUser.username(), mongoUser.password());
+        MongoUserRequest mongoUserDTO = new MongoUserRequest(mongoUser.username(), mongoUser.password(), mongoUser.role());
         when(mongoUserRepository.save(mongoUser)).thenReturn(mongoUser);
 
         //WHEN

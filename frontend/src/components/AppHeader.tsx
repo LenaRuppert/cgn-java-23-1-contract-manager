@@ -12,9 +12,8 @@ import MenuItem from '@mui/material/MenuItem';
 import ExtensionRoundedIcon from '@mui/icons-material/ExtensionRounded';
 import {Link} from "react-router-dom";
 import axios from "axios";
+import useAuth from "../hooks/useAuth";
 
-
-const pages = ['Kundenübersicht', 'Auftragsübersicht'];
 
 function ResponsiveAppBar() {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -32,6 +31,9 @@ function ResponsiveAppBar() {
         axios.post('/api/user/logout')
             .then(() => window.location.href = '/login')
     }
+
+    const {user} = useAuth(true);
+    const isAdmin = user?.role === "admin";
 
     return (
         <AppBar position="static">
@@ -98,6 +100,15 @@ function ResponsiveAppBar() {
                                     </Link>
                                 </Typography>
                             </MenuItem>
+                            {isAdmin && (
+                                <MenuItem key={"Nutzer anlegen"} onClick={handleCloseNavMenu}>
+                                    <Typography textAlign="center">
+                                        <Link style={{textDecoration: "none", color: "black"}} to={'/sign-up'}>
+                                            Nutzer anlegen
+                                        </Link>
+                                    </Typography>
+                                </MenuItem>
+                            )}
                             <MenuItem key={"logout"} onClick={handleLogout}>
                                 <Typography textAlign="center">Logout</Typography>
                             </MenuItem>
@@ -121,18 +132,38 @@ function ResponsiveAppBar() {
                     >
                         Orderly
                     </Typography>
-                    <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
-                        {pages.map((page) => (
-                            <Button
-                                key={page}
-                                onClick={handleCloseNavMenu}
-                                sx={{my: 2, color: 'white', display: 'block'}}
-                            >
+                    <Box sx={{
+                        flexGrow: 1,
+                        display: {xs: 'none', md: 'flex'},
+                        alignItems: 'center',
+                        justifyContent: 'flex-end'
+                    }}>
+                        <Button
+
+                            onClick={handleCloseNavMenu}
+                            sx={{my: 2, color: 'white', display: 'flex'}}
+                        >
+                            <MenuItem>
                                 <Link style={{textDecoration: "none", color: "white"}} to={'/'}>
-                                    {page}
+                                    Kundenübersicht
                                 </Link>
-                            </Button>
-                        ))}
+                            </MenuItem>
+                            <MenuItem>
+                                <Link style={{textDecoration: "none", color: "white"}} to={'/jobs/all'}>
+                                    Auftragsübersicht
+                                </Link>
+                            </MenuItem>
+                            {isAdmin && (
+                                <MenuItem key={"Nutzer anlegen"} onClick={handleCloseNavMenu}>
+                                    <Link style={{textDecoration: "none", color: "white"}} to={'/sign-up'}>
+                                        Nutzer anlegen
+                                    </Link>
+                                </MenuItem>
+                            )}
+                            <MenuItem key={"logout"} onClick={handleLogout}>
+                                <Typography textAlign="center">Logout</Typography>
+                            </MenuItem>
+                        </Button>
                     </Box>
                 </Toolbar>
             </Container>
