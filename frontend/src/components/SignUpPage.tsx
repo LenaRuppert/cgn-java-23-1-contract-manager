@@ -67,12 +67,13 @@ export default function SignUp() {
                 setPassword("")
                 setConfirmPassword("")
                 setRole("")
+                setError("")
             })
             .catch((error) =>
                 setError(
-                    error.response?.data?.message || "Registrierung fehlgeschlagen."
-                )
-            );
+                    error.response?.status === 409 ? "Der Nutzername existiert bereits." :
+                        error.response?.data?.message || "Registrierung fehlgeschlagen. Fehlender Nutzername oder Passwort"
+                ))
     }
 
     return (
