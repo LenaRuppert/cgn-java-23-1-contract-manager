@@ -34,7 +34,7 @@ function App() {
                 <Route path={"/login"} element={<SignInPage getAllClients={getAllClients} getAllJobs={getAllJobs}/>}/>
                 <Route path={"/sign-up"} element={<SignUpPage/>}/>
                 <Route path={"/"} element={<ClientGallery clients={clients} deleteClient={deleteClient}
-                                                          updateClient={updateClient}/>}/>
+                                                          updateClient={updateClient} jobs={jobs}/>}/>
                 <Route path={"/clients/add"} element={<AddClient addClient={addClient}/>}/>
                 <Route path={"/jobs/add/:id"} element={<AddJob addJob={addJob}/>}/>
                 <Route path={"/jobs/all"} element={<JobGallery jobs={jobs} deleteJobById={deleteJobById}/>}/>

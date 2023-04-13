@@ -5,9 +5,11 @@ import {Button, Grid} from "@mui/material";
 import Layout from "./Layout";
 import * as React from "react";
 import useAuth from "../hooks/useAuth";
+import {Job} from "../model/Job";
 
 
 type ClientGalleryProps = {
+    jobs: Job[]
     clients: Client[]
     deleteClient: (id: string | undefined) => void
 
@@ -26,7 +28,7 @@ export default function ClientGallery(props: ClientGalleryProps) {
     const clientCards = props.clients.map((client) => {
         return (
             <ClientCard client={client} key={client.id} deleteClient={props.deleteClient}
-                        updateClient={props.updateClient}/>
+                        updateClient={props.updateClient} jobs={props.jobs}/>
         )
     })
 
