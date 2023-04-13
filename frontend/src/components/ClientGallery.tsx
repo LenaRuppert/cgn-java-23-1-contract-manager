@@ -4,8 +4,10 @@ import {Link, Navigate} from "react-router-dom";
 import {Button, Grid} from "@mui/material";
 import Layout from "./Layout";
 import * as React from "react";
+import {ChangeEvent, useState} from "react";
 import useAuth from "../hooks/useAuth";
 import {Job} from "../model/Job";
+import SearchIcon from "@mui/icons-material/Search";
 
 
 type ClientGalleryProps = {
@@ -16,6 +18,16 @@ type ClientGalleryProps = {
     updateClient: (id: string | undefined, updatedClient: Client) => void
 }
 export default function ClientGallery(props: ClientGalleryProps) {
+    const [searchQuery, setSearchQuery] = useState('')
+    const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setSearchQuery(event.target.value);
+    }
+
+    const filteredClients = props.clients.filter(client => {
+        const name = client.name
+        return name.toLowerCase().includes(searchQuery.toLowerCase())
+    })
+
     const {user, isLoading} = useAuth(true);
 
     if (isLoading) {
@@ -25,7 +37,8 @@ export default function ClientGallery(props: ClientGalleryProps) {
     if (!user) {
         return <Navigate to="/login"/>;
     }
-    const clientCards = props.clients.map((client) => {
+
+    const clientCards = filteredClients.map((client) => {
         return (
             <ClientCard client={client} key={client.id} deleteClient={props.deleteClient}
                         updateClient={props.updateClient} jobs={props.jobs}/>
@@ -38,6 +51,10 @@ export default function ClientGallery(props: ClientGalleryProps) {
                 <Button sx={{marginTop: 3}} variant="contained" component={Link} to="/clients/add">
                     NEUER KUNDE
                 </Button>
+                <Grid container item xs={10} justifyContent='center' marginTop={5}>
+                    <input type='text' value={searchQuery} onChange={handleSearchChange} placeholder='Kundensuche'/>
+                    <SearchIcon/>
+                </Grid>
                 <Grid container item xs={10} justifyContent='center' marginTop={5}>
                     {clientCards}
                 </Grid>
