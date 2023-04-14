@@ -19,7 +19,7 @@ import MenuItem from "@mui/material/MenuItem";
 export default function SignUp() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [role, setRole] = useState("");
+    const [role, setRole] = useState("basic");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState("");
     const {user} = useAuth(true);
@@ -102,7 +102,7 @@ export default function SignUp() {
                                 mr: 2,
                                 display: {xs: 'flex', md: 'none'},
                                 flexGrow: 1,
-                                fontFamily: 'monospace',
+                                fontFamily: 'arial',
                                 fontWeight: 500,
                                 letterSpacing: '.3rem',
                                 color: 'inherit',
