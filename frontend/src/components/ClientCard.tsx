@@ -93,15 +93,15 @@ export default function ClientCard(props: ClientCardProps) {
                     </CardContent>
                 )}
                 <CardActions sx={{justifyContent: "flex-end"}}>
+                    {openJobsCount === 0 && (
+                        <Button onClick={handleDelete}>
+                            {open ? <DeleteForeverIcon color="error"/> : <DeleteForeverIcon color="action"/>}
+                        </Button>)}
                     {!isUpdateVisible && (
                         <Button onClick={handleUpdateClick}>
                             <EditIcon color="action"/>
                         </Button>
                     )}
-                    {openJobsCount === 0 && (
-                        <Button onClick={handleDelete}>
-                            {open ? <DeleteForeverIcon color="error"/> : <DeleteForeverIcon color="action"/>}
-                        </Button>)}
                     <Link to={"/jobs/get/" + props.client.id}
                           style={{textDecoration: "none", color: "#0077FF"}}> Aufträge </Link>
                 </CardActions>

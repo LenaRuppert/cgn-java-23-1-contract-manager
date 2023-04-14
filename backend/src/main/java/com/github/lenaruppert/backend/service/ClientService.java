@@ -46,8 +46,10 @@ public class ClientService {
         if (!clientToDelete.isPresent()) {
             throw new NoSuchElementException(id);
         }
+        if (!clientToDelete.get().getJobId().isEmpty()) {
+            throw new IllegalStateException("Client has jobs associated with it and cannot be deleted.");
+        }
         clientRepository.deleteById(id);
         return clientToDelete.get();
     }
-
 }
