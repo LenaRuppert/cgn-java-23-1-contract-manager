@@ -30,7 +30,7 @@ class ClientServiceTest {
         clientOne = new Client("1", "nameOfClient", Collections.emptyList());
         clientDto = new ClientDTO("nameOfClient");
         updateClient = new Client(clientOne.id(), clientDto.name(), clientOne.jobId());
-        clientWithJob = new Client("1", "nameOfClient", List.of("jobId"));
+        clientWithJob = new Client("2", "nameOfClient", List.of("jobId"));
     }
 
     @Test
@@ -135,12 +135,12 @@ class ClientServiceTest {
     @Test
     void whenDeleteClientByIdWithOpenJobs_thenThrowIllegalStateException() {
         Optional<Client> clientOptional = Optional.of(clientWithJob);
-        when(clientRepository.findById(clientWithJob.id())).thenReturn(clientOptional);
+        when(clientRepository.findById("2")).thenReturn(clientOptional);
 
-        IllegalStateException exception = assertThrows(IllegalStateException.class, () -> clientService.deleteClientById(clientWithJob.id()));
+        IllegalStateException exception = assertThrows(IllegalStateException.class, () -> clientService.deleteClientById("2"));
 
         assertEquals("Client has jobs associated with it and cannot be deleted.", exception.getMessage());
-        verify(clientRepository).findById(clientWithJob.id());
-        verify(clientRepository, never()).deleteById(clientWithJob.id());
+        verify(clientRepository).findById("2");
+        verify(clientRepository, never()).deleteById("2");
     }
 }
