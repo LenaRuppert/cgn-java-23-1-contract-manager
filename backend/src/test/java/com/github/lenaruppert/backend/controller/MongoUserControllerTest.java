@@ -112,7 +112,7 @@ class MongoUserControllerTest {
     }
 
     @Test
-    void login() throws Exception {
+    void loginUserWithValidUserNameAndPassword_then200() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/user")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
