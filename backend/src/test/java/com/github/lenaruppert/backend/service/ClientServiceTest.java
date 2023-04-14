@@ -20,6 +20,7 @@ class ClientServiceTest {
     Client clientOne;
     ClientDTO clientDto;
     Client updateClient;
+    Client clientWithJob;
 
     @BeforeEach
     public void setUp() {
@@ -29,6 +30,7 @@ class ClientServiceTest {
         clientOne = new Client("1", "nameOfClient", Collections.emptyList());
         clientDto = new ClientDTO("nameOfClient");
         updateClient = new Client(clientOne.id(), clientDto.name(), clientOne.jobId());
+        clientWithJob = new Client("2", "nameOfClient", List.of("jobId"));
     }
 
     @Test
@@ -120,7 +122,7 @@ class ClientServiceTest {
     }
 
     @Test
-    void whenDeleteClientByIdWithNotExistingId_thenTrowNoSuchElementException() {
+    void whenDeleteClientByIdWithNotExistingId_thenThrowNoSuchElementException() {
         String nonExistingId = "1";
         when(clientRepository.findById(nonExistingId)).thenReturn(Optional.empty());
 
@@ -128,5 +130,17 @@ class ClientServiceTest {
 
         verify(clientRepository).findById(nonExistingId);
         verify(clientRepository, never()).deleteById(nonExistingId);
+    }
+
+    @Test
+    void whenDeleteClientByIdWithOpenJobs_thenThrowIllegalStateException() {
+        Optional<Client> clientOptional = Optional.of(clientWithJob);
+        when(clientRepository.findById("2")).thenReturn(clientOptional);
+
+        IllegalStateException exception = assertThrows(IllegalStateException.class, () -> clientService.deleteClientById("2"));
+
+        assertEquals("Client has jobs associated with it and cannot be deleted.", exception.getMessage());
+        verify(clientRepository).findById("2");
+        verify(clientRepository, never()).deleteById("2");
     }
 }

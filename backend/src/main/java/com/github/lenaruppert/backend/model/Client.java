@@ -11,4 +11,8 @@ public record Client(
         String id,
         String name,
         List<String> jobId) {
+
+        public List<String> getJobId() {
+                return jobId;
+        }
 }
