@@ -137,10 +137,9 @@ class ClientServiceTest {
         Optional<Client> clientOptional = Optional.of(clientWithJob);
         when(clientRepository.findById(clientWithJob.id())).thenReturn(clientOptional);
 
-        assertThrows(IllegalStateException.class, () -> {
-            clientService.deleteClientById(clientWithJob.id());
-        });
+        IllegalStateException exception = assertThrows(IllegalStateException.class, () -> clientService.deleteClientById(clientWithJob.id()));
 
+        assertEquals("Client has jobs associated with it and cannot be deleted.", exception.getMessage());
         verify(clientRepository).findById(clientWithJob.id());
         verify(clientRepository, never()).deleteById(clientWithJob.id());
     }
